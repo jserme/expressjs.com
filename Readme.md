@@ -1,11 +1,11 @@
 
-# ExpressJS.com
+# ExpressJS.com的中文版
 
-  The site for Express.
+  [ExpressJS.com](http://expressjs.jser.me)的中文版本。 
 
-## Building
+## 运行
 
-Setup:
+安装:
 
 ```
 $ npm install -g serve
@@ -15,12 +15,12 @@ $ serve . &
 $ open http://localhost:3000
 ```
 
-then rebuild changes with:
+如果有新的改变，重新编译一下:
 
 ```
-$ make
+$ make clean;make docs
 ```
 
-## Contributing
+## 贡献
 
-  - __dont__ edit the HTML directly, edit the _jade_.
+  - __不要__ 直接编辑HTML文件, 编辑 _jade_文件.

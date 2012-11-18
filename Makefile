@@ -1,19 +1,18 @@
-
 JADE = ./node_modules/.bin/jade
 
 HTML = index.html \
-	api.html \
-	guide.html \
-	applications.html \
-	community.html \
-	faq.html
+		api.html \
+		guide.html \
+		applications.html \
+		community.html \
+		faq.html
 
 docs: $(HTML)
 
 %.html: %.jade
-	$(JADE) --path $< < $< > $@
+		$(JADE) --path $< < $< > $@
 
 clean:
-	rm -f *.html
+		rm -f *.html
 
 .PHONY: docs clean
