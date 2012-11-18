@@ -3,40 +3,32 @@ section
   h3(id='models') 怎样定义模型?
 
   p.
-    Express has no notion of a database at all, this is
-    left up to third-party node modules - allowing you to
-    interface with nearly any database.
+  Express 根本没有涉及到数据库，这个任务留给了第三方的node模块，有了第三方的模块基本上可以与任何数据库交互
 
 section
-  h3(id='auth') 怎样区分登录用户和游客?
+  h3(id='auth') 怎样做用户认证?
   
   p.
-    This is another opinionated area that Express does not
-    venture into, you may use any authentication scheme you wish.
-    For a simple username / password scheme view this <a href="https://github.com/visionmedia/express/tree/master/examples/auth">example</a>.
+  这是另一个Express不会做的事情， 你可以使用任何你想用的认证方案，<a href="https://github.com/visionmedia/express/tree/master/examples/auth">这里有一个简单的例子</a>。
 
 section
-  h3(id='templates') Which template engines does Express support?
+  h3(id='templates') Express 支持哪个模板引擎?
 
   p.
-    Anything that can conform with the <code>(path, locals, callback)</code> signature.
-    To normalize template engine interfaces and caching it's recommended to
-    check the <a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a>
-    project for support. Unlisted template engines may still support the Express
-    signature.
+    任何遵守这样回调的 <code>(path, locals, callback)</code> .
+    为了统一模板引擎接口和缓存，推荐查看<a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a>
+    寻找帮助. 有些没有列出来的模板引擎没准也支持Express.
 
 section
-  h3(id='structure') How should I structure my application?
+  h3(id='structure') 我应该怎样组织我的程序结构?
 
   p.
-    There is no true answer to this question, it is highly dependant
-    on the scale of your application and the team involved. To be as
-    flexible as possible Express makes no assumptions in terms of structure.
+    事实上这个没有一个标准答案，这与你的程序规模和团队强烈相关。
+    为了尽可能的灵活，Express没有规定程序的结构
 
   p.
-    Routes and other application-specific logic may live in as many files
-    as you wish, in any directory structure you prefer. View the following
-    examples for inspiration:
+    你可以把路由和其它的一些程序特定的逻辑代码以任意的目录结构任意数量的文件存放。
+    查看下面的例子找点灵感
 
   ul
     li: a(href='https://github.com/visionmedia/express/blob/master/examples/route-separation/index.js#L19') Route listings
@@ -45,61 +37,46 @@ section
     li: a(href='https://github.com/visionmedia/express/tree/master/examples/mvc') MVC style controllers
 
   p.
-    Available as well are third-party extensions to Express to simplify some of these patterns:
+    已经存在的简化这些模式的第三方Express扩展:
 
   ul
     li: a(href='https://github.com/visionmedia/express-resource') Resourceful routing
     li: a(href='https://github.com/visionmedia/express-namespace') Namespaced routing
 
 section
-  h3(id='multiple-statics') How can I serve statics from several directories?
+  h3(id='multiple-statics') 我应该怎样从多个目录提供静态文件服务?
 
   p.
-    You may typically use any middleware several times 
-    within your application. With the following middleware setup and a request
-    to "GET /javascripts/jquery.js" would first check "./public/javascripts/jquery.js",
-    if it does not exist then the subsequent middleware will check "./files/javascripts/jquery.js".
+    你可以会在你的程序中多次使用任意一个中间件。
+    使用下面的方式，当你请求"GET /javascripts/jquery.js" 时，会先检查 "./public/javascripts/jquery.js",
+    如果它不存在，随后的中间件会检查 "./files/javascripts/jquery.js".
 
   +js.
     app.use(express.static('public'));
     app.use(express.static('files'));
 
 setup
-  h3(id='static-prefix') How can I prefix a pathname for serving statics?
+  h3(id='static-prefix') 怎样在提供静态文件服务的时候加一个前缀路径名?
   
   p.
-    Connect's generic "mounting" feature allows you to define
-    the pathname "prefix" to which the middleware will be invoked,
-    effectively behaving as if that prefix string was never
-    part of the path. Suppose if you wanted "GET /files/javascripts/jquery.js",
-    you could mount the middleware at "/files", exposing "/javascripts/jquery.js"
-    as the <code>req.url</code> allowing the middleware to serve the file:
+    Connect's的中间件绑定技术允许你指定一个路径名前缀, 一个常用的例子是你可以前缀一个根本不是请求路径中一部分的字符。
+    假设你要请求 "GET /files/javascripts/jquery.js", 你可以把中间件挂在 "/files", 暴露出 "/javascripts/jquery.js"作为
+    <code>req.url</code> 来让中间件为这个文件提供服务:
 
   +js.
     app.use('/public', express.static('public'));
 
 setup
-  h3(id='migration') How do I migrate my Express 2.x application?
+  h3(id='migration') 怎么迁移 Express 2.x 应用程序?
 
   p.
-    Express 2x will likely be supported through to node 1.0 so there's
-    no immediate reason to update beyond the refactoring and API changes
-    that Express 3x introduces, so if you're happy with 2x feel free
-    to remain on that branch. For migration information visit the
-    <a href="https://github.com/visionmedia/express/wiki/Migrating-from-2.x-to-3.x">migration</a>
-    wiki page, or view a <a href="https://github.com/visionmedia/express/wiki/New-features-in-3.x">list of changes</a> made in 3.x.
+    Express 2x甚至能支持到node 1.0, 所以可能没有必要由于Express 3x的重构和API改变就迁移，如果你对2x感觉良好，那就停留在那个版本上。真的要迁移可以看<a href="https://github.com/visionmedia/express/wiki/Migrating-from-2.x-to-3.x">这里</a> 或者查看一下3.x的<a href="https://github.com/visionmedia/express/wiki/New-features-in-3.x">改动列表</a>
 
 setup
-  h3(id='404-handling') How do you handle 404s?
+  h3(id='404-handling') 怎么处理404s?
 
   p.
-    In Express 404s are not the result of an error, thus the
-    error-handler middleware will not capture 404s, this is
-    because a 404 is simply the absence of additional work to do,
-    in other words Express has executed all middleware / routes
-    and found that none of them responded. All you need to
-    do is add a middleware at the very bottom below all the others
-    to handle a 404:
+    在Express里404s不被认为是出错的结果，所以错误处理中间件不会捕获404s,这是因为一个404只是由于有一些额外的工作没有做，换而言之，Express已经执行了所有的中间件 / 路由分发，然而没有发现有返回。你所要做的仅仅是在代码底部加一个中间件去处理没有返回的情况，并且手动返回一个404
 
   +js.
     app.use(function(req, res, next){
@@ -107,11 +84,10 @@ setup
     });
 
 setup
-  h3(id='error-handling') How do you setup an error handler in Express?
+  h3(id='error-handling') Express里怎样处理异常?
 
   p.
-    Error-handling middleware are defined just like regular middleware,
-    however must be define with an arity of 4, that is the signature
+    定义错误处理的中间件跟定义普通的中间件没有什么区别，仅仅是参数必须定义为4个，它们定义如下
     <code>(err, req, res, next)</code>:
 
   +js.
@@ -121,23 +97,17 @@ setup
     });
 
   p.
-    View <a href="/guide.html#error-handling">error-handling</a> for more information.
+    查看 <a href="/guide.html#error-handling">错误处理</a>, 获取更多信息 
 
 setup
-  h3(id='render-html') How do I render plain HTML?
+  h3(id='render-html') 怎样输出纯HTML文件?
   
   p.
-    You don't! There's no need to "render" HTML with <code>res.render()</code>,
-    if you have a specific file you should use <code>res.sendfile()</code>, or
-    if you are serving many assets from a directory use the <code>express.static()</code>
-    middleware.
+    不要这么做！根本没有必要直接使用<code>res.render()</code>输出HTML文件,
+    如果你有一个特定的文件应该使用 <code>res.sendfile()</code>,如果你要使用一个目录里大量的静态资源提供服务，请使用 <code>express.static()</code> 中间件.
 
 setup
-  h3(id='size') How big is the Express codebase?
+  h3(id='size') Express的代码库有多大？
 
   p.
-    Express is a very small framework, the 3.0.0 release is only
-    932 SLOC, and the mandatory portion of Connect which Express
-    is built on is only 267 SLOC. The optional middleware bundled
-    with Connect add an additional 1143 SLOC, and are lazy loaded
-    upon use.
+    Express 是一个非常小的框架，3.0.0正式发布版只有932行源码，Express强烈依赖的Connect只有267行源码，Connect可选的中间件和扩展总共1143行源码，并且只有到使用时才会加载
