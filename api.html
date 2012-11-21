@@ -518,7 +518,7 @@ you would receive the array <code>["client", "proxy1", "proxy2"]</code>
 where "proxy2" is the furthest down-stream.</p></section><section><h3 id="req.path">req.path</h3><p>Returns the request URL pathname.
 </p><pre class="js"><code>// example.com/users?sort=desc
 req.path
-// => "/users"</code></pre></section><section><h3 id="req.host">req.host</h3><p>Returns the hostname from the "Host" header field (void of portno).
+// => "/users"</code></pre></section><section><h3 id="req.host">req.host</h3><p>返回从"Host"请求头里取的主机名,不包含端口号。
 </p><pre class="js"><code>// Host: "example.com:3000"
 req.host
 // => "example.com"</code></pre></section><section><h3 id="req.fresh">req.fresh</h3><p>Check if the request is fresh - aka Last-Modified and/or the ETag still match,
@@ -527,8 +527,7 @@ indicating that the resource is "fresh".
 // => true</code></pre></section><section><h3 id="req.stale">req.stale</h3><p>Check if the request is stale - aka Last-Modified and/or the ETag do not match,
 indicating that the resource is "stale".
 </p><pre class="js"><code>req.stale
-// => true</code></pre></section><section><h3 id="req.xhr">req.xhr</h3><p>Check if the request was issued with the "X-Requested-With"
-header field set to "XMLHttpRequest" (jQuery etc).
+// => true</code></pre></section><section><h3 id="req.xhr">req.xhr</h3><p>判断请求头里是否有"X-Requested-With"这样的字段并且值为"XMLHttpRequest", jQuery等库发请求时会设置这个头 
 </p><pre class="js"><code>req.xhr
 // => true</code></pre></section><section><h3 id="req.protocol">req.protocol</h3><p>Return the protocol string "http" or "https"
 when requested with TLS. When the "trust proxy" 
