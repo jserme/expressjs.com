@@ -34,7 +34,7 @@ app.enabled('trust proxy');
 
 app.enable('trust proxy');
 app.disabled('trust proxy');
-// => false</code></pre></section><section><h3 id="app.configure">app.configure([env], callback)</h3><p>当 <code>env</code> 和  <code>app.get('env')</code>(其实就是 <code>process.env.NODE_ENV</code>)匹配时,执行<code>callback</code>。这个函数被由于历史原因被留下来了，下面列出来的<code>if</code>代码其实更高效。使用了<code>app.set()</code>和其它一些配置函数后这这个函数<em>没有</em>必须存在的。
+// => false</code></pre></section><section><h3 id="app.configure">app.configure([env], callback)</h3><p>当 <code>env</code> 和  <code>app.get('env')</code>(其实就是 <code>process.env.NODE_ENV</code>)匹配时,执行<code>callback</code>。这个函数被由于历史原因被留下来了，下面列出来的<code>if</code>代码其实更高效。使用了<code>app.set()</code>和其它一些配置函数后这这个函数<em>没有</em>必要存在的。
 </p><pre class="js"><code>// all environments
 app.configure(function(){
   app.set('title', 'My Application');
