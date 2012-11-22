@@ -22,7 +22,7 @@ section
     app.listen(3000);
 
   p.
-    这个挂载的路径被剥离了，对中间件 <code>function</code><strong>不</strong>可见
+    这个挂载的路径被从请求里剥离了，对中间件 <code>function</code><strong>不</strong>可见
     这么设计的原因是因为中间件可以不需要更改代码就在任意"前缀"路径下执行
 
   p.
@@ -37,10 +37,9 @@ section
 
   p.
     举个栗子，你想把所有的静态文件路径都前缀"/static", 你可以使用“挂载”功能。
-    挂载过的中间件<strong>不会</strong>执行直到<code>req.url</code> 包含这个前缀, at which point
-    it is stripped when the function is invoked. This affects this function only,
-    subsequent middleware will see <code>req.url</code> with "/static" included
-    unless they are mounted as well.
+    如果<code>req.url</code> 不包含这个前缀, 挂载过的中间件<strong>不会</strong>执行。
+    当<code>function</code>被执行的时候,这个参数不会被传递。
+    这个只会影响这个函数，后面的中间件里得到的 <code>req.url</code>里将会包含"/static"
 
   +js.
     // GET /static/javascripts/jquery.js
