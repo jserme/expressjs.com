@@ -77,7 +77,7 @@ app.use(function(req, res, next){
 });
 
 app.listen(3000);
-</code></pre><p>这个挂载的路径被剥离了，对中间件 <code>function</code><strong>不</strong>可见
+</code></pre><p>这个挂载的路径被从请求里剥离了，对中间件 <code>function</code><strong>不</strong>可见
 这么设计的原因是因为中间件可以不需要更改代码就在任意"前缀"路径下执行
 </p><p>这里有一个实际应用场景，常见的一个使用是使用./public提供静态文件服务
 使用 <code>express.static()</code> 中间件:
@@ -86,10 +86,9 @@ app.listen(3000);
 // GET /favicon.ico
 app.use(express.static(__dirname + '/public'));
 </code></pre><p>举个栗子，你想把所有的静态文件路径都前缀"/static", 你可以使用“挂载”功能。
-挂载过的中间件<strong>不会</strong>执行直到<code>req.url</code> 包含这个前缀, at which point
-it is stripped when the function is invoked. This affects this function only,
-subsequent middleware will see <code>req.url</code> with "/static" included
-unless they are mounted as well.
+如果<code>req.url</code> 不包含这个前缀, 挂载过的中间件<strong>不会</strong>执行。
+当<code>function</code>被执行的时候,这个参数不会被传递。
+这个只会影响这个函数，后面的中间件里得到的 <code>req.url</code>里将会包含"/static"
 </p><pre class="js"><code>// GET /static/javascripts/jquery.js
 // GET /static/style.css
 // GET /static/favicon.ico
@@ -228,8 +227,7 @@ app.get('/forum/:fid/thread/:tid', middleware, function(){
 
 app.post('/forum/:fid/thread/:tid', middleware, function(){
   // ...
-})</code></pre></section><section><h3 id="app.all">app.all(path, [callback...], callback)</h3><p>This method functions just like the <code>app.VERB()</code> methods,
-however it matches all HTTP verbs. 
+})</code></pre></section><section><h3 id="app.all">app.all(path, [callback...], callback)</h3><p>这个方法很像<code>app.VERB()</code> , 但是它匹配所有的HTTP verbs. 
 </p><p>This method is extremely useful for
 mapping "global" logic for specific path prefixes or arbitrary matches.
 For example if you placed the following route at the top of all other
@@ -245,14 +243,12 @@ app.all('*', loadUser);
 </code></pre><p>Another great example of this is white-listed "global" functionality. Here
 the example is much like before, however only restricting paths prefixed with
 "/api":
-</p><pre class="js"><code>app.all('/api/*', requireAuthentication);</code></pre></section><section><h3 id="app.locals">app.locals</h3><p>Application local variables are provided to all templates
-rendered within the application. This is useful for providing
-helper functions to templates, as well as app-level data.
+</p><pre class="js"><code>app.all('/api/*', requireAuthentication);</code></pre></section><section><h3 id="app.locals">app.locals</h3><p>应用程序本地变量会附加给所有的在这个应用程序内渲染的模板。
+这是一个非常有用的模板函数，就像应用程序级数据一样。
 </p><pre class="js"><code>app.locals.title = 'My App';
 app.locals.strftime = require('strftime');
-</code></pre><p>The <code>app.locals</code> object is a JavaScript <code>Function</code>,
-which when invoked with an object will merge properties into itself, providing
-a simple way to expose existing objects as local variables.
+</code></pre><p><code>app.locals</code> 对象是一个JavaScript <code>Function</code>,
+执行的时候它会把属性合并到它自身，提供了一种简单展示已有对象作为本地变量的方法
 </p><pre class="js"><code>app.locals({
   title: 'My App',
   phone: '1-250-858-9990',
@@ -264,11 +260,11 @@ app.locals.title
 
 app.locals.email
 // => 'me@myapp.com'
-</code></pre><p>By default Express exposes only a single app-level local variable, <code>settings</code>.
+</code></pre><p>默认情况下Express只有一个应用程序级本地变量，它是 <code>settings</code>.
 </p><pre class="js"><code>app.set('title', 'My App');
-// use settings.title in a view</code></pre></section><section><h3 id="app.render">app.render(view, [options], callback)</h3><p>Render a <code>view</code> with a callback responding with
-the rendered string. This is the app-level variant of <code>res.render()</code>,
-and otherwise behaves the same way.
+// 在view里使用 settings.title
+</code></pre></section><section><h3 id="app.render">app.render(view, [options], callback)</h3><p>渲染 <code>view</code>, <code>callback</code> 用来处理返回的渲染后的字符串。
+这个是 <code>res.render()</code> 的应用程序级版本，它们的行为是一样的。
 </p><pre class="js"><code>app.render('email', function(err, html){
   // ...
 });
@@ -298,16 +294,11 @@ delete:
        method: 'delete',
        callbacks: [Object],
        keys: [Object],
-       regexp: /^\/user\/(?:([^\/]+?))\/?$/i } ] }</code></pre></section><section><h3 id="app.listen">app.listen()</h3><p>Bind and listen for connections on the given host and port,
-this method is identical to node's <a href="http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback">http.Server#listen()</a>.
+       regexp: /^\/user\/(?:([^\/]+?))\/?$/i } ] }</code></pre></section><section><h3 id="app.listen">app.listen()</h3><p>在给定的主机和端口上监听请求，这个和node的文档<a href="http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback">http.Server#listen()</a>是一致的
 </p><pre class="js"><code>var express = require('express');
 var app = express();
 app.listen(3000);
-</code></pre><p>The <code>app</code> returned by <code>express()</code> is in fact a JavaScript
-<code>Function</code>, designed to be passed to node's http servers as a callback
-to handle requests. This allows you to provide both HTTP and HTTPS versions of
-your app with the same codebase easily, as the app does not inherit from these,
-it is simply a callback:
+</code></pre><p><code>express()</code>返回的<code>app</code>实际上是一个JavaScript<code>Function</code>,它被设计为传给node的http servers作为处理请求的回调函数。因为<code>app</code>不是从HTTP或者HTTPS继承来的，它只是一个简单的回调函数，你可以以同一份代码同时处理HTTP and HTTPS 版本的服务。
 </p><pre class="js"><code>var express = require('express');
 var https = require('https');
 var http = require('http');
@@ -315,8 +306,7 @@ var app = express();
 
 http.createServer(app).listen(80);
 https.createServer(options, app).listen(443);
-</code></pre><p>The <code>app.listen()</code> method is simply a convenience method defined as,
-if you wish to use HTTPS or provide both, use the technique above.
+</code></pre><p><code>app.listen()</code> 方法只是一个快捷方法，如果你想使用HTTPS，或者同时提供HTTP和HTTPS，可以使用上面的代码
 </p><pre class="js"><code>app.listen = function(){
   var server = http.createServer(this);
   return server.listen.apply(server, arguments);
@@ -782,55 +772,41 @@ and rendered string are passed, and no automated response is performed.
 
 res.render('user', { name: 'Tobi' }, function(err, html){
   // ...
-});</code></pre></section><h2>Middleware</h2><a name="middleware"></a><section><h3 id="basicAuth">basicAuth()</h3><p>Basic Authentication middleware, populating <code>req.user</code>
-with the username.
-</p><p>Simple username and password:</p><pre class="js"><code>app.use(express.basicAuth('username', 'password'));
-</code></pre><p>Callback verification:</p><pre class="js"><code>app.use(express.basicAuth(function(user, pass){
+});</code></pre></section><h2>Middleware</h2><a name="middleware"></a><section><h3 id="basicAuth">basicAuth()</h3><p>基本的认证中间件，在<code>req.user</code>里添加用户名
+</p><p>用户名和密码的例子:</p><pre class="js"><code>app.use(express.basicAuth('username', 'password'));
+</code></pre><p>校验回调:</p><pre class="js"><code>app.use(express.basicAuth(function(user, pass){
   return 'tj' == user & 'wahoo' == pass;
 }));
-</code></pre><p>Async callback verification, accepting <code>fn(err, user)</code>,
-in this case <code>req.user</code> will be the user object passed.
+</code></pre><p>异步校验接受参数<code>fn(err, user)</code>,
+下面的例子<code>req.user</code> 将会作为user对象传递.
 </p><pre class="js"><code>app.use(connect.basicAuth(function(user, pass, fn){
   User.authenticate({ user: user, pass: pass }, fn);
-}))</code></pre></section><section><h3 id="bodyParser">bodyParser()</h3><p>Request body parsing middleware supporting JSON, urlencoded,
-and multipart requests. This middleware is simply a wrapper
-the <code>json()</code>, <code>urlencoded()</code>, and
-<code>multipart()</code> middleware.
+}))</code></pre></section><section><h3 id="bodyParser">bodyParser()</h3><p>支持 JSON, urlencoded和multipart requests的请求体解析中间件。
+这个中间件是<code>json()</code>, <code>urlencoded()</code>,和<code>multipart()</code> 这几个中间件的简单封装
 </p><pre class="js"><code>app.use(express.bodyParser());
 
 // is equivalent to:
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(express.multipart());</code></pre></section><section><h3 id="compress">compress()</h3><p>Compress response data with gzip / deflate. This middleware
-should be placed "high" within the stack to ensure all
-responses may be compressed.
+app.use(express.multipart());</code></pre></section><section><h3 id="compress">compress()</h3><p>通过gzip / deflate压缩响应数据. 
+这个中间件应该放置在所有的中间件最前面以保证所有的返回都是被压缩的
 </p><pre class="js"><code>app.use(express.logger());
 app.use(express.compress());
 app.use(express.methodOverride());
-app.use(express.bodyParser());</code></pre></section><section><h3 id="cookieParser">cookieParser()</h3><p>Parses the Cookie header field and populates <code>req.cookies</code>
-with an object keyed by the cookie names. Optionally you may enabled 
-signed cookie support by passing a <code>secret</code> string.
+app.use(express.bodyParser());</code></pre></section><section><h3 id="cookieParser">cookieParser()</h3><p>解析请求头里的Cookie, 并用cookie名字的键值对形式放在 <code>req.cookies</code>
+你也可以通过传递一个<code>secret</code> 字符串激活签名了的cookie
 </p><pre class="js"><code>app.use(express.cookieParser());
-app.use(express.cookieParser('some secret'));</code></pre></section><section><h3 id="cookieSession">cookieSession()</h3><p>Provides cookie-based sessions, and populates <code>req.session</code>.
-This middleware takes the following options:
-</p><ul><li><code>key</code> cookie name defaulting to <code>connect.sess</code></li><li><code>secret</code> prevents cookie tampering</li><li><code>cookie</code> session cookie settings, defaulting to <code>{ path: '/', httpOnly: true, maxAge: null }</code></li><li><code>proxy</code> trust the reverse proxy when setting secure cookies (via "x-forwarded-proto")</li></ul><pre class="js"><code>app.use(express.cookieSession());
-</code></pre><p>To clear a cookie simply assign the session to null before responding:</p><pre class="js"><code>req.session = null</code></pre></section><section><h3 id="csrf">csrf()</h3><p>CSRF protection middleware.
-</p><p>By default this middleware generates a token named "_csrf"
-which should be added to requests which mutate
-state, within a hidden form field, query-string etc. This
-token is validated against the visitor's <code>req.session._csrf</code>
-property.
-</p><p>The default <code>value</code> function checks <code>req.body</code> generated
-by the <code>bodyParser()</code> middleware, <code>req.query</code> generated
-by <code>query()</code>, and the "X-CSRF-Token" header field.
-</p><p>This middleware requires session support, thus should be added
-somewhere below <code>session()</code>.</p></section><section><h3 id="directory">directory()</h3><p>Directory serving middleware, serves the given <code>path</code>.
-This middleware may be paired with <code>static()</code> to serve
-files, providing a full-featured file browser.
+app.use(express.cookieParser('some secret'));</code></pre></section><section><h3 id="cookieSession">cookieSession()</h3><p>提供一个以cookie为基础的sessions, 设置在<code>req.session</code>里。
+这个中间件有以下几个选项:
+</p><ul><li><code>key</code> cookie 的名字，默认是 <code>connect.sess</code></li><li><code>secret</code> prevents cookie tampering</li><li><code>cookie</code> session cookie 设置, 默认是 <code>{ path: '/', httpOnly: true, maxAge: null }</code></li><li><code>proxy</code> 当设置安全cookies时信任反向代理 (通过 "x-forwarded-proto")</li></ul><pre class="js"><code>app.use(express.cookieSession());
+</code></pre><p>清掉一个cookie, 只需要在响应前把null赋值给session:</p><pre class="js"><code>req.session = null</code></pre></section><section><h3 id="csrf">csrf()</h3><p>CSRF 防护中间件
+</p><p>默认情况下这个中间件会产生一个名为"_csrf"的标志，这个标志应该添加到那些需要服务器更改的请求里，可以放在一个表单的隐藏域，请求参数等。这个标志会在访问者的 <code>req.session._csrf</code>属性里进行校验。
+</p><p><code>bodyParser()</code> 中间件产生的 <code>req.body</code> , <code>query()</code>产生的<code>req.query</code>,请求头里的"X-CSRF-Token"是默认的 <code>value</code> 函数检查的项
+</p><p>这个中间件需要session支持，因此它的代码应该放在<code>session()</code>之后.</p></section><section><h3 id="directory">directory()</h3><p>文件夹服务中间件，用 <code>path</code> 提供服务。
 </p><pre class="js"><code>app.use(express.directory('public'))
 app.use(express.static('public'))
-</code></pre><p>This middleware accepts the following options:
-</p><ul><li><code>hidden</code> display hidden (dot) files. Defaults to false.</li><li><code>icons</code>  display icons. Defaults to false.</li><li><code>filter</code> Apply this filter function to files. Defaults to false.</li></ul></section><!--include ./mw-errorHandler--><!--include ./mw-favicon--><!--include ./mw-json--><!--include ./mw-limit--><!--include ./mw-logger--><!--include ./mw-methodOverride--><!--include ./mw-multipart--><!--include ./mw-query--><!--include ./mw-responseTime--><!--include ./mw-static--><!--include ./mw-timeout--><!--include ./mw-urlencoded--><!--include ./mw-vhost--></div></section><script>var _gaq = _gaq || [];
+</code></pre><p>这个中间件接收如下参数：
+</p><ul><li><code>hidden</code> 显示隐藏文件，默认为false.</li><li><code>icons</code>  显示图标，默认为false.</li><li><code>filter</code> 在文件上应用这个过滤函数。默认为false.</li></ul></section><!--include ./mw-errorHandler--><!--include ./mw-favicon--><!--include ./mw-json--><!--include ./mw-limit--><!--include ./mw-logger--><!--include ./mw-methodOverride--><!--include ./mw-multipart--><!--include ./mw-query--><!--include ./mw-responseTime--><!--include ./mw-static--><!--include ./mw-timeout--><!--include ./mw-urlencoded--><!--include ./mw-vhost--></div></section><script>var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-25235225-1']);
 _gaq.push(['_trackPageview']);
 

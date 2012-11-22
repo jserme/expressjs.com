@@ -2,9 +2,8 @@ section
   h3(id='cookieParser') cookieParser()
 
   p.
-    Parses the Cookie header field and populates <code>req.cookies</code>
-    with an object keyed by the cookie names. Optionally you may enabled 
-    signed cookie support by passing a <code>secret</code> string.
+    解析请求头里的Cookie, 并用cookie名字的键值对形式放在 <code>req.cookies</code>
+    你也可以通过传递一个<code>secret</code> 字符串激活签名了的cookie
 
   +js.
     app.use(express.cookieParser());

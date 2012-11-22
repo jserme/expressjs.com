@@ -2,20 +2,13 @@ section
   h3(id='csrf') csrf()
 
   p.
-    CSRF protection middleware.
+    CSRF 防护中间件
   
   p.
-    By default this middleware generates a token named "_csrf"
-    which should be added to requests which mutate
-    state, within a hidden form field, query-string etc. This
-    token is validated against the visitor's <code>req.session._csrf</code>
-    property.
+    默认情况下这个中间件会产生一个名为"_csrf"的标志，这个标志应该添加到那些需要服务器更改的请求里，可以放在一个表单的隐藏域，请求参数等。这个标志会在访问者的 <code>req.session._csrf</code>属性里进行校验。
   
   p.
-    The default <code>value</code> function checks <code>req.body</code> generated
-    by the <code>bodyParser()</code> middleware, <code>req.query</code> generated
-    by <code>query()</code>, and the "X-CSRF-Token" header field.
+    <code>bodyParser()</code> 中间件产生的 <code>req.body</code> , <code>query()</code>产生的<code>req.query</code>,请求头里的"X-CSRF-Token"是默认的 <code>value</code> 函数检查的项
 
   p.
-    This middleware requires session support, thus should be added
-    somewhere below <code>session()</code>.
+    这个中间件需要session支持，因此它的代码应该放在<code>session()</code>之后.

@@ -2,18 +2,16 @@ section
   h3(id='app.locals') app.locals
 
   p.
-    Application local variables are provided to all templates
-    rendered within the application. This is useful for providing
-    helper functions to templates, as well as app-level data.
+    应用程序本地变量会附加给所有的在这个应用程序内渲染的模板。
+    这是一个非常有用的模板函数，就像应用程序级数据一样。
 
   +js.
     app.locals.title = 'My App';
     app.locals.strftime = require('strftime');
 
   p.
-    The <code>app.locals</code> object is a JavaScript <code>Function</code>,
-    which when invoked with an object will merge properties into itself, providing
-    a simple way to expose existing objects as local variables.
+    <code>app.locals</code> 对象是一个JavaScript <code>Function</code>,
+    执行的时候它会把属性合并到它自身，提供了一种简单展示已有对象作为本地变量的方法
 
   +js.
     app.locals({
@@ -29,9 +27,9 @@ section
     // => 'me@myapp.com'
 
   p.
-    By default Express exposes only a single app-level local variable, <code>settings</code>.
+    默认情况下Express只有一个应用程序级本地变量，它是 <code>settings</code>.
 
   +js.
     app.set('title', 'My App');
-    // use settings.title in a view
+    // 在view里使用 settings.title
     

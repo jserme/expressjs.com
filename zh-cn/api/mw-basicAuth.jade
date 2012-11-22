@@ -2,15 +2,14 @@ section
   h3(id='basicAuth') basicAuth()
 
   p.
-    Basic Authentication middleware, populating <code>req.user</code>
-    with the username.
+    基本的认证中间件，在<code>req.user</code>里添加用户名
 
-  p Simple username and password:
+  p 用户名和密码的例子:
 
   +js.
     app.use(express.basicAuth('username', 'password'));
 
-  p Callback verification:
+  p 校验回调:
 
   +js.
      app.use(express.basicAuth(function(user, pass){
@@ -18,8 +17,8 @@ section
      }));
 
   p.
-    Async callback verification, accepting <code>fn(err, user)</code>,
-    in this case <code>req.user</code> will be the user object passed.
+    异步校验接受参数<code>fn(err, user)</code>,
+    下面的例子<code>req.user</code> 将会作为user对象传递.
 
   +js.
     app.use(connect.basicAuth(function(user, pass, fn){

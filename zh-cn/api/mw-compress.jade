@@ -2,9 +2,8 @@ section
   h3(id='compress') compress()
 
   p.
-    Compress response data with gzip / deflate. This middleware
-    should be placed "high" within the stack to ensure all
-    responses may be compressed.
+    通过gzip / deflate压缩响应数据. 
+    这个中间件应该放置在所有的中间件最前面以保证所有的返回都是被压缩的
 
   +js.
     app.use(express.logger());

@@ -2,19 +2,19 @@ section
   h3(id='cookieSession') cookieSession()
 
   p.
-    Provides cookie-based sessions, and populates <code>req.session</code>.
-    This middleware takes the following options:
+    提供一个以cookie为基础的sessions, 设置在<code>req.session</code>里。
+    这个中间件有以下几个选项:
 
   ul
-    li <code>key</code> cookie name defaulting to <code>connect.sess</code>
+    li <code>key</code> cookie 的名字，默认是 <code>connect.sess</code>
     li <code>secret</code> prevents cookie tampering
-    li <code>cookie</code> session cookie settings, defaulting to <code>{ path: '/', httpOnly: true, maxAge: null }</code>
-    li <code>proxy</code> trust the reverse proxy when setting secure cookies (via "x-forwarded-proto")
+    li <code>cookie</code> session cookie 设置, 默认是 <code>{ path: '/', httpOnly: true, maxAge: null }</code>
+    li <code>proxy</code> 当设置安全cookies时信任反向代理 (通过 "x-forwarded-proto")
 
   +js.
     app.use(express.cookieSession());
 
-  p To clear a cookie simply assign the session to null before responding:
+  p 清掉一个cookie, 只需要在响应前把null赋值给session:
 
   +js.
     req.session = null

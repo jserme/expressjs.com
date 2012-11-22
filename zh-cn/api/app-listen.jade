@@ -2,20 +2,16 @@ section
   h3(id='app.listen') app.listen()
 
   p.
-    Bind and listen for connections on the given host and port,
-    this method is identical to node's <a href="http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback">http.Server#listen()</a>.
-
+    在给定的主机和端口上监听请求，这个和node的文档<a href="http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback">http.Server#listen()</a>是一致的
+     
   +js.
     var express = require('express');
     var app = express();
     app.listen(3000);
 
   p.
-    The <code>app</code> returned by <code>express()</code> is in fact a JavaScript
-    <code>Function</code>, designed to be passed to node's http servers as a callback
-    to handle requests. This allows you to provide both HTTP and HTTPS versions of
-    your app with the same codebase easily, as the app does not inherit from these,
-    it is simply a callback:
+    
+    <code>express()</code>返回的<code>app</code>实际上是一个JavaScript<code>Function</code>,它被设计为传给node的http servers作为处理请求的回调函数。因为<code>app</code>不是从HTTP或者HTTPS继承来的，它只是一个简单的回调函数，你可以以同一份代码同时处理HTTP and HTTPS 版本的服务。
 
   +js.
     var express = require('express');
@@ -27,8 +23,7 @@ section
     https.createServer(options, app).listen(443);
 
   p.
-    The <code>app.listen()</code> method is simply a convenience method defined as,
-    if you wish to use HTTPS or provide both, use the technique above.
+    <code>app.listen()</code> 方法只是一个快捷方法，如果你想使用HTTPS，或者同时提供HTTP和HTTPS，可以使用上面的代码
 
   +js.
     app.listen = function(){
