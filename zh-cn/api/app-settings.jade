@@ -2,37 +2,37 @@ section
   h3(id='app-settings') settings
 
   p.
-    The following settings are provided to alter how Express will behave:
+    下面的提供的可以改变Express行为的选项
 
   ul
     li
       code env 
-      | Environment mode, defaults to <code>process.env.NODE_ENV</code> or "development"
+      | 运行时环境，默认为 <code>process.env.NODE_ENV</code> 或者 "development"
     li
       code trust proxy 
-      | Enables reverse proxy support, disabled by default
+      | 激活反向代理，默认未激活状态
     li
       code jsonp callback name 
-      | Changes the default callback name of <code>?callback=</code>
+      | 修改默认<code>?callback=</code>的jsonp回调的名字
     li
       code json replacer 
-      | JSON replacer callback, null by default
+      | JSON replacer 替换时的回调, 默认为null
     li
       code json spaces 
-      | JSON response spaces for formatting, defaults to <code>2</code> in development, <code>0</code> in production
+      | JSON 响应的空格数量，开发环境下是<code>2</code> , 生产环境是<code>0</code>
     li
       code case sensitive routing 
-      | Enable case sensitivity, disabled by default, treating "/Foo" and "/foo" as the same
+      | 激活路由的大小写敏感, 默认是关闭状态， "/Foo" 和"/foo" 是一样的
     li
       code strict routing 
-      | Enable strict routing, by default "/foo" and "/foo/" are treated the same by the router 
+      | 激活路由的严格格式, 默认情况下 "/foo" 和 "/foo/" 是被同样对待的 
     li
       code view cache 
-      | Enables view template compilation caching, enabled in production by default
+      | 激活模板缓存，在生产环境中是默认开启的
     li
       code view engine 
-      | The default engine extension to use when omitted
+      | 默认的视图引擎
     li
       code views 
-      | The view directory path
+      | 视图的目录
     
