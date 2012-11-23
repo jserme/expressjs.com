@@ -111,28 +111,14 @@ app.use(function(req, res){
 </p><pre class="js"><code>app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/files'));
 app.use(express.static(__dirname + '/uploads'));</code></pre></section><section><h3 id="app-settings">settings</h3><p>下面的提供的可以改变Express行为的选项
-</p><ul><li><code>env </code>运行时环境，默认为 <code>process.env.NODE_ENV</code> 或者 "development"</li><li><code>trust proxy </code>激活反向代理，默认未激活状态</li><li><code>jsonp callback name </code>修改默认<code>?callback=</code>的jsonp回调的名字</li><li><code>json replacer </code>JSON replacer 替换时的回调, 默认为null</li><li><code>json spaces </code>JSON 响应的空格数量，开发环境下是<code>2</code> , 生产环境是<code>0</code></li><li><code>case sensitive routing </code>激活路由的大小写敏感, 默认是关闭状态， "/Foo" 和"/foo" 是一样的</li><li><code>strict routing </code>激活路由的严格格式, 默认情况下 "/foo" 和 "/foo/" 是被同样对待的 </li><li><code>view cache </code>激活模板缓存，在生产环境中是默认开启的</li><li><code>view engine </code>默认的视图引擎</li><li><code>views </code>视图的目录</li></ul></section><section><h3 id="app.engine">app.engine(ext, callback)</h3><p>Register the given template engine <code>callback</code> as <code>ext</code>
+</p><ul><li><code>env </code>运行时环境，默认为 <code>process.env.NODE_ENV</code> 或者 "development"</li><li><code>trust proxy </code>激活反向代理，默认未激活状态</li><li><code>jsonp callback name </code>修改默认<code>?callback=</code>的jsonp回调的名字</li><li><code>json replacer </code>JSON replacer 替换时的回调, 默认为null</li><li><code>json spaces </code>JSON 响应的空格数量，开发环境下是<code>2</code> , 生产环境是<code>0</code></li><li><code>case sensitive routing </code>激活路由的大小写敏感, 默认是关闭状态， "/Foo" 和"/foo" 是一样的</li><li><code>strict routing </code>激活路由的严格格式, 默认情况下 "/foo" 和 "/foo/" 是被同样对待的 </li><li><code>view cache </code>激活模板缓存，在生产环境中是默认开启的</li><li><code>view engine </code>默认的视图引擎</li><li><code>views </code>视图的目录</li></ul></section><section><h3 id="app.engine">app.engine(ext, callback)</h3><p>注册模板引擎的 <code>callback</code> 用来处理<code>ext</code>扩展名的文件
 
-By default will <code>require()</code> the engine based on the
-file extension. For example if you try to render
-a "foo.jade" file Express will invoke the following internally,
-and cache the <code>require()</code> on subsequent calls to increase
-performance.
+默认情况下, 根据文件扩展名<code>require()</code> 对应的模板引擎
+比如你想渲染一个 "foo.jade" 文件，Express会在内部执行下面的代码，然后会缓存<code>require()</code>，这样就可以提高后面操作的性能
 </p><pre class="js"><code>app.engine('jade', require('jade').__express);
-</code></pre><p>For engines that do not provide <code>.__express</code> out of the box -
-or if you wish to "map" a different extension to the template engine
-you may use this method. For example mapping the EJS template engine to
-".html" files:
-</p><pre class="js"><code>app.engine('html', require('ejs').renderFile);
-</code></pre><p>In this case EJS provides a <code>.renderFile()</code> method with
-the same signature that Express expects: <code>(path, options, callback)</code>,
-though note that it aliases this method as <code>ejs.__express</code> internally
-so if you're using ".ejs" extensions you dont need to do anything.
-</p><p>Some template engines do not follow this convention, the
-<a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a>
-library was created to map all of node's popular template
-engines to follow this convention, thus allowing them to
-work seemlessly within Express.
+</code></pre><p></p>那些没有提供 <code>.__express</code> 的或者你想渲染一个文件的扩展名与模板引擎默认的不一致的时候，你也会用到这个函数。
+比如你想用EJS模板引擎来处理 ".html" 后缀的文件:<pre class="js"><code>app.engine('html', require('ejs').renderFile);
+</code></pre><p></p>这个例子中EJS提供了一个<code>.renderFile()</code> 方法和Express期待的格式: <code>(path, options, callback)</code>一致, 可以在内部给这个方法取一个别名<code>ejs.__express</code>，这样你就可以使用".ejs" 扩展而不需要做任何改动<p>有些模板引擎没有遵循这种转换， 这里有一个小项目<a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a> 专门把所有的node流行的模板引擎进行了包装，这样它们在Express内部看起来就一样了。
 </p><pre class="js"><code>var engines = require('consolidate');
 app.engine('haml', engines.haml);
 app.engine('html', engines.hogan);</code></pre></section><section><h3 id="app.param">app.param([name], callback)</h3><p>Map logic to route parameters. For example when <code>:user</code>
