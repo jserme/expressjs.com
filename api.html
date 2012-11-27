@@ -121,15 +121,9 @@ app.use(express.static(__dirname + '/uploads'));</code></pre></section><section>
 </code></pre><p></p>这个例子中EJS提供了一个<code>.renderFile()</code> 方法和Express期待的格式: <code>(path, options, callback)</code>一致, 可以在内部给这个方法取一个别名<code>ejs.__express</code>，这样你就可以使用".ejs" 扩展而不需要做任何改动<p>有些模板引擎没有遵循这种转换， 这里有一个小项目<a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a> 专门把所有的node流行的模板引擎进行了包装，这样它们在Express内部看起来就一样了。
 </p><pre class="js"><code>var engines = require('consolidate');
 app.engine('haml', engines.haml);
-app.engine('html', engines.hogan);</code></pre></section><section><h3 id="app.param">app.param([name], callback)</h3><p>Map logic to route parameters. For example when <code>:user</code>
-is present in a route path you may map user loading logic to automatically
-provide <code>req.user</code> to the route, or perform validations
-on the parameter input.
-</p><p>The following snippet illustrates how the <code>callback</code>
-is much like middleware, thus supporting async operations, however
-providing the additional value of the parameter, here named as <code>id</code>.
-An attempt to load the user is then performed, assigning <code>req.user</code>,
-otherwise passing an error to <code>next(err)</code>.
+app.engine('html', engines.hogan);</code></pre></section><section><h3 id="app.param">app.param([name], callback)</h3><p>路由参数的处理逻辑。比如当 <code>:user</code> 出现在一个路由路径中，你也许会自动载入加载用户的逻辑，并把它放置到 <code>req.user</code> , 或者校验一下输入的参数是否正确。
+</p><p>下面的代码片段展示了<code>callback</code>很像中间件，但是在参数里多加了一个值，这里名为<code>id</code>.
+它会尝试加载用户信息，然后赋值给<code>req.user</code>, 否则就传递错误<code>next(err)</code>.
 </p><pre class="js"><code>app.param('user', function(req, res, next, id){
   User.find(id, function(err, user){
     if (err) {
@@ -142,13 +136,9 @@ otherwise passing an error to <code>next(err)</code>.
     }
   });
 });
-</code></pre><p>Alternatively you may pass only a <code>callback</code>, in which
-case you have the opportunity to alter the <code>app.param()</code> API.
-For example the <a href="http://github.com/visionmedia/express-params">express-params</a>
-defines the following callback which allows you to restrict parameters to a given
-regular expression. 
-</p><p>This example is a bit more advanced, checking if the second argument is a regular
-expression, returning the callback which acts much like the "user" param example.
+</code></pre><p>另外你也可以只传一个<code>callback</code>, 这样你就有机会改变 <code>app.param()</code> API.
+比如<a href="http://github.com/visionmedia/express-params">express-params</a>定义了下面的回调，这个允许你使用一个给定的正则去限制参数。
+</p><p>下面的这个例子有一点点高级，检查如果第二个参数是一个正则，返回一个很像上面的"user"参数例子行为的回调函数。
 </p><pre class="js"><code>app.param(function(name, fn){
   if (fn instanceof RegExp) {
     return function(req, res, next, val){
@@ -162,8 +152,7 @@ expression, returning the callback which acts much like the "user" param example
     }
   }
 });
-</code></pre><p>The method could now be used to effectively validate parameters, or also
-parse them to provide capture groups:
+</code></pre><p>这个函数现在可以非常有效的用来校验参数，或者提供正则捕获后的分组。
 </p><pre class="js"><code>app.param('id', /^\d+$/);
 
 app.get('/user/:id', function(req, res){
@@ -175,36 +164,26 @@ app.param('range', /^(\w+)\.\.(\w+)?$/);
 app.get('/range/:range', function(req, res){
   var range = req.params.range;
   res.send('from ' + range[1] + ' to ' + range[2]);
-});</code></pre></section><section><h3 id="app.VERB">app.VERB(path, [callback...], callback)</h3><p>The <code>app.VERB()</code> methods provide the routing functionality
-in Express, where <strong>VERB</strong> is one of the HTTP verbs, such
-as <code>app.post()</code>. Multiple callbacks may be given, all are treated
-equally, and behave just like middleware, with the one exception that
-these callbacks may invoke <code>next('route')</code> to bypass the
-remaining route callback(s). This mechanism can be used to perform pre-conditions
-on a route then pass control to subsequent routes when there is no reason to proceed
-with the route matched.
-</p><p>The following snippet illustrates the most simple route definition possible. Express
-translates the path strings to regular expressions, used internally to match incoming requests.
-Query strings are <em>not</em> considered when peforming these matches, for example "GET /"
-would match the following route, as would "GET /?name=tobi".
+});</code></pre></section><section><h3 id="app.VERB">app.VERB(path, [callback...], callback)</h3><p><code>app.VERB()</code> 方法为Express提供路由方法, <strong>VERB</strong> 是指某一个HTTP 动作,
+比如 <code>app.post()</code>。 可以提供多个callbacks,这多个callbacks都将会被平等对待
+，它们的行为跟中间件一样，也有一个例外的情况，如果某一个callback执行了<code>next('route')</code>，它后面的callback就被忽略。这种情形会应用在当满足一个路由前缀，但是不需要处理这个路由，于是把它向后传递。
+</p><p>下面的代码片段展示最简单的路由定义。Express 会把路径字符串转为正则表达式，然后在符合规则的请求到达时立即使用。
+请求参数<em>不会</em> 被考虑进来，比如 "GET /" 会匹配下面的这个路由, 而"GET /?name=tobi"同样也会匹配。
 </p><pre class="js"><code>app.get('/', function(req, res){
   res.send('hello world');
 });
-</code></pre><p>Regular expressions may also be used, and can be useful
-if you have very specific restraints, for example the following
-would match "GET /commits/71dbb9c" as well as "GET /commits/71dbb9c..4c084f9".
+</code></pre><p>同样也可以使用正则表达式，并且它能够在你指定特定路径的时候发挥大作用。
+比如下面的例子可以匹配"GET /commits/71dbb9c" ， 同时也能匹配 "GET /commits/71dbb9c..4c084f9".
 </p><pre class="js"><code>app.get(/^\/commits\/(\w+)(?:\.\.(\w+))?$/, function(req, res){
   var from = req.params[0];
   var to = req.params[1] || 'HEAD';
   res.send('commit range ' + from + '..' + to);
 });
-</code></pre><p>Several callbacks may also be passed, useful for re-using middleware
-that load resources, perform validations, etc.
+</code></pre><p>可以传递一些回调，这对复用一些加载资源、校验的中间件很有用。
 </p><pre class="js"><code>app.get('/user/:id', user.load, function(){
   // ... 
 })
-</code></pre><p>These callbacks may be passed within arrays as well, these arrays are
-simply flattened when passed:
+</code></pre><p>这些回调同样可以通过数组传递，简单的放置在数组中即可。
 </p><pre class="js"><code>var middleware = [loadForum, loadThread];
 
 app.get('/forum/:fid/thread/:tid', middleware, function(){
@@ -213,23 +192,17 @@ app.get('/forum/:fid/thread/:tid', middleware, function(){
 
 app.post('/forum/:fid/thread/:tid', middleware, function(){
   // ...
-})</code></pre></section><section><h3 id="app.all">app.all(path, [callback...], callback)</h3><p>这个方法很像<code>app.VERB()</code> , 但是它匹配所有的HTTP verbs. 
-</p><p>This method is extremely useful for
-mapping "global" logic for specific path prefixes or arbitrary matches.
-For example if you placed the following route at the top of all other
-route definitions, it would require that all routes from that point on
-would require authentication, and automatically load a user. Keep in mind
-that these callbacks do not have to act as end points, <code>loadUser</code>
-can perform a task, then <code>next()</code> to continue matching subsequent
-routes.
+})</code></pre></section><section><h3 id="app.all">app.all(path, [callback...], callback)</h3><p>这个方法很像<code>app.VERB()</code> , 但是它匹配所有的HTTP动作 
+</p><p>这个方法在给特定前缀路径或者任意路径上处理时会特别有用。
+
+
+比如你想把下面的路由放在所有其它路由之前，它需要所有从这个路由开始的加载验证，并且自动加载一个用户
+记住所有的回调都不应该被当作终点， <code>loadUser</code> 能够被当作一个任务，然后<code>next()</code>去匹配接下来的路由。
 </p><pre class="js"><code>app.all('*', requireAuthentication, loadUser);
 </code></pre><p>Or the equivalent:
 </p><pre class="js"><code>app.all('*', requireAuthentication)
 app.all('*', loadUser);
-</code></pre><p>Another great example of this is white-listed "global" functionality. Here
-the example is much like before, however only restricting paths prefixed with
-"/api":
-</p><pre class="js"><code>app.all('/api/*', requireAuthentication);</code></pre></section><section><h3 id="app.locals">app.locals</h3><p>应用程序本地变量会附加给所有的在这个应用程序内渲染的模板。
+</code></pre><p>另一个非常赞的例子是全局白名单函数。这里有一个例子跟前一个很像，但是它限制前缀为"/api": </p><pre class="js"><code>app.all('/api/*', requireAuthentication);</code></pre></section><section><h3 id="app.locals">app.locals</h3><p>应用程序本地变量会附加给所有的在这个应用程序内渲染的模板。
 这是一个非常有用的模板函数，就像应用程序级数据一样。
 </p><pre class="js"><code>app.locals.title = 'My App';
 app.locals.strftime = require('strftime');
@@ -257,11 +230,9 @@ app.locals.email
 
 app.render('email', { name: 'Tobi' }, function(err, html){
   // ...
-});</code></pre></section><section><h3 id="app.routes">app.routes</h3><p>The <code>app.routes</code> object houses all of the routes defined mapped
-by the associated HTTP verb. This object may be used for introspection capabilities,
-for example Express uses this internally not only for routing but to provide default
-<string>OPTIONS</string> behaviour unless <code>app.options()</code> is used. Your application
-or framework may also remove routes by simply by removing them from this object.
+});</code></pre></section><section><h3 id="app.routes">app.routes</h3><p><code>app.routes</code> 对象存储了所有的被HTTP verb定义路由。
+这个对象可以用在一些内部功能上，比如Express不仅用它来做路由分发，同时在没有<code>app.options()</code>定义的情况下用它来处理默认的<string>OPTIONS</string>行为。
+你的应用程序或者框架也可以很轻松的通过在这个对象里移除路由来达到删除路由的目的。
 </p><pre class="js"><code>console.log(app.routes)
 
 { get: 

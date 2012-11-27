@@ -3,11 +3,9 @@ section
   h3(id='app.routes') app.routes
 
   p.
-    The <code>app.routes</code> object houses all of the routes defined mapped
-    by the associated HTTP verb. This object may be used for introspection capabilities,
-    for example Express uses this internally not only for routing but to provide default
-    <string>OPTIONS</string> behaviour unless <code>app.options()</code> is used. Your application
-    or framework may also remove routes by simply by removing them from this object.
+    <code>app.routes</code> 对象存储了所有的被HTTP verb定义路由。
+    这个对象可以用在一些内部功能上，比如Express不仅用它来做路由分发，同时在没有<code>app.options()</code>定义的情况下用它来处理默认的<string>OPTIONS</string>行为。
+    你的应用程序或者框架也可以很轻松的通过在这个对象里移除路由来达到删除路由的目的。
 
   +js.
     console.log(app.routes)

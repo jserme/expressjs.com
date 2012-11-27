@@ -2,17 +2,14 @@ section
   h3(id='app.all') app.all(path, [callback...], callback)
 
   p.
-    这个方法很像<code>app.VERB()</code> , 但是它匹配所有的HTTP verbs. 
+    这个方法很像<code>app.VERB()</code> , 但是它匹配所有的HTTP动作 
 
   p.
-    This method is extremely useful for
-    mapping "global" logic for specific path prefixes or arbitrary matches.
-    For example if you placed the following route at the top of all other
-    route definitions, it would require that all routes from that point on
-    would require authentication, and automatically load a user. Keep in mind
-    that these callbacks do not have to act as end points, <code>loadUser</code>
-    can perform a task, then <code>next()</code> to continue matching subsequent
-    routes.
+    这个方法在给特定前缀路径或者任意路径上处理时会特别有用。
+
+    
+    比如你想把下面的路由放在所有其它路由之前，它需要所有从这个路由开始的加载验证，并且自动加载一个用户
+    记住所有的回调都不应该被当作终点， <code>loadUser</code> 能够被当作一个任务，然后<code>next()</code>去匹配接下来的路由。
 
   +js.
     app.all('*', requireAuthentication, loadUser);
@@ -25,9 +22,6 @@ section
     app.all('*', loadUser);
 
   p.
-    Another great example of this is white-listed "global" functionality. Here
-    the example is much like before, however only restricting paths prefixed with
-    "/api":
-
+    另一个非常赞的例子是全局白名单函数。这里有一个例子跟前一个很像，但是它限制前缀为"/api": 
   +js.
     app.all('/api/*', requireAuthentication);
