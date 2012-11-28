@@ -2,9 +2,8 @@ section
   h3(id='req.params') req.params
 
   p.
-    This property is an array containing properties mapped to the named route "parameters".
-    For example if you have the route <code>/user/:name</code>, then the "name" property
-    is available to you as <code>req.params.name</code>. This object defaults to <code>{}</code>.
+    这是一个数组对象，命名过的参数会以键值对的形式存放。
+    比如你有一个路由<code>/user/:name</code>, "name"属性会存放在<code>req.params.name</code>. 这个对象默认为 <code>{}</code>.
 
   +js.
     // GET /user/tj
@@ -12,10 +11,7 @@ section
     // => "tj"
 
   p.
-    When a regular expression is used for the route definition, capture groups
-    are provided in the array using <code>req.params[N]</code>, where <code>N</code>
-    is the nth capture group. This rule is applied to unnamed wild-card matches
-    with string routes such as `/file/*`:
+    当使用正则表达式定义路由的时候，<code>req.params[N]</code>会是这个应用这个正则后的捕获分组, <code>N</code> 是代表的是第N个捕获分组。这个规则同样适用于全匹配的路由，如 `/file/*`:
 
   +js.
     // GET /file/javascripts/jquery.js

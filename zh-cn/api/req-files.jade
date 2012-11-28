@@ -2,15 +2,11 @@ section
   h3(id='req.files') req.files
 
   p.
-    This property is an object of the files uploaded. This feature
-    is provided by the <code>bodyParser()</code> middleware, though other body
-    parsing middleware may follow this convention as well. This property
-    defaults to <code>{}</code> when <code>bodyParser()</code> is used.
+    这是上传的文件的对象。这个特性是<code>bodyParser()</code> 中间件提供,其它的请求体解析中间件可以放在这个中间件之后。当<code>bodyParser()</code>中间件使用后，这个对象默认为 <code>{}</code>。 
 
   p.
-    For example if a <strong>file</strong> field was named "image",
-    and a file was uploaded, <code>req.files.image</code> would contain
-    the following <code>File</code> object:
+    例如 <strong>file</strong> 字段被命名为"image",
+    当一个文件上传完成后，<code>req.files.image</code> 将会包含下面的 <code>File</code> 对象:
 
   +js.
     { size: 74643,
@@ -36,12 +32,7 @@ section
       mime: [Getter] }
 
   p.
-    The <code>bodyParser()</code> middleware utilizes the
-    <a href="https://github.com/felixge/node-formidable">node-formidable</a>
-    module internally, and accepts the same options. An example of this
-    is the <code>keepExtensions</code> formidable option, defaulting to <strong>false</strong>
-    which in this case gives you the filename "/tmp/8ef9c52abe857867fd0a4e9a819d1876" void of
-    the ".png" extension. To enable this, and others you may pass them to <code>bodyParser()</code>:
+    <code>bodyParser()</code> 中间件是在内部使用<a href="https://github.com/felixge/node-formidable">node-formidable</a>来处理文件请求，所以接收的参数是一致的。 举个例子，使用formidable的选项<code>keepExtensions</code> , 它默认为 <strong>false</strong> , 在上面的例子可以看到给出的文件名"/tmp/8ef9c52abe857867fd0a4e9a819d1876" 不包含".png" 扩展名.  为了让它可以保留扩展名，你可以把参数传给 <code>bodyParser()</code>:
 
   +js.
     app.use(express.bodyParser({ keepExtensions: true, uploadDir: '/my/files' }));

@@ -2,10 +2,7 @@ section
   h3(id='req.body') req.body
 
   p.
-    This property is an object containing the parsed request body. This feature
-    is provided by the <code>bodyParser()</code> middleware, though other body
-    parsing middleware may follow this convention as well. This property
-    defaults to <code>{}</code> when <code>bodyParser()</code> is used.
+  这个对应的是解析过的请求体。这个特性是<code>bodyParser()</code> 中间件提供,其它的请求体解析中间件可以放在这个中间件之后。当<code>bodyParser()</code>中间件使用后，这个对象默认为 <code>{}</code>。 
 
   +js.
     // POST user[name]=tobi&user[email]=tobi@learnboost.com
