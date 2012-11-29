@@ -1,8 +1,8 @@
 section
   h3(id='req.get') req.get(field)
   p 
-    | Get the case-insensitive request header <code>field</code>. 
-    | The <em>Referrer</em> and <em>Referer</em> fields are interchangeable.
+    | 获取请求头里的<code>field</code>的值，大小写不敏感.
+    | <em>Referrer</em> 和 <em>Referer</em> 字段是可以互换的。
 
   +js.
     req.get('Content-Type');
@@ -14,4 +14,4 @@ section
     req.get('Something');
     // => undefined
 
-  p Aliased as <code>req.header(field)</code>.
+  p 别名为 <code>req.header(field)</code>.

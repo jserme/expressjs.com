@@ -371,13 +371,7 @@ defaults to <code>{}</code>, otherwise contains the cookies sent by
 the user-agent.
 </p><pre class="js"><code>// Cookie: name=tj
 req.cookies.name
-// => "tj"</code></pre></section><section><h3 id="req.signedCookies">req.signedCookies</h3><p>When the <code>cookieParser(secret)</code> middleware is used this object
-defaults to <code>{}</code>, otherwise contains the signed cookies sent by
-the user-agent, unsigned and ready for use. Signed cookies reside in a different
-object to show developer intent, otherwise a malicious attack could be
-placed on `req.cookie` values which are easy to spoof. Note that signing
-a cookie does not mean it is "hidden" nor encrypted, this simply prevents
-tampering as the secret used to sign is private.
+// => "tj"</code></pre></section><section><h3 id="req.signedCookies">req.signedCookies</h3><p>当使用了<code>cookieParser(secret)</code> 中间件后，这个对象默认为<code>{}</code>, 否则包含了用户代理传回来的签名后的cookie，并等待使用。签名后的cookies被放在一个单独的对象里，恶意攻击者可以很简单的替换掉`req.cookie` 的值。需要注意的是签名的cookie不代表它是隐藏的或者加密的，这个只是简单的阻止截获cookie。
 </p><pre class="js"><code>// Cookie: user=tobi.CP7AWaXDfAKIRfH49dQzKJx7sKzzSoPq7/AcBBRVwlI3
 req.signedCookies.user
 // => "tobi"</code></pre></section><section><h3 id="req.get">req.get(field)</h3><p> 
