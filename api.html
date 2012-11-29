@@ -352,8 +352,8 @@ req.cookies.name
 </p><pre class="js"><code>// Cookie: user=tobi.CP7AWaXDfAKIRfH49dQzKJx7sKzzSoPq7/AcBBRVwlI3
 req.signedCookies.user
 // => "tobi"</code></pre></section><section><h3 id="req.get">req.get(field)</h3><p> 
-Get the case-insensitive request header <code>field</code>. 
-The <em>Referrer</em> and <em>Referer</em> fields are interchangeable.</p><pre class="js"><code>req.get('Content-Type');
+获取请求头里的<code>field</code>的值，大小写不敏感.
+<em>Referrer</em> 和 <em>Referer</em> 字段是可以互换的。</p><pre class="js"><code>req.get('Content-Type');
 // => "text/plain"
 
 req.get('content-type');
@@ -361,13 +361,8 @@ req.get('content-type');
 
 req.get('Something');
 // => undefined
-</code></pre><p>Aliased as <code>req.header(field)</code>.</p></section><section><h3 id="req.accepts">req.accepts(types)</h3><p>Check if the given <code>types</code> are acceptable, returning
-the best match when true, otherwise <code>undefined</code> - in which
-case you should respond with 406 "Not Acceptable".
-</p><p>The <code>type</code> value may be a single mime type string
-such as "application/json", the extension name
-such as "json", a comma-delimted list or an array. When a list
-or array is given the <em>best</em> match, if any is returned.
+</code></pre><p>别名为 <code>req.header(field)</code>.</p></section><section><h3 id="req.accepts">req.accepts(types)</h3><p>.    
+检查给定的<code>types</code> 是不是可以接受类型，当可以接受时返回最匹配的，否则返回<code>undefined</code> - 这个时候你应该响应一个406 "Not Acceptable".</p><p><code>type</code> 的值可能是单一的一个mime类型字符串,比如 "application/json", 扩展名为"json", 也可以为逗号分隔的列表或者数组。当给定的是数组或者列表，返回<em>最佳</em>匹配的。
 </p><pre class="js"><code>// Accept: text/html
 req.accepts('html');
 // => "html"
@@ -398,8 +393,7 @@ req.accepts('html, json');
 { value: 'text/html',
      quality: 0.5,
      type: 'text',
-     subtype: 'html' } ]</code></pre></section><section><h3 id="req.is">req.is(type)</h3><p>Check if the incoming request contains the "Content-Type" 
-header field, and it matches the give mime <code>type</code>.
+     subtype: 'html' } ]</code></pre></section><section><h3 id="req.is">req.is(type)</h3><p>检查请求的文件头是不是包含"Content-Type" 字段, 它匹配给定的<code>type</code>.
 </p><pre class="js"><code>// With Content-Type: text/html; charset=utf-8
 req.is('html');
 req.is('text/html');
@@ -413,8 +407,7 @@ req.is('application/*');
 // => true
 
 req.is('html');
-// => false</code></pre></section><section><h3 id="req.ip">req.ip</h3><p>Return the remote address, or when "trust proxy"
-is enabled - the upstream address.
+// => false</code></pre></section><section><h3 id="req.ip">req.ip</h3><p>返回远程地址，或者当“信任代理”使用时，返回上一级的地址
 </p><pre class="js"><code>req.ip
 // => "127.0.0.1"</code></pre></section><section><h3 id="req.ips">req.ips</h3><p>When "trust proxy" is `true`, parse
 the "X-Forwarded-For" ip address list
