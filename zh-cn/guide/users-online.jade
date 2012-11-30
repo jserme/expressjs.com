@@ -1,12 +1,11 @@
 section
-  h3(id='users-online') Users online count
+  h3(id='users-online') 在线用户计数
 
   p.
-    This section details a full (small) application that tracks a users online
-    count using <a href="http://redis.io">Redis</a>. First up you'll need to 
-    create a package.json file containing two dependencies, one for the redis
-    client, another for Express itself. Also make sure you have redis installed
-    and running via <code>$ redis-server</code>.
+    这一小节我们讲解一个小而全的应用程序，它通过<a href="http://redis.io">Redis</a>记录在线用户数。
+    首先你需要创建一个package.json 文件，包含两个依赖,
+    一个是redis 客户端，另一个是Express。
+    另外需要确认你安装了redis, 可以能过执行<code>$ redis-server</code>来确认：
 
   +js.
     {
@@ -19,7 +18,7 @@ section
     }
 
   p.
-    Next you'll need to create an app, and a connection to redis:
+    接下来你需要你创建一个应用程序，和一个redis连接：
 
   +js.
     var express = require('express');
@@ -28,11 +27,10 @@ section
     var app = express();
 
   p.
-    Next up is the middleware for tracking online users. Here we'll
-    use sorted sets so that we can query redis for the users
-    online within the last N milliseconds. We do this by passing
-    a timestamp as the member's "score". Note that here we're using
-    the User-Agent string in place of what would normally be a user id.
+    接下来是纪录用户在线的中间件。
+    这里我们使用sorted sets, 它的一个好处是我们可以查询最近N毫秒内在线的用户。
+    我们通过传入一个时间戳来当作成员的"score"。
+    注意我们使用 User-Agent 作为一个标识用户的id。
 
   +js.
     app.use(function(req, res, next){
@@ -41,11 +39,8 @@ section
     });
 
   p.
-    This next middleware is for fetching the users online
-    in the last minute using <strong>zrevrangebyscore</strong>
-    to fetch with a positive infinite max value so that we're
-    always getting the most recent users, capped with a minimum score
-    of the current timestamp minus 60,000 milliseconds.
+    下一个中间件是通过<strong>zrevrangebyscore</strong>来查询上一分钟在线用户。
+    我们将能得到从当前时间算起在60,000毫秒内活跃的用户。
 
   +js.
     app.use(function(req, res, next){
@@ -59,9 +54,7 @@ section
     });
 
   p.
-    Then finally we use it, and bind to a port! That's
-    all there is to it, visit the app in a few browsers
-    and you'll see the count increase.
+    最后我们来使用它，绑定到一个端口！这些就是这个程序的一切了，在不同的浏览器里访问这个应用程序，你会看到计数的增长。
   
   +js.
     app.get('/', function(req, res){

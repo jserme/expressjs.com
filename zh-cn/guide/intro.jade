@@ -1,21 +1,18 @@
 section
-  h3(id='intro') Getting started
+  h3(id='intro') 开始
 
   p.
-    With node installed (<a href="http://nodejs.org/#download">download</a>),
-    get your first application started by creating a directory somewhere
-    on your machine:
+    在确认已经安装了node之后(<a href="http://nodejs.org/#download">下载</a>),
+    在你的机器上创建一个目录，让我们来开始你的第一个应用程序吧
 
   +js.
     $ mkdir hello-world
 
   p.
-    In this same directory you'll be defining the application "package", which
-    are no different than any other node package. You'll need a package.json
-    file in the directory, with express defined as a dependency. You may use
-    <code>npm info express version</code> to fetch the latest version, it's
-    preferred that you do this instead of "3.x" below to prevent any future
-    surprises.
+    在这个目录中你首先得定义一下你的应用程序“包”文件，它和其它的node程序包是一样的。
+    你得在这个目录中创建一个package.json文件，在里面express作为一个依赖。
+    你也可以使用 <code>npm info express version</code> 来获取express最新的版本号，
+    最好使用最新的版本号而不是下面的3.x，这样新出的功能就不会让你感觉到奇怪了。
 
   +js.
     {
@@ -29,18 +26,15 @@ section
     }
 
   p.
-    Now that you have a package.json file in this directory you can use
-    <code>npm(1)</code> to install the dependencies, in this case just
-    Express:
+    现在package.json文件已经准备好了，使用<code>npm(1)</code> 安装依赖，
+    这里的依赖仅仅是Express。
 
   +js.
     $ npm install
 
   p.
-    Once npm finishes you'll have a localized Express 3.x dependency in
-    the ./node_modules directory. You may verify this with <code>npm ls</code>
-    as shown in the following snippet displaying a tree of Express and its
-    own dependencies.
+    当npm完成后，Express 3.x 和它的依赖就安装到你的 ./node_modules 目录里了。
+    你可以通过 <code>npm ls</code> 来确认一下，它会把Express 和它的依赖展示成下面的树状结构。
 
   +js.
     $ npm ls
@@ -65,19 +59,18 @@ section
         └── mime@1.2.6
 
   p.
-    Now to create the application itself! Create a file named app.js or server.js,
-    whichever you prefer, require express and then create a new application with <code>express()</code>:
+    现在我们来写真正的代码了！创建一个名为app.js 或者 server.js的文件，叫什么看你个人喜好了。
+    载入express 然后使用代码 <code>express()</code>创建一个新的应用程序:
 
   +js.
     var express = require('express');
     var app = express();
 
   p.
-    With the new application instance you can start defining routes via <code>app.VERB()</code>,
-    in this case "GET /" responding with the "Hello World" string. The <code>req</code> and
-    <code>res</code> are the exact same objects that node provides to you, thus you may invoke
-    <code>res.pipe()</code>, <code>req.on('data', callback)</code> and anything else you
-    would do without Express involved.
+    在这个应用程序实例里，你可以通过 <code>app.VERB()</code>定义路由，下面的例子是"GET /"返回
+    "Hello World" 字符串。
+    <code>req</code> 和 <code>res</code> 对象是和node原生提供给你的一致的，你也可以执行
+    <code>res.pipe()</code>, <code>req.on('data', callback)</code> 等任何事情在没有Express的情况下可以做的事情。
 
   +js.
     app.get('/hello.txt', function(req, res){
@@ -88,9 +81,8 @@ section
     });
 
   p.
-    Express augments these objects providing you with higher level
-    methods such as <code>res.send()</code>, which among other things
-    adds the Content-Length for you:
+    Express 给这些对象加了一个封装好的方法，比如
+    <code>res.send()</code>, 它会帮你设置Content-Length:
 
   +js.
     app.get('/hello.txt', function(req, res){
@@ -98,8 +90,8 @@ section
     });
  
   p.
-    Now to bind and listen for connections invoke the <code>app.listen()</code> method,
-    accepting the same arguments as node's <a href="http://nodejs.org/api/net.html#net_server_listen_port_host_backlog_listeninglistener">net.Server#listen()</a>:
+    现在我们通过执行 <code>app.listen()</code> 来绑定并监听连接。
+    它接受的参数和node<a href="http://nodejs.org/api/net.html#net_server_listen_port_host_backlog_listeninglistener">net.Server#listen()</a>的方法一致:
 
   +js.
     app.listen(3000);

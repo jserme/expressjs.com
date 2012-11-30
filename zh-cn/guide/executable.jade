@@ -1,19 +1,17 @@
 section
-  h3(id='executable') Using express(1) to generate an app
+  h3(id='executable') 使用express(1) 来生成一个应用程序
 
   p.
-    Express is bundled with an executable, aptly named <code>express(1)</code>.
-    If you install express globally with npm you'll have it available from anywhere
-    on your machine:
+    Express 附带了一个可以执行的文件，这里命名为 <code>express(1)</code>.
+    如果你使用npm全局安装的express, 在你的机器任何位置它都是可用的:
 
   +js.
     $ npm install -g express
 
   p.
-    This tool provides a simple way to get an application skeleton going,
-    but has limited scope, for example it supports only a few template engines,
-    whereas Express itself supports virtually any template engine built for node.
-    Be sure to check out the <code>--help</code>:
+    这个工具提供了一个非常简单的生成一个程序骨架的功能，但是它也有局限，比如它只支持很少的几个模板引擎。
+    而事实上Express几乎支持所有的为node所建的模板引擎。
+    使用 <code>--help</code>查看一下帮助:
 
   +js.
   
@@ -21,17 +19,16 @@ section
 
     Options:
 
-      -h, --help          output usage information
-      -V, --version       output the version number
-      -s, --sessions      add session support
-      -e, --ejs           add ejs engine support (defaults to jade)
-      -J, --jshtml        add jshtml engine support (defaults to jade)
-      -H, --hogan         add hogan.js engine support
-      -c, --css <engine>  add stylesheet <engine> support (less|stylus) (defaults to plain css)
-      -f, --force         force on non-empty directory
+      -h, --help          输出帮助信息
+      -V, --version       输出版本号
+      -s, --sessions      添加 session 支持
+      -e, --ejs           添加 ejs 模板引擎支持 (默认为jade)
+      -J, --jshtml        添加 jshtml模板引擎支持 (默认为jade)
+      -H, --hogan         添加 hogan.js模板引擎支持
+      -c, --css <engine>  样式 <引擎> 支持 (less|stylus) (默认为css)
+      -f, --force         强制在非空目录执行
   p.
-    If you want to generate an application with EJS, Stylus, and session
-    support you would simply execute:
+    如果你想生成一个支持EJS, Stylus, 和session的应用程序，只需要简单的执行下面的命令：
 
   +js.
     $ express --sessions --css stylus --ejs myapp
@@ -56,21 +53,19 @@ section
       $ node app  
 
   p.
-    Like any other node application, you must then install the dependencies:
+    和其它node程序一样，你必须安装依赖：
 
   +js.
     $ cd myapp
     $ npm install
 
   p.
-   Then fire it up!
+   然后让我们运行它吧！
 
   +js.
     $ node app
 
   p.
-    That's all you need to get a simple application up and running. Keep in mind
-    that Express is not bound to any specific directory structure, these are simply
-    a baseline for you to work from. For application structure alternatives be
-    sure to view the <a href="https://github.com/visionmedia/express/tree/master/examples">examples</a>
-    found in the github repo.
+    这些就是一个简单的应用程序创建和运行的所有步骤。
+    记住Express没有限定任何的目录结构，这只是一个方便你工作的基本结构。
+    如果你想得到更多怎么组织目录结构选择，可以查看github上的<a href="https://github.com/visionmedia/express/tree/master/examples">示例</a>。

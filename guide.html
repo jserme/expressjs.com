@@ -1,14 +1,11 @@
-<!DOCTYPE html><html><head><title>Express - 新手指南</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin,latin-ext"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script><script src="app.js"></script><script src="retina.js"></script></head><body class="inner"><div class="bar"></div><section id="content"><header><section id="logo"><span class="express">express<em>3.0.0</em></span><span class="description"> 
-web application framework for <a href="http://nodejs.org">node  </a></span></section><nav class="clearfix"><a href="/" class=""> 首页</a><a href="/api.html" class=""> API 参考</a><a href="/guide.html" class="active"> 新手指南 </a><a href="/applications.html" class=""> 应用展示</a><a href="/community.html" class=""> 社区</a><a href="/faq.html" class=""> 问答</a></nav></header><ul id="menu"><li><ul><li><a href="#intro">开始 </a></li><li><a href="#executable">可执行的express(1)</a></li><li><a href="#error-handling">错误处理</a></li><li><a href="#users-online">在线用户计数</a></li><li><a href="#proxies">在Express前加一层代理 </a></li></ul></li></ul><section><h3 id="intro">Getting started</h3><p>With node installed (<a href="http://nodejs.org/#download">download</a>),
-get your first application started by creating a directory somewhere
-on your machine:
+<!DOCTYPE html><html><head><title>Express - 新手指南</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin,latin-ext"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script><script src="app.js"></script><script src="retina.js"></script></head><body class="inner"><div class="bar"></div><section id="content"><header><section id="logo"><span class="express">express<em>3.0.0</em></span><span class="description"> 
+web application framework for <a href="http://nodejs.org">node  </a></span></section><nav class="clearfix"><a href="/" class=""> 首页</a><a href="/api.html" class=""> API 参考</a><a href="/guide.html" class="active"> 新手指南 </a><a href="/applications.html" class=""> 应用展示</a><a href="/community.html" class=""> 社区</a><a href="/faq.html" class=""> 问答</a></nav></header><ul id="menu"><li><ul><li><a href="#intro">开始 </a></li><li><a href="#executable">可执行的express(1)</a></li><li><a href="#error-handling">错误处理</a></li><li><a href="#users-online">在线用户计数</a></li><li><a href="#proxies">在Express前加一层代理 </a></li></ul></li></ul><section><h3 id="intro">开始</h3><p>在确认已经安装了node之后(<a href="http://nodejs.org/#download">下载</a>),
+在你的机器上创建一个目录，让我们来开始你的第一个应用程序吧
 </p><pre class="js"><code>$ mkdir hello-world
-</code></pre><p>In this same directory you'll be defining the application "package", which
-are no different than any other node package. You'll need a package.json
-file in the directory, with express defined as a dependency. You may use
-<code>npm info express version</code> to fetch the latest version, it's
-preferred that you do this instead of "3.x" below to prevent any future
-surprises.
+</code></pre><p>在这个目录中你首先得定义一下你的应用程序“包”文件，它和其它的node程序包是一样的。
+你得在这个目录中创建一个package.json文件，在里面express作为一个依赖。
+你也可以使用 <code>npm info express version</code> 来获取express最新的版本号，
+最好使用最新的版本号而不是下面的3.x，这样新出的功能就不会让你感觉到奇怪了。
 </p><pre class="js"><code>{
   "name": "hello-world",
   "description": "hello world test app",
@@ -18,14 +15,11 @@ surprises.
     "express": "3.x"
   }
 }
-</code></pre><p>Now that you have a package.json file in this directory you can use
-<code>npm(1)</code> to install the dependencies, in this case just
-Express:
+</code></pre><p>现在package.json文件已经准备好了，使用<code>npm(1)</code> 安装依赖，
+这里的依赖仅仅是Express。
 </p><pre class="js"><code>$ npm install
-</code></pre><p>Once npm finishes you'll have a localized Express 3.x dependency in
-the ./node_modules directory. You may verify this with <code>npm ls</code>
-as shown in the following snippet displaying a tree of Express and its
-own dependencies.
+</code></pre><p>当npm完成后，Express 3.x 和它的依赖就安装到你的 ./node_modules 目录里了。
+你可以通过 <code>npm ls</code> 来确认一下，它会把Express 和它的依赖展示成下面的树状结构。
 </p><pre class="js"><code>$ npm ls
 hello-world@0.0.1 /private/tmp
 └─┬ express@3.0.0beta7
@@ -46,51 +40,46 @@ hello-world@0.0.1 /private/tmp
   │ └── crc@0.2.0
   └─┬ send@0.0.3
     └── mime@1.2.6
-    </code></pre><p>Now to create the application itself! Create a file named app.js or server.js,
-whichever you prefer, require express and then create a new application with <code>express()</code>:
+    </code></pre><p>现在我们来写真正的代码了！创建一个名为app.js 或者 server.js的文件，叫什么看你个人喜好了。
+载入express 然后使用代码 <code>express()</code>创建一个新的应用程序:
 </p><pre class="js"><code>var express = require('express');
 var app = express();
-</code></pre><p>With the new application instance you can start defining routes via <code>app.VERB()</code>,
-in this case "GET /" responding with the "Hello World" string. The <code>req</code> and
-<code>res</code> are the exact same objects that node provides to you, thus you may invoke
-<code>res.pipe()</code>, <code>req.on('data', callback)</code> and anything else you
-would do without Express involved.
+</code></pre><p>在这个应用程序实例里，你可以通过 <code>app.VERB()</code>定义路由，下面的例子是"GET /"返回
+"Hello World" 字符串。
+<code>req</code> 和 <code>res</code> 对象是和node原生提供给你的一致的，你也可以执行
+<code>res.pipe()</code>, <code>req.on('data', callback)</code> 等任何事情在没有Express的情况下可以做的事情。
 </p><pre class="js"><code>app.get('/hello.txt', function(req, res){
   var body = 'Hello World';
   res.setHeader('Content-Type', 'text/plain');
   res.setHeader('Content-Length', body.length);
   res.end(body);
 });
-</code></pre><p>Express augments these objects providing you with higher level
-methods such as <code>res.send()</code>, which among other things
-adds the Content-Length for you:
+</code></pre><p>Express 给这些对象加了一个封装好的方法，比如
+<code>res.send()</code>, 它会帮你设置Content-Length:
 </p><pre class="js"><code>app.get('/hello.txt', function(req, res){
   res.send('Hello World');
 });
-</code></pre><p>Now to bind and listen for connections invoke the <code>app.listen()</code> method,
-accepting the same arguments as node's <a href="http://nodejs.org/api/net.html#net_server_listen_port_host_backlog_listeninglistener">net.Server#listen()</a>:
+</code></pre><p>现在我们通过执行 <code>app.listen()</code> 来绑定并监听连接。
+它接受的参数和node<a href="http://nodejs.org/api/net.html#net_server_listen_port_host_backlog_listeninglistener">net.Server#listen()</a>的方法一致:
 </p><pre class="js"><code>app.listen(3000);
-console.log('Listening on port 3000');</code></pre></section><section><h3 id="executable">Using express(1) to generate an app</h3><p>Express is bundled with an executable, aptly named <code>express(1)</code>.
-If you install express globally with npm you'll have it available from anywhere
-on your machine:
+console.log('Listening on port 3000');</code></pre></section><section><h3 id="executable">使用express(1) 来生成一个应用程序</h3><p>Express 附带了一个可以执行的文件，这里命名为 <code>express(1)</code>.
+如果你使用npm全局安装的express, 在你的机器任何位置它都是可用的:
 </p><pre class="js"><code>$ npm install -g express
-</code></pre><p>This tool provides a simple way to get an application skeleton going,
-but has limited scope, for example it supports only a few template engines,
-whereas Express itself supports virtually any template engine built for node.
-Be sure to check out the <code>--help</code>:
+</code></pre><p>这个工具提供了一个非常简单的生成一个程序骨架的功能，但是它也有局限，比如它只支持很少的几个模板引擎。
+而事实上Express几乎支持所有的为node所建的模板引擎。
+使用 <code>--help</code>查看一下帮助:
 </p><pre class="js"><code>Usage: express [options]
 
 Options:
 
-  -h, --help          output usage information
-  -V, --version       output the version number
-  -s, --sessions      add session support
-  -e, --ejs           add ejs engine support (defaults to jade)
-  -J, --jshtml        add jshtml engine support (defaults to jade)
-  -H, --hogan         add hogan.js engine support
-  -c, --css <engine>  add stylesheet <engine> support (less|stylus) (defaults to plain css)
-  -f, --force         force on non-empty directory</code></pre><p>If you want to generate an application with EJS, Stylus, and session
-support you would simply execute:
+  -h, --help          输出帮助信息
+  -V, --version       输出版本号
+  -s, --sessions      添加 session 支持
+  -e, --ejs           添加 ejs 模板引擎支持 (默认为jade)
+  -J, --jshtml        添加 jshtml模板引擎支持 (默认为jade)
+  -H, --hogan         添加 hogan.js模板引擎支持
+  -c, --css <engine>  样式 <引擎> 支持 (less|stylus) (默认为css)
+  -f, --force         强制在非空目录执行</code></pre><p>如果你想生成一个支持EJS, Stylus, 和session的应用程序，只需要简单的执行下面的命令：
 </p><pre class="js"><code>$ express --sessions --css stylus --ejs myapp
 
 create : myapp
@@ -111,51 +100,43 @@ install dependencies:
   
 run the app:
   $ node app  
-  </code></pre><p>Like any other node application, you must then install the dependencies:
+  </code></pre><p>和其它node程序一样，你必须安装依赖：
 </p><pre class="js"><code>$ cd myapp
 $ npm install
-</code></pre><p>Then fire it up!
+</code></pre><p>然后让我们运行它吧！
 </p><pre class="js"><code>$ node app
-</code></pre><p>That's all you need to get a simple application up and running. Keep in mind
-that Express is not bound to any specific directory structure, these are simply
-a baseline for you to work from. For application structure alternatives be
-sure to view the <a href="https://github.com/visionmedia/express/tree/master/examples">examples</a>
-found in the github repo.</p></section><section><h3 id="error-handling">Error handling</h3><p>Error-handling middleware are defined just like regular middleware,
-however must be defined with an arity of 4, that is the signature
+</code></pre><p>这些就是一个简单的应用程序创建和运行的所有步骤。
+记住Express没有限定任何的目录结构，这只是一个方便你工作的基本结构。
+如果你想得到更多怎么组织目录结构选择，可以查看github上的<a href="https://github.com/visionmedia/express/tree/master/examples">示例</a>。</p></section><section><h3 id="error-handling">错误处理</h3><p>错误处理的中间件和普通的中间件定义是一样的，
+只是它必须有4个形参，这是它的形式：
 <code>(err, req, res, next)</code>:
 </p><pre class="js"><code>app.use(function(err, req, res, next){
   console.error(err.stack);
   res.send(500, 'Something broke!');
 });
-</code></pre><p>Though not mandatory error-handling middleware are typically defined
-very last, below any other <code>app.use()</code> calls as shown here:
+</code></pre><p>一般来说非强制性的错误处理一般被定义在最后，下面的代码展示的就是放在别的
+<code>app.use()</code> 之后：
 </p><pre class="js"><code>app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(function(err, req, res, next){
   // logic
 });
-</code></pre><p>Responses from within these middleware are completely arbitrary. You may
-wish to respond with an HTML error page, a simple message, a JSON string,
-or anything else you prefer.
-</p><p>For organizational, and higher-level framework purposes you may define
-several of these error-handling middleware, much like you would with
-regular middleware. For example suppose you wanted to define an error-handler
-for requests made via XHR, and those without, you might do:
+</code></pre><p>在这些中间件里的响应是可以任意定义的。只要你喜欢，你可以返回任意的内容，譬如HTML页面, 一个简单的消息，或者一个JSON字符串。
+</p><p>对于一些组织或者更高层次的框架，你可能会像定义普通的中间件一样定义一些错误处理的中间件。
+假设你想定义一个中间件区别对待通过XHR和其它请求的错误处理，你可以这么做：
 </p><pre class="js"><code>app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(logErrors);
 app.use(clientErrorHandler);
 app.use(errorHandler);
-</code></pre><p>Where the more generic <code>logErrors</code> may write request and
-error information to stderr, loggly, or similar services:
+</code></pre><p>通常<code>logErrors</code>用来纪录诸如stderr, loggly, 或者类似服务的错误信息：
 </p><pre class="js"><code>function logErrors(err, req, res, next) {
   console.error(err.stack);
   next(err);
 }
-</code></pre><p>Where <code>clientErrorHandler</code> is defined as the following, note
-that the error is explicitly passed along to the next.
+</code></pre><p><code>clientErrorHandler</code> 定义如下，注意错误非常明确的向后传递了。
 </p><pre class="js"><code>function clientErrorHandler(err, req, res, next) {
   if (req.xhr) {
     res.send(500, { error: 'Something blew up!' });
@@ -163,15 +144,14 @@ that the error is explicitly passed along to the next.
     next(err);
   }
 }
-</code></pre><p>The following <code>errorHandler</code> "catch-all" implementation may be defined as:
+</code></pre><p>下面的<code>errorHandler</code> "捕获所有" 的异常， 定义为:
 </p><pre class="js"><code>function errorHandler(err, req, res, next) {
   res.status(500);
   res.render('error', { error: err });
-}</code></pre></section><section><h3 id="users-online">Users online count</h3><p>This section details a full (small) application that tracks a users online
-count using <a href="http://redis.io">Redis</a>. First up you'll need to 
-create a package.json file containing two dependencies, one for the redis
-client, another for Express itself. Also make sure you have redis installed
-and running via <code>$ redis-server</code>.
+}</code></pre></section><section><h3 id="users-online">在线用户计数</h3><p>这一小节我们讲解一个小而全的应用程序，它通过<a href="http://redis.io">Redis</a>记录在线用户数。
+首先你需要创建一个package.json 文件，包含两个依赖,
+一个是redis 客户端，另一个是Express。
+另外需要确认你安装了redis, 可以能过执行<code>$ redis-server</code>来确认：
 </p><pre class="js"><code>{
   "name": "app",
   "version": "0.0.1",
@@ -180,25 +160,21 @@ and running via <code>$ redis-server</code>.
     "redis": "*"
   }
 }
-</code></pre><p>Next you'll need to create an app, and a connection to redis:
+</code></pre><p>接下来你需要你创建一个应用程序，和一个redis连接：
 </p><pre class="js"><code>var express = require('express');
 var redis = require('redis');
 var db = redis.createClient();
 var app = express();
-</code></pre><p>Next up is the middleware for tracking online users. Here we'll
-use sorted sets so that we can query redis for the users
-online within the last N milliseconds. We do this by passing
-a timestamp as the member's "score". Note that here we're using
-the User-Agent string in place of what would normally be a user id.
+</code></pre><p>接下来是纪录用户在线的中间件。
+这里我们使用sorted sets, 它的一个好处是我们可以查询最近N毫秒内在线的用户。
+我们通过传入一个时间戳来当作成员的"score"。
+注意我们使用 User-Agent 作为一个标识用户的id。
 </p><pre class="js"><code>app.use(function(req, res, next){
   var ua = req.headers['user-agent'];
   db.zadd('online', Date.now(), ua, next);
 });
-</code></pre><p>This next middleware is for fetching the users online
-in the last minute using <strong>zrevrangebyscore</strong>
-to fetch with a positive infinite max value so that we're
-always getting the most recent users, capped with a minimum score
-of the current timestamp minus 60,000 milliseconds.
+</code></pre><p>下一个中间件是通过<strong>zrevrangebyscore</strong>来查询上一分钟在线用户。
+我们将能得到从当前时间算起在60,000毫秒内活跃的用户。
 </p><pre class="js"><code>app.use(function(req, res, next){
   var min = 60 * 1000;
   var ago = Date.now() - min;
@@ -208,31 +184,21 @@ of the current timestamp minus 60,000 milliseconds.
     next();
   });
 });
-</code></pre><p>Then finally we use it, and bind to a port! That's
-all there is to it, visit the app in a few browsers
-and you'll see the count increase.
+</code></pre><p>最后我们来使用它，绑定到一个端口！这些就是这个程序的一切了，在不同的浏览器里访问这个应用程序，你会看到计数的增长。
 </p><pre class="js"><code>app.get('/', function(req, res){
   res.send(req.online.length + ' users online');
 });
 
-app.listen(3000);</code></pre></section><section><h3 id="proxies">Express behind proxies</h3><p>Using Express behind a reverse proxy such as Varnish or Nginx
-is trivial, however it does require configuration. By enabling the "trust proxy" setting via 
-<code>app.enable('trust proxy')</code>,  Express will have knowledge that
-it's sitting behind a proxy and that the <code>X-Forwarded-*</code> header
-fields may be trusted, which otherwise may be easily spoofed.
-</p><p>Enabling this setting has several subtle effects. The first of which is
-that <code>X-Forwarded-Proto</code> may be set by the reverse proxy to
-tell the app that it is https or simply http. This value is reflected
-by <a href="/api#req.protocol">req.protocol</a>.
-</p><p>The second change this makes is the <a href="/api#req.ip">req.ip</a> 
-and <a href="/api#req.ips">req.ips</a> values will be populated with
-<code>X-Forwarded-For</code>'s list of addresses. </p></section></section><script>var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-25235225-1']);
-_gaq.push(['_trackPageview']);
-
-(function() {
+app.listen(3000);</code></pre></section><section><h3 id="proxies">给Express加一层代理</h3><p>在Express的前端使用一个反向代理，比如 Varnish 或者 Nginx是非常常见的,它不需要额外的配置。
+在通过<code>app.enable('trust proxy')</code>激活了"trust proxy" 设置后，
+Express 就会知道它在一个代理的后面，<code>X-Forwarded-*</code> 必须被信任，
+通常情况下这些头是很容易被伪装的。
+</p><p>使用了这个设置后会有一些很棒的小变化。 
+首先由代理设置的<code>X-Forwarded-Proto</code> 会告诉程序它是https 还是http 。
+这个值会影响<a href="/api#req.protocol">req.protocol</a>.
+</p><p>第二个变化是 <a href="/api#req.ip">req.ip</a> 和 <a href="/api#req.ips">req.ips</a> 的值会被<code>X-Forwarded-For</code>列表里的地址取代。</p></section></section><script>(function() {
   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + unescape("hm.baidu.com/h.js%3F467c8a7e69297ef8967311f5c8d52672');
+  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'hm.baidu.com/h.js?47a437a0834ace3da0dac1156ed8369f';
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
 </script><a id="top" href="#"><img src="images/arrow.png"></a><footer><div id="footer-content">© 2012 TJ Holowaychuk. 版权所有. <a href="http://jser.me">草依山</a>翻译</div></footer></body></html>

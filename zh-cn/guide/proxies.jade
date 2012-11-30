@@ -1,20 +1,16 @@
 section
-  h3(id='proxies') Express behind proxies
+  h3(id='proxies') 给Express加一层代理
 
   p.
-    Using Express behind a reverse proxy such as Varnish or Nginx
-    is trivial, however it does require configuration. By enabling the "trust proxy" setting via 
-    <code>app.enable('trust proxy')</code>,  Express will have knowledge that
-    it's sitting behind a proxy and that the <code>X-Forwarded-*</code> header
-    fields may be trusted, which otherwise may be easily spoofed.
+    在Express的前端使用一个反向代理，比如 Varnish 或者 Nginx是非常常见的,它不需要额外的配置。
+    在通过<code>app.enable('trust proxy')</code>激活了"trust proxy" 设置后，
+    Express 就会知道它在一个代理的后面，<code>X-Forwarded-*</code> 必须被信任，
+    通常情况下这些头是很容易被伪装的。
 
   p.
-    Enabling this setting has several subtle effects. The first of which is
-    that <code>X-Forwarded-Proto</code> may be set by the reverse proxy to
-    tell the app that it is https or simply http. This value is reflected
-    by <a href="/api#req.protocol">req.protocol</a>.
+    使用了这个设置后会有一些很棒的小变化。 
+    首先由代理设置的<code>X-Forwarded-Proto</code> 会告诉程序它是https 还是http 。
+    这个值会影响<a href="/api#req.protocol">req.protocol</a>.
 
   p.
-    The second change this makes is the <a href="/api#req.ip">req.ip</a> 
-    and <a href="/api#req.ips">req.ips</a> values will be populated with
-    <code>X-Forwarded-For</code>'s list of addresses. 
+    第二个变化是 <a href="/api#req.ip">req.ip</a> 和 <a href="/api#req.ips">req.ips</a> 的值会被<code>X-Forwarded-For</code>列表里的地址取代。

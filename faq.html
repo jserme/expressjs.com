@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>Express - 问答</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin,latin-ext"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script><script src="app.js"></script><script src="retina.js"></script></head><body class="inner"><div class="bar"></div><section id="content"><header><section id="logo"><span class="express">express<em>3.0.0</em></span><span class="description"> 
+<!DOCTYPE html><html><head><title>Express - 问答</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin,latin-ext"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script><script src="app.js"></script><script src="retina.js"></script></head><body class="inner"><div class="bar"></div><section id="content"><header><section id="logo"><span class="express">express<em>3.0.0</em></span><span class="description"> 
 web application framework for <a href="http://nodejs.org">node  </a></span></section><nav class="clearfix"><a href="/" class=""> 首页</a><a href="/api.html" class=""> API 参考</a><a href="/guide.html" class=""> 新手指南 </a><a href="/applications.html" class=""> 应用展示</a><a href="/community.html" class=""> 社区</a><a href="/faq.html" class="active"> 问答</a></nav></header><div id="faq"><section><h3 id="models">怎样定义模型?</h3><p></p><Express>根本没有涉及到数据库，这个任务留给了第三方的node模块，有了第三方的模块基本上可以与任何数据库交互</Express></section><section><h3 id="auth">怎样做用户认证?</h3><p></p>这是另一个Express不会做的事情， 你可以使用任何你想用的认证方案，<a href="https://github.com/visionmedia/express/tree/master/examples/auth">这里有一个简单的例子</a>。</section><section><h3 id="templates">Express 支持哪个模板引擎?</h3><p>任何遵守这样回调的 <code>(path, locals, callback)</code> .
 为了统一模板引擎接口和缓存，推荐查看<a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a>
 寻找帮助. 有些没有列出来的模板引擎没准也支持Express.
@@ -30,13 +30,9 @@ app.use(express.static('files'));
 </code></pre><p>查看 <a href="/guide.html#error-handling">错误处理</a>, 获取更多信息 
 </p></setup><setup><h3 id="render-html">怎样输出纯HTML文件?</h3><p>不要这么做！根本没有必要直接使用<code>res.render()</code>输出HTML文件,
 如果你有一个特定的文件应该使用 <code>res.sendfile()</code>,如果你要使用一个目录里大量的静态资源提供服务，请使用 <code>express.static()</code> 中间件.
-</p></setup><setup><h3 id="size">Express的代码库有多大？</h3><p>Express 是一个非常小的框架，3.0.0正式发布版只有932行源码，Express强烈依赖的Connect只有267行源码，Connect可选的中间件和扩展总共1143行源码，并且只有到使用时才会加载</p></setup></div></section><script>var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-25235225-1']);
-_gaq.push(['_trackPageview']);
-
-(function() {
+</p></setup><setup><h3 id="size">Express的代码库有多大？</h3><p>Express 是一个非常小的框架，3.0.0正式发布版只有932行源码，Express强烈依赖的Connect只有267行源码，Connect可选的中间件和扩展总共1143行源码，并且只有到使用时才会加载</p></setup></div></section><script>(function() {
   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + unescape("hm.baidu.com/h.js%3F467c8a7e69297ef8967311f5c8d52672');
+  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'hm.baidu.com/h.js?47a437a0834ace3da0dac1156ed8369f';
   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
 </script><a id="top" href="#"><img src="images/arrow.png"></a><footer><div id="footer-content">© 2012 TJ Holowaychuk. 版权所有. <a href="http://jser.me">草依山</a>翻译</div></footer></body></html>
