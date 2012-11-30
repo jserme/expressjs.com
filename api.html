@@ -448,42 +448,40 @@ req.originalUrl
 </p><pre class="js"><code>Accept-Language: en;q=.5, en-us
 // => ['en-us', 'en']</code></pre></section><section><h3 id="req.acceptedCharsets">req.acceptedCharsets</h3><p>返回一个从高质量到低质量排序的可接受的字符集数组
 </p><pre class="js"><code>Accept-Charset: iso-8859-5;q=.2, unicode-1-1;q=0.8
-// => ['unicode-1-1', 'iso-8859-5']</code></pre></section><section><h3 id="req.acceptsCharset">req.acceptsCharset(charset)</h3><p>检查给定的<code>charset</code> 是不是可以接受的</p></section><section><h3 id="req.acceptsLanguage">req.acceptsLanguage(lang)</h3><p>检查给定的 <code>lang</code> 是不是可以接受的</p></section><h2>Response</h2><a name="response"></a><section><h3 id="res.status">res.status(code)</h3><p>Chainable alias of node's '`res.statusCode=`.
+// => ['unicode-1-1', 'iso-8859-5']</code></pre></section><section><h3 id="req.acceptsCharset">req.acceptsCharset(charset)</h3><p>检查给定的<code>charset</code> 是不是可以接受的</p></section><section><h3 id="req.acceptsLanguage">req.acceptsLanguage(lang)</h3><p>检查给定的 <code>lang</code> 是不是可以接受的</p></section><h2>Response</h2><a name="response"></a><section><h3 id="res.status">res.status(code)</h3><p>支持链式调用的 node's '`res.statusCode=`.
 </p><pre class="js"><code>res.status(404).sendfile('path/to/404.png');</code></pre></section><section><h3 id="res.set">res.set(field, [value])</h3><p> 
-Set header <code>field</code> to <code>value</code>,
-or pass an object to set multiple fields at once.</p><pre class="js"><code>res.set('Content-Type', 'text/plain');
+设置响应头字段<code>field</code> 值为 <code>value</code>,
+也可以一次传入一个对象设置多个值。</p><pre class="js"><code>res.set('Content-Type', 'text/plain');
 
 res.set({
   'Content-Type': 'text/plain',
   'Content-Length': '123',
   'ETag': '12345'
 })
-</code></pre><p>Aliased as <code>res.header(field, [value])</code>.</p></section><section><h3 id="res.get">res.get(field)</h3><p> 
-Get the case-insensitive response header <code>field</code>. </p><pre class="js"><code>res.get('Content-Type');
-// => "text/plain"</code></pre></section><section><h3 id="res.cookie">res.cookie(name, value, [options])</h3><p>Set cookie <code>name</code> to <code>value</code>, where
-which may be a string or object converted to JSON. The <code>path</code>
-option defaults to "/".
+</code></pre><p><code>res.header(field, [value])</code>的别名。</p></section><section><h3 id="res.get">res.get(field)</h3><p> 
+返回一个大小写不敏感的响应头里的 <code>field</code>的值 </p><pre class="js"><code>res.get('Content-Type');
+// => "text/plain"</code></pre></section><section><h3 id="res.cookie">res.cookie(name, value, [options])</h3><p>设置cookie <code>name</code> 值为<code>value</code>,
+接受字符串参数或者JSON对象。
+<code>path</code> 属性默认为 "/".
 </p><pre class="js"><code>res.cookie('name', 'tobi', { domain: '.example.com', path: '/admin', secure: true });
 res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
-</code></pre><p>The <code>maxAge</code> option is a convenience option for setting "expires"
-relative to the current time in milliseconds. The following is equivalent to
-the previous example.
+</code></pre><p><code>maxAge</code> 属性是一个便利的设置"expires",它是一个从当前时间算起的毫秒。
+下面的代码和上一个例子中的第二行是同样的作用。
 </p><pre class="js"><code>res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
-</code></pre><p>An object may be passed which is then serialized as JSON, which is
-automatically parsed by the <code>bodyParser()</code> middleware.
+</code></pre><p>可以传一个序列化的JSON对象作为参数，
+它会自动被<code>bodyParser()</code> 中间件解析。
 </p><pre class="js"><code>res.cookie('cart', { items: [1,2,3] });
 res.cookie('cart', { items: [1,2,3] }, { maxAge: 900000 });
-</code></pre><p>Signed cookies are also supported through this method. Simply
-pass the <code>signed</code> option. When given <code>res.cookie()</code>
-will use the secret passed to <code>express.cookieParser(secret)</code>
-to sign the value.
+</code></pre><p>这个方法也支持签名的cookies。
+只需要简单的传递<code>signed</code> 参数。 
+<code>res.cookie()</code> 会使用通过 <code>express.cookieParser(secret)</code> 传
+入的secret来签名这个值
 </p><pre class="js"><code>res.cookie('name', 'tobi', { signed: true });
-</code></pre><p>Later you may access this value through the <a href="#req.signedCookies">req.signedCookie</a>
-object.</p></section><section><h3 id="res.clearCookie">res.clearCookie(name, [options])</h3><p>Clear cookie <code>name</code>. The <code>path</code>
-option defaults to "/".
+</code></pre><p>稍后你就可以通过<a href="#req.signedCookies">req.signedCookie</a> 对象访问到这个值。</p></section><section><h3 id="res.clearCookie">res.clearCookie(name, [options])</h3><p>把<code>name</code>的cookie清除. 
+<code>path</code>参数默认为 "/".
 </p><pre class="js"><code>res.cookie('name', 'tobi', { path: '/admin' });
-res.clearCookie('name', { path: '/admin' });</code></pre></section><section><h3 id="res.redirect">res.redirect([status], url)</h3><p>Redirect to the given <code>url</code> with optional <code>status</code> code
-defaulting to 302 "Found".
+res.clearCookie('name', { path: '/admin' });</code></pre></section><section><h3 id="res.redirect">res.redirect([status], url)</h3><p>使用可选的状态码跳转到<code>url</code> 
+状态码<code>status</code>默认为302 "Found".
 </p><pre class="js"><code>res.redirect('/foo/bar');
 res.redirect('http://example.com');
 res.redirect(301, 'http://example.com');
@@ -509,7 +507,7 @@ would land you at <code>http//example.com/admin/post</code>:
 the Referer (or Referrer), defaulting to <code>/</code> when missing.
 </p><pre class="js"><code>res.redirect('back');
 
-</code></pre></section><section><h3 id="res.charset">res.charset</h3><p>Assign the charset. Defaults to "utf-8".
+</code></pre></section><section><h3 id="res.charset">res.charset</h3><p>设置字符集。默认为"utf-8"。
 </p><pre class="js"><code>res.charset = 'value';
 res.send('<p>some html</p>');
 // => Content-Type: text/html; charset=value</code></pre></section><section><h3 id="res.send">res.send([body|status], [body])</h3><p>Send a response.
@@ -542,16 +540,17 @@ body string is assigned for you. For example 200 will
 respond will the text "OK", and 204 "Not Found" and so on.
 </p><pre class="js"><code>res.send(200)
 res.send(204)
-res.send(500)</code></pre></section><section><h3 id="res.json">res.json([status|body], [body])</h3><p>Send a JSON response. This method is identical
-to <code>res.send()</code> when an object or
-array is passed, however it may be used for
-explicit JSON conversion of non-objects (null, undefined, etc),
-though these are technically not valid JSON.
+res.send(500)</code></pre></section><section><h3 id="res.json">res.json([status|body], [body])</h3><p>返回一个 JSON 响应。
+当<code>res.send()</code> 的参数是一个对象或者数组的时候，
+会调用这个方法。
+当然它也在复杂的空值(null, undefined, etc)JSON转换的时候很有用，
+因为规范上这些对象不是合法的JSON。
 </p><pre class="js"><code>res.json(null)
 res.json({ user: 'tobi' })
-res.json(500, { error: 'message' })</code></pre></section><section><h3 id="res.jsonp">res.jsonp([status|body], [body])</h3><p>Send a JSON response with JSONP support. This method is identical
-to <code>res.json()</code> however opts-in to JSONP callback
-support.
+res.json(500, { error: 'message' })</code></pre></section><section><h3 id="res.jsonp">res.jsonp([status|body], [body])</h3><p>返回一个支持JSONP的JSON响应。
+Send a JSON response with JSONP support. 
+这个方法同样使用了<code>res.json()</code>, 
+只是加了一个可以自定义的 JSONP 回调支持。
 </p><pre class="js"><code>res.jsonp(null)
 // => null
 
@@ -560,10 +559,9 @@ res.jsonp({ user: 'tobi' })
 
 res.jsonp(500, { error: 'message' })
 // => { "error": "message" }
-</code></pre><p>By default the JSONP callback name is simply <code>callback</code>,
-however you may alter this with the <a href="#app-settings">jsonp callback name</a>
-setting. The following are some examples of JSONP responses using the same
-code:
+</code></pre><p>默认情况下JSONP 回调的函数名就是<code>callback</code>。
+你可以通过<a href="#app-settings">jsonp callback name</a>来修改这个值。
+下面是一些使用JSONP的例子。
 </p><pre class="js"><code>// ?callback=foo
 res.jsonp({ user: 'tobi' })
 // => foo({ "user": "tobi" })
@@ -572,25 +570,25 @@ app.set('jsonp callback name', 'cb');
 
 // ?cb=foo
 res.jsonp(500, { error: 'message' })
-// => foo({ "error": "message" })</code></pre></section><section><h3 id="res.type">res.type(type)</h3><p>Sets the Content-Type to the mime lookup of <code>type</code>,
+// => foo({ "error": "message" })
+</code></pre></section><section><h3 id="res.type">res.type(type)</h3><p>Sets the Content-Type to the mime lookup of <code>type</code>,
 or when "/" is present the Content-Type is simply set to this
 literal value.
 </p><pre class="js"><code>res.type('.html');
 res.type('html');
 res.type('json');
 res.type('application/json');
-res.type('png');</code></pre></section><section><h3 id="res.format">res.format(object)</h3><p>Performs content-negotiation on the request Accept header
-field when present. This method uses <code>req.accepted</code>, an array of
-acceptable types ordered by their quality values, otherwise the
-first callback is invoked. When no match is performed the server
-responds with 406 "Not Acceptable", or invokes the <code>default</code>
-callback.
-</p><p>The Content-Type is set for you when a callback is selected,
-however you may alter this within the callback using <code>res.set()</code>
-or <code>res.type()</code> etcetera.
-</p><p>The following example would respond with <code>{ "message": "hey" }</code>
-when the Accept header field is set to "application/json" or "*/json",
-however if "*/*" is given then "hey" will be the response.
+res.type('png');</code></pre></section><section><h3 id="res.format">res.format(object)</h3><p>设置特定请求头的响应。
+这个方法使用 <code>req.accepted</code>， 
+这是一个通过质量值作为优先级顺序的数组，
+第一个回调会被执行。
+当没有匹配时，服务器返回一个 406 "Not Acceptable", 
+或者执行<code>default</code> 回调
+</p><p>Content-Type 在callback 被选中执行的时候会被设置好,
+如果你想改变它，可以在callback内使用<code>res.set()</code>或者 <code>res.type()</code> 等
+</p><p>下面的例子展示了在请求头设置为"application/json" 或者 "*/json"的时候
+会返回<code>{ "message": "hey" }</code>
+如果设置的是"*/*" 那么所有的返回都将是"hey" 
 </p><pre class="js"><code>res.format({
   'text/plain': function(){
     res.send('hey');
@@ -604,9 +602,8 @@ however if "*/*" is given then "hey" will be the response.
     res.send({ message: 'hey' });
   }
 });
-</code></pre><p>In addition to canonicalized MIME types you may also
-use extnames mapped to these types, providing a slightly
-less verbose implementation:
+</code></pre><p>除了使用标准的MIME 类型，你也可以使用扩展名来映射这些类型
+下面是一个不太完整的实现：
 </p><pre class="js"><code>res.format({
   text: function(){
     res.send('hey');
@@ -619,10 +616,10 @@ less verbose implementation:
   json: function(){
     res.send({ message: 'hey' });
   }
-});</code></pre></section><section><h3 id="res.attachment">res.attachment([filename])</h3><p>Sets the Content-Disposition header field to "attachment". If
-a <code>filename</code> is given then the Content-Type will be
-automatically set based on the extname via <code>res.type()</code>,
-and the Content-Disposition's "filename=" parameter will be set.
+});
+</code></pre></section><section><h3 id="res.attachment">res.attachment([filename])</h3><p>设置响应头的Content-Disposition 字段值为 "attachment".
+如果有<code>filename</code> 参数，Content-Type 将会依据文件扩展名通过<code>res.type()</code>自动设置,
+并且Content-Disposition的"filename="参数将会被设置 
 </p><pre class="js"><code>res.attachment();
 // Content-Disposition: attachment
 
@@ -644,32 +641,29 @@ as illustrated in the following example:
       res.send(403, 'Sorry! you cant see that.');
     }
   });
-});</code></pre></section><section><h3 id="res.download">res.download(path, [filename], [fn])</h3><p>Transfer the file at <code>path</code> as an "attachment",
-typically browsers will prompt the user for download. The
-Content-Disposition "filename=" parameter, aka the one
-that will appear in the brower dialog is set to <code>path</code>
-by default, however you may provide an override <code>filename</code>.
-</p><p>When an error has ocurred or transfer is complete the optional 
-callback <code>fn</code> is invoked. This method uses <a href="#res.sendfile">res.sendfile()</a>
-to transfer the file.
+});</code></pre></section><section><h3 id="res.download">res.download(path, [filename], [fn])</h3><p>把<code>path</code>当作附件传输，
+通常情况下浏览器会弹出一个下载文件的窗口。
+浏览器弹出框里的文件名和响应头里的Disposition "filename=" 参数是一致的,
+你也可以通过传入<code>filename</code>来自由设置。
+</p><p>当在传输的过程中发生一个错误时，可选的回调函数<code>fn</code>会被调用执行。
+这个方法使用<a href="#res.sendfile">res.sendfile()</a>传输文件。
 </p><pre class="js"><code>res.download('/report-12345.pdf');
 
 res.download('/report-12345.pdf', 'report.pdf');
 
 res.download('/report-12345.pdf', 'report.pdf', function(err){
   if (err) {
-    // handle error, keep in mind the response may be partially-sent
-    // so check res.headerSent
+    // 处理错误，请牢记可能只有部分内容被传输，所以
+    // 检查一下res.headerSent
   } else {
-    // decrement a download credit etc
+    // 减少下载的积分值之类的
   }
-});</code></pre></section><section><h3 id="res.links">res.links(links)</h3><p>Join the given <code>links</code> to populate the "Link"
-response header field.
+});</code></pre></section><section><h3 id="res.links">res.links(links)</h3><p>合并给定的<code>links</code>, 并且设置给响应头里的"Link" 字段.
 </p><pre class="js"><code>res.links({
   next: 'http://api.example.com/users?page=2',
   last: 'http://api.example.com/users?page=5'
 });
-</code></pre><p>yields:</p><pre><code>Link: &lt;http://api.example.com/users?page=2&gt;; rel="next", 
+</code></pre><p>转换后:</p><pre><code>Link: &lt;http://api.example.com/users?page=2&gt;; rel="next", 
       &lt;http://api.example.com/users?page=5&gt;; rel="last"</code></pre></section><section><h3 id="res.locals">res.locals</h3><p>Response local variables are scoped to the request, thus only
 available to the view(s) rendered during that request / response
 cycle, if any. Otherwise this API is identical to <a href="#app.locals">app.locals</a>.

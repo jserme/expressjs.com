@@ -2,11 +2,11 @@ section
   h3(id='res.json') res.json([status|body], [body])
   
   p.
-    Send a JSON response. This method is identical
-    to <code>res.send()</code> when an object or
-    array is passed, however it may be used for
-    explicit JSON conversion of non-objects (null, undefined, etc),
-    though these are technically not valid JSON.
+    返回一个 JSON 响应。
+    当<code>res.send()</code> 的参数是一个对象或者数组的时候，
+    会调用这个方法。
+    当然它也在复杂的空值(null, undefined, etc)JSON转换的时候很有用，
+    因为规范上这些对象不是合法的JSON。
 
   +js.
     res.json(null)

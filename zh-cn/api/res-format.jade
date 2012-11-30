@@ -2,22 +2,21 @@ section
   h3(id='res.format') res.format(object)
   
   p.
-    Performs content-negotiation on the request Accept header
-    field when present. This method uses <code>req.accepted</code>, an array of
-    acceptable types ordered by their quality values, otherwise the
-    first callback is invoked. When no match is performed the server
-    responds with 406 "Not Acceptable", or invokes the <code>default</code>
-    callback.
+    设置特定请求头的响应。
+    这个方法使用 <code>req.accepted</code>， 
+    这是一个通过质量值作为优先级顺序的数组，
+    第一个回调会被执行。
+    当没有匹配时，服务器返回一个 406 "Not Acceptable", 
+    或者执行<code>default</code> 回调
 
   p.
-    The Content-Type is set for you when a callback is selected,
-    however you may alter this within the callback using <code>res.set()</code>
-    or <code>res.type()</code> etcetera.
+    Content-Type 在callback 被选中执行的时候会被设置好,
+    如果你想改变它，可以在callback内使用<code>res.set()</code>或者 <code>res.type()</code> 等
 
   p.
-    The following example would respond with <code>{ "message": "hey" }</code>
-    when the Accept header field is set to "application/json" or "*/json",
-    however if "*/*" is given then "hey" will be the response.
+    下面的例子展示了在请求头设置为"application/json" 或者 "*/json"的时候
+    会返回<code>{ "message": "hey" }</code>
+    如果设置的是"*/*" 那么所有的返回都将是"hey" 
 
   +js.
     res.format({
@@ -35,9 +34,8 @@ section
     });
 
   p.
-    In addition to canonicalized MIME types you may also
-    use extnames mapped to these types, providing a slightly
-    less verbose implementation:
+    除了使用标准的MIME 类型，你也可以使用扩展名来映射这些类型
+    下面是一个不太完整的实现：
 
   +js.
     res.format({

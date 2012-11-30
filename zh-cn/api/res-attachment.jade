@@ -2,10 +2,9 @@ section
   h3(id='res.attachment') res.attachment([filename])
   
   p.
-    Sets the Content-Disposition header field to "attachment". If
-    a <code>filename</code> is given then the Content-Type will be
-    automatically set based on the extname via <code>res.type()</code>,
-    and the Content-Disposition's "filename=" parameter will be set.
+    设置响应头的Content-Disposition 字段值为 "attachment".
+    如果有<code>filename</code> 参数，Content-Type 将会依据文件扩展名通过<code>res.type()</code>自动设置,
+    并且Content-Disposition的"filename="参数将会被设置 
 
   +js.
     res.attachment();
