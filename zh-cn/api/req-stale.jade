@@ -2,6 +2,8 @@ section
   h3(id='req.stale') req.stale
 
   p.
+    判断请求是不是旧的-如果Last-Modified 或者 ETag 不匹配,
+    标明这个资源是"旧的".
     Check if the request is stale - aka Last-Modified and/or the ETag do not match,
     indicating that the resource is "stale".
 

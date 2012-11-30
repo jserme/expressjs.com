@@ -409,50 +409,46 @@ req.is('application/*');
 req.is('html');
 // => false</code></pre></section><section><h3 id="req.ip">req.ip</h3><p>返回远程地址，或者当“信任代理”使用时，返回上一级的地址
 </p><pre class="js"><code>req.ip
-// => "127.0.0.1"</code></pre></section><section><h3 id="req.ips">req.ips</h3><p>When "trust proxy" is `true`, parse
-the "X-Forwarded-For" ip address list
-and return an array, otherwise an empty
-array is returned.
+// => "127.0.0.1"</code></pre></section><section><h3 id="req.ips">req.ips</h3><p>当设置"trust proxy" 为 `true`时,
+解析"X-Forwarded-For" 里的ip地址列表，并返回一个数组 
+否则返回一个空数组
 
-For example if the value were "client, proxy1, proxy2"
-you would receive the array <code>["client", "proxy1", "proxy2"]</code>
-where "proxy2" is the furthest down-stream.</p></section><section><h3 id="req.path">req.path</h3><p>Returns the request URL pathname.
+举个例子，如果"X-Forwarded-For" 的值为"client, proxy1, proxy2"
+你将会得到数组<code>["client", "proxy1", "proxy2"]</code>
+这里可以看到 "proxy2" 是最近一个使用的代理</p></section><section><h3 id="req.path">req.path</h3><p>返回请求的URL的路径名
 </p><pre class="js"><code>// example.com/users?sort=desc
 req.path
 // => "/users"</code></pre></section><section><h3 id="req.host">req.host</h3><p>返回从"Host"请求头里取的主机名,不包含端口号。
 </p><pre class="js"><code>// Host: "example.com:3000"
 req.host
-// => "example.com"</code></pre></section><section><h3 id="req.fresh">req.fresh</h3><p>Check if the request is fresh - aka Last-Modified and/or the ETag still match,
-indicating that the resource is "fresh".
+// => "example.com"</code></pre></section><section><h3 id="req.fresh">req.fresh</h3><p>判断请求是不是新的-通过对Last-Modified 或者 ETag 进行匹配,
+来标明这个资源是不是"新的".
 </p><pre class="js"><code>req.fresh
-// => true</code></pre></section><section><h3 id="req.stale">req.stale</h3><p>Check if the request is stale - aka Last-Modified and/or the ETag do not match,
+// => true</code></pre></section><section><h3 id="req.stale">req.stale</h3><p>判断请求是不是旧的-如果Last-Modified 或者 ETag 不匹配,
+标明这个资源是"旧的".
+Check if the request is stale - aka Last-Modified and/or the ETag do not match,
 indicating that the resource is "stale".
 </p><pre class="js"><code>req.stale
 // => true</code></pre></section><section><h3 id="req.xhr">req.xhr</h3><p>判断请求头里是否有"X-Requested-With"这样的字段并且值为"XMLHttpRequest", jQuery等库发请求时会设置这个头 
 </p><pre class="js"><code>req.xhr
-// => true</code></pre></section><section><h3 id="req.protocol">req.protocol</h3><p>Return the protocol string "http" or "https"
-when requested with TLS. When the "trust proxy" 
-setting is enabled the "X-Forwarded-Proto" header
-field will be trusted. If you're running behind
-a reverse proxy that supplies https for you this
-may be enabled.
+// => true</code></pre></section><section><h3 id="req.protocol">req.protocol</h3><p>返回标识请求协议的字符串，一般是"http"，当用TLS请求的时候是"https"。
+当"trust proxy" 设置被激活， "X-Forwarded-Proto" 头部字段会被信任。
+如果你使用了一个支持https的反向代理，那这个可能是激活的。
 </p><pre class="js"><code>req.protocol
-// => "http"</code></pre></section><section><h3 id="req.secure">req.secure</h3><p>Check if a TLS connection is established. This is a short-hand for:
-</p><pre class="js"><code>'https' == req.protocol;</code></pre></section><section><h3 id="req.subdomains">req.subdomains</h3><p>Return subdomains as an array.
+// => "http"</code></pre></section><section><h3 id="req.secure">req.secure</h3><p>检查TLS 连接是否已经建立。 这是下面的缩写:
+</p><pre class="js"><code>'https' == req.protocol;</code></pre></section><section><h3 id="req.subdomains">req.subdomains</h3><p>把子域当作一个数组返回
 </p><pre class="js"><code>// Host: "tobi.ferrets.example.com"
 req.subdomains
-// => ["ferrets", "tobi"]</code></pre></section><section><h3 id="req.originalUrl">req.originalUrl</h3><p>This property is much like <code>req.url</code>, however it retains
-the original request url, allowing you to rewrite <code>req.url</code>
-freely for internal routing purposes. For example the "mounting" feature
-of <a href="#app.use">app.use()</a> will rewrite <code>req.url</code> to
-strip the mount point.
+// => ["ferrets", "tobi"]</code></pre></section><section><h3 id="req.originalUrl">req.originalUrl</h3><p>这个属性很像 <code>req.url</code>, 但是它保留了原始的url。
+这样你在做内部路由的时候可以重写<code>req.url</code>。
+比如<a href="#app.use">app.use()</a>的挂载功能会重写 <code>req.url</code>，把从它挂载的点开始 
 </p><pre class="js"><code>// GET /search?q=something
 req.originalUrl
 // => "/search?q=something"</code></pre></section><section><h3 id="req.acceptedLanguages">req.acceptedLanguages</h3><p>返回一个从高质量到低质量排序的接受语言数组
 </p><pre class="js"><code>Accept-Language: en;q=.5, en-us
 // => ['en-us', 'en']</code></pre></section><section><h3 id="req.acceptedCharsets">req.acceptedCharsets</h3><p>返回一个从高质量到低质量排序的可接受的字符集数组
 </p><pre class="js"><code>Accept-Charset: iso-8859-5;q=.2, unicode-1-1;q=0.8
-// => ['unicode-1-1', 'iso-8859-5']</code></pre></section><section><h3 id="req.acceptsCharset">req.acceptsCharset(charset)</h3><p>Check if the given <code>charset</code> are acceptable.</p></section><section><h3 id="req.acceptsLanguage">req.acceptsLanguage(lang)</h3><p>Check if the given <code>lang</code> are acceptable.</p></section><h2>Response</h2><a name="response"></a><section><h3 id="res.status">res.status(code)</h3><p>Chainable alias of node's '`res.statusCode=`.
+// => ['unicode-1-1', 'iso-8859-5']</code></pre></section><section><h3 id="req.acceptsCharset">req.acceptsCharset(charset)</h3><p>检查给定的<code>charset</code> 是不是可以接受的</p></section><section><h3 id="req.acceptsLanguage">req.acceptsLanguage(lang)</h3><p>检查给定的 <code>lang</code> 是不是可以接受的</p></section><h2>Response</h2><a name="response"></a><section><h3 id="res.status">res.status(code)</h3><p>Chainable alias of node's '`res.statusCode=`.
 </p><pre class="js"><code>res.status(404).sendfile('path/to/404.png');</code></pre></section><section><h3 id="res.set">res.set(field, [value])</h3><p> 
 Set header <code>field</code> to <code>value</code>,
 or pass an object to set multiple fields at once.</p><pre class="js"><code>res.set('Content-Type', 'text/plain');
