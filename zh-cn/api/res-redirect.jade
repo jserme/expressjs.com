@@ -11,41 +11,44 @@ section
     res.redirect('../login');
 
   p.
-    Express supports a few forms of redirection, first being
-    a fully qualified URI for redirecting to a different site:
+    Express支持几种跳转，第一种便是使用一个完整的URI跳转到一个完全不同的网站。
 
   +js.
     res.redirect('http://google.com');
 
   p.
-    The second form is the pathname-relative redirect, for example
-    if you were on <code>http://example.com/admin/post/new</code>, the 
-    following redirect to <code>/admin</code> would land you at <code>http://example.com/admin</code>:
+    第二种是相对根域路径跳转，比如你现在在
+    <code>http://example.com/admin/post/new</code>,
+    下面的的代码跳转到 <code>/admin</code> 
+    将会把你带到<code>http://example.com/admin</code>:
 
   +js.
     res.redirect('/admin');
 
   p.
-    This next redirect is relative to the <code>mount</code> point of the application. For example
-    if you have a blog application mounted at <code>/blog</code>, ideally it has no knowledge of
-    where it was mounted, so where a redirect of <code>/admin/post/new</code> would simply give you
-    <code>http://example.com/admin/post/new</code>, the following mount-relative redirect would give
-    you <code>http://example.com/blog/admin/post/new</code>:
+    这是一种相对于应用程序挂载点的跳转。
+    比如把一个blog程序挂在 <code>/blog</code>, 
+    事实上它无法知道它被挂载，所以当你使用跳转
+    <code>/admin/post/new</code> 时，将到跳到<code>http://example.com/admin/post/new</code>,
+    下面的相对于挂载点的跳转会把你带到
+    <code>http://example.com/blog/admin/post/new</code>:
 
   +js.
     res.redirect('admin/post/new');
 
   p.
-    Pathname relative redirects are also possible. If you were
-    on <code>http://example.com/admin/post/new</code>, the following redirect
-    would land you at <code>http//example.com/admin/post</code>:
+    路径名.跳转同样也是支持的。
+    比如你在<code>http://example.com/admin/post/new</code>,
+    下面的跳转会把你带到
+    <code>http//example.com/admin/post</code>:
 
   +js.
     res.redirect('..');
 
   p.
-    The final special-case is a <code>back</code> redirect, redirecting back to
-    the Referer (or Referrer), defaulting to <code>/</code> when missing.
+    最后也是最特别的跳转是 <code>back</code> 跳转,
+    它会把你带回Referer（也有可能是Referrer）的地址
+    当Referer丢失的时候默认为 <code>/</code> 
 
   +js.
     res.redirect('back');

@@ -2,14 +2,11 @@ section
   h3(id='res.locals') res.locals
 
   p.
-    Response local variables are scoped to the request, thus only
-    available to the view(s) rendered during that request / response
-    cycle, if any. Otherwise this API is identical to <a href="#app.locals">app.locals</a>.
+    在某一次请求范围下的响应体的本地变量，只对此次请求期间的views可见。
+    另外这个API其实和 <a href="#app.locals">app.locals</a>是一样的.
 
   p.
-    这个对象
-    This object is useful for exposes request-level information such as the
-    request pathname, authenticated user, user settings etcetera.
+    这个对象在放置请求级信息时非常有用，比如放置请求的路径名，验证过的用户，用户设置等等
 
   +js.
     app.use(function(req, res, next){

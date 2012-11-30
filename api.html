@@ -486,58 +486,60 @@ res.clearCookie('name', { path: '/admin' });</code></pre></section><section><h3 
 res.redirect('http://example.com');
 res.redirect(301, 'http://example.com');
 res.redirect('../login');
-</code></pre><p>Express supports a few forms of redirection, first being
-a fully qualified URI for redirecting to a different site:
+</code></pre><p>Express支持几种跳转，第一种便是使用一个完整的URI跳转到一个完全不同的网站。
 </p><pre class="js"><code>res.redirect('http://google.com');
-</code></pre><p>The second form is the pathname-relative redirect, for example
-if you were on <code>http://example.com/admin/post/new</code>, the 
-following redirect to <code>/admin</code> would land you at <code>http://example.com/admin</code>:
+</code></pre><p>第二种是相对根域路径跳转，比如你现在在
+<code>http://example.com/admin/post/new</code>,
+下面的的代码跳转到 <code>/admin</code> 
+将会把你带到<code>http://example.com/admin</code>:
 </p><pre class="js"><code>res.redirect('/admin');
-</code></pre><p>This next redirect is relative to the <code>mount</code> point of the application. For example
-if you have a blog application mounted at <code>/blog</code>, ideally it has no knowledge of
-where it was mounted, so where a redirect of <code>/admin/post/new</code> would simply give you
-<code>http://example.com/admin/post/new</code>, the following mount-relative redirect would give
-you <code>http://example.com/blog/admin/post/new</code>:
+</code></pre><p>这是一种相对于应用程序挂载点的跳转。
+比如把一个blog程序挂在 <code>/blog</code>, 
+事实上它无法知道它被挂载，所以当你使用跳转
+<code>/admin/post/new</code> 时，将到跳到<code>http://example.com/admin/post/new</code>,
+下面的相对于挂载点的跳转会把你带到
+<code>http://example.com/blog/admin/post/new</code>:
 </p><pre class="js"><code>res.redirect('admin/post/new');
-</code></pre><p>Pathname relative redirects are also possible. If you were
-on <code>http://example.com/admin/post/new</code>, the following redirect
-would land you at <code>http//example.com/admin/post</code>:
+</code></pre><p>路径名.跳转同样也是支持的。
+比如你在<code>http://example.com/admin/post/new</code>,
+下面的跳转会把你带到
+<code>http//example.com/admin/post</code>:
 </p><pre class="js"><code>res.redirect('..');
-</code></pre><p>The final special-case is a <code>back</code> redirect, redirecting back to
-the Referer (or Referrer), defaulting to <code>/</code> when missing.
+</code></pre><p>最后也是最特别的跳转是 <code>back</code> 跳转,
+它会把你带回Referer（也有可能是Referrer）的地址
+当Referer丢失的时候默认为 <code>/</code> 
 </p><pre class="js"><code>res.redirect('back');
 
 </code></pre></section><section><h3 id="res.charset">res.charset</h3><p>设置字符集。默认为"utf-8"。
 </p><pre class="js"><code>res.charset = 'value';
 res.send('<p>some html</p>');
-// => Content-Type: text/html; charset=value</code></pre></section><section><h3 id="res.send">res.send([body|status], [body])</h3><p>Send a response.
+// => Content-Type: text/html; charset=value</code></pre></section><section><h3 id="res.send">res.send([body|status], [body])</h3><p>发送一个响应。
 </p><pre class="js"><code>res.send(new Buffer('whoop'));
 res.send({ some: 'json' });
 res.send('<p>some html</p>');
 res.send(404, 'Sorry, we cannot find that!');
 res.send(500, { error: 'something blew up' });
 res.send(200);
-</code></pre><p>This method performs a myriad of
-useful tasks for simple non-streaming responses such
-as automatically assigning the Content-Length unless
-previously defined and providing automatic <em>HEAD</em> and
-HTTP cache freshness support.
-</p><p>When a <code>Buffer</code> is given
-the Content-Type is set to "application/octet-stream"
-unless previously defined as shown below:
+</code></pre><p>这个方法在输出non-streaming响应的时候自动完成了大量有用的任务
+比如如果在它前面没有定义Content-Length, 它会自动设置;
+比如加一些自动的 <em>HEAD</em>;
+比如对HTTP缓存的支持 .
+</p><p>当参数为一个 <code>Buffer</code>时
+Content-Type 会被设置为 "application/octet-stream"
+除非它之前有像下面的代码：
 </p><pre class="js"><code>res.set('Content-Type', 'text/html');
 res.send(new Buffer('<p>some html</p>'));
-</code></pre><p>When a <code>String</code> is given the
-Content-Type is set defaulted to "text/html":
+</code></pre><p>当参数为一个<code>String</code>时 
+Content-Type 默认设置为"text/html":
 </p><pre class="js"><code>res.send('<p>some html</p>');
-</code></pre><p>When an <code>Array</code> or <code>Object</code> is
-given Express will respond with the JSON representation:
+</code></pre><p>当参数为 <code>Array</code> 或者  <code>Object</code> 时
+Express 会返回一个 JSON :
 </p><pre class="js"><code>res.send({ user: 'tobi' })
 res.send([1,2,3])
-</code></pre><p>Finally when a <code>Number</code> is given without
-any of the previously mentioned bodies, then a response
-body string is assigned for you. For example 200 will
-respond will the text "OK", and 204 "Not Found" and so on.
+</code></pre><p>最后一条当一个<code>Number</code> 作为参数，
+并且没有上面提到的任何一条在响应体里，
+Express会帮你设置一个响应体 
+比如200 会返回字符"OK", 404会返回"Not Found"等等.
 </p><pre class="js"><code>res.send(200)
 res.send(204)
 res.send(500)</code></pre></section><section><h3 id="res.json">res.json([status|body], [body])</h3><p>返回一个 JSON 响应。
@@ -571,7 +573,8 @@ app.set('jsonp callback name', 'cb');
 // ?cb=foo
 res.jsonp(500, { error: 'message' })
 // => foo({ "error": "message" })
-</code></pre></section><section><h3 id="res.type">res.type(type)</h3><p>Sets the Content-Type to the mime lookup of <code>type</code>,
+</code></pre></section><section><h3 id="res.type">res.type(type)</h3><p>设置
+Sets the Content-Type to the mime lookup of <code>type</code>,
 or when "/" is present the Content-Type is simply set to this
 literal value.
 </p><pre class="js"><code>res.type('.html');
@@ -625,11 +628,9 @@ res.type('png');</code></pre></section><section><h3 id="res.format">res.format(o
 
 res.attachment('path/to/logo.png');
 // Content-Disposition: attachment; filename="logo.png"
-// Content-Type: image/png</code></pre></section><section><h3 id="res.sendfile">res.sendfile(path, [options], [fn]])</h3><p>Transfer the file at the given <code>path</code>.</p><p>Automatically defaults the Content-Type response header field based
-on the filename's extension. The callback <code>fn(err)</code> is 
-invoked when the transfer is complete or when an error occurs. 
-</p><p>Options:</p><ul><li><code>maxAge</code> in milliseconds defaulting to 0</li><li><code>root</code> root directory for relative filenames</li></ul><p>This method provides fine-grained support for file serving
-as illustrated in the following example:
+// Content-Type: image/png</code></pre></section><section><h3 id="res.sendfile">res.sendfile(path, [options], [fn]])</h3><p>传输<code>path</code>的文件.</p><p>它会根据文件的扩展名自动设置响应头里的Content-Type字段。
+回调函数<code>fn(err)</code>在传输完成或者发生错误时会被调用执行。
+</p><p>Options:</p><ul><li><code>maxAge</code> 毫秒，默认为0</li><li><code>root</code> 文件相对的路径</li></ul><p>这个方法可以非常良好的支持有缩略图的文件服务。
 </p><pre class="js"><code>app.get('/user/:uid/photos/:file', function(req, res){
   var uid = req.params.uid
     , file = req.params.file;
@@ -664,19 +665,21 @@ res.download('/report-12345.pdf', 'report.pdf', function(err){
   last: 'http://api.example.com/users?page=5'
 });
 </code></pre><p>转换后:</p><pre><code>Link: &lt;http://api.example.com/users?page=2&gt;; rel="next", 
-      &lt;http://api.example.com/users?page=5&gt;; rel="last"</code></pre></section><section><h3 id="res.locals">res.locals</h3><p>Response local variables are scoped to the request, thus only
-available to the view(s) rendered during that request / response
-cycle, if any. Otherwise this API is identical to <a href="#app.locals">app.locals</a>.
-</p><p>This object is useful for exposes request-level information such as the
-request pathname, authenticated user, user settings etcetera.
+      &lt;http://api.example.com/users?page=5&gt;; rel="last"</code></pre></section><section><h3 id="res.locals">res.locals</h3><p>在某一次请求范围下的响应体的本地变量，只对此次请求期间的views可见。
+另外这个API其实和 <a href="#app.locals">app.locals</a>是一样的.
+</p><p>这个对象在放置请求级信息时非常有用，比如放置请求的路径名，验证过的用户，用户设置等等
 </p><pre class="js"><code>app.use(function(req, res, next){
   res.locals.user = req.user;
   res.locals.authenticated = ! req.user.anonymous;
   next();
-});</code></pre></section><section><h3 id="res.render">res.render(view, [locals], callback)</h3><p>Render a <code>view</code> with a callback responding with
-the rendered string. When an error occurs <code>next(err)</code>
-is invoked internally. When a callback is provided both the possible error
-and rendered string are passed, and no automated response is performed.
+});</code></pre></section><section><h3 id="res.render">res.render(view, [locals], callback)</h3><p>渲染<code>view</code>, 同时向callback 传入渲染后的字符串。
+
+callback如果不传的话，直接会把渲染后的字符串输出至请求方，
+一般如果不需要再对渲染后的模板作操作，就不需要传callback。
+
+当有错误发生时<code>next(err)</code>会被执行.
+如果提供了callback参数，可能发生的错误和渲染的字符串都会被当作参数传入,
+并且没有默认响应。
 </p><pre class="js"><code>res.render('index', function(err, html){
   // ...
 });

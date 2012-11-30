@@ -1,22 +1,20 @@
 section
   h3(id='res.sendfile') res.sendfile(path, [options], [fn]])
 
-  p Transfer the file at the given <code>path</code>.
+  p 传输<code>path</code>的文件.
   
   p.
-    Automatically defaults the Content-Type response header field based
-    on the filename's extension. The callback <code>fn(err)</code> is 
-    invoked when the transfer is complete or when an error occurs. 
+    它会根据文件的扩展名自动设置响应头里的Content-Type字段。
+    回调函数<code>fn(err)</code>在传输完成或者发生错误时会被调用执行。
 
   p Options:
 
   ul
-    li <code>maxAge</code> in milliseconds defaulting to 0
-    li <code>root</code> root directory for relative filenames
+    li <code>maxAge</code> 毫秒，默认为0
+    li <code>root</code> 文件相对的路径
 
   p.
-    This method provides fine-grained support for file serving
-    as illustrated in the following example:
+    这个方法可以非常良好的支持有缩略图的文件服务。
 
   +js.
     app.get('/user/:uid/photos/:file', function(req, res){
