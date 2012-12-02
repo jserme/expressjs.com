@@ -22,12 +22,12 @@ section
     app.listen(3000);
 
   p.
-    这个挂载的路径被从请求里剥离了，对中间件 <code>function</code><strong>不</strong>可见
-    这么设计的原因是因为中间件可以不需要更改代码就在任意"前缀"路径下执行
+    挂载的路径不会在req里出现，对中间件 <code>function</code><strong>不</strong>可见，这意味着你在<code>function</code>的回调参数req里找不到path。
+    这么设计的为了让间件可以在不需要更改代码就在任意"前缀"路径下执行
 
   p.
-    这里有一个实际应用场景，常见的一个使用是使用./public提供静态文件服务
-    使用 <code>express.static()</code> 中间件:
+    这里有一个实际应用场景，常见的一个应用是使用./public提供静态文件服务，
+    用 <code>express.static()</code> 中间件:
 
   +js.
     // GET /javascripts/jquery.js
@@ -36,7 +36,7 @@ section
     app.use(express.static(__dirname + '/public'));
 
   p.
-    举个栗子，你想把所有的静态文件路径都前缀"/static", 你可以使用“挂载”功能。
+    如果你想把所有的静态文件路径都前缀"/static", 你可以使用“挂载”功能。
     如果<code>req.url</code> 不包含这个前缀, 挂载过的中间件<strong>不会</strong>执行。
     当<code>function</code>被执行的时候,这个参数不会被传递。
     这个只会影响这个函数，后面的中间件里得到的 <code>req.url</code>里将会包含"/static"
@@ -48,7 +48,7 @@ section
     app.use('/static', express.static(__dirname + '/public'));
 
   p.
-    使用 <code>app.use()</code> “定义的”中间件的顺序非常重要，它们将会顺序执行，这个定义了中间件的优先级。
+    使用 <code>app.use()</code> “定义的”中间件的顺序非常重要，它们将会顺序执行，use的先后顺序决定了中间件的优先级。
     比如说通常 <code>express.logger()</code> 是最先使用的一个组件，纪录每一个请求
 
   +js.

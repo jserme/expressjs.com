@@ -4,21 +4,21 @@ section
   p.
     注册模板引擎的 <code>callback</code> 用来处理<code>ext</code>扩展名的文件
     
-    默认情况下, 根据文件扩展名<code>require()</code> 对应的模板引擎
+    默认情况下, 根据文件扩展名<code>require()</code> 对应的模板引擎。
     比如你想渲染一个 "foo.jade" 文件，Express会在内部执行下面的代码，然后会缓存<code>require()</code>，这样就可以提高后面操作的性能
 
   +js.
     app.engine('jade', require('jade').__express);
 
   p.
-  那些没有提供 <code>.__express</code> 的或者你想渲染一个文件的扩展名与模板引擎默认的不一致的时候，你也会用到这个函数。
+  那些没有提供 <code>.__express</code> 的或者你想渲染一个文件的扩展名与模板引擎默认的不一致的时候，也可以用这个方法。
   比如你想用EJS模板引擎来处理 ".html" 后缀的文件:
   
   +js.
     app.engine('html', require('ejs').renderFile);
 
   p.
-  这个例子中EJS提供了一个<code>.renderFile()</code> 方法和Express期待的格式: <code>(path, options, callback)</code>一致, 可以在内部给这个方法取一个别名<code>ejs.__express</code>，这样你就可以使用".ejs" 扩展而不需要做任何改动
+  这个例子中EJS提供了一个<code>.renderFile()</code> 方法和Express预期的格式: <code>(path, options, callback)</code>一致, 可以在内部给这个方法取一个别名<code>ejs.__express</code>，这样你就可以使用".ejs" 扩展而不需要做任何改动
 
   p.
     有些模板引擎没有遵循这种转换， 这里有一个小项目<a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a> 专门把所有的node流行的模板引擎进行了包装，这样它们在Express内部看起来就一样了。
