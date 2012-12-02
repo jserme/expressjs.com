@@ -1,6 +1,6 @@
 # ExpressJS.com的中文版
 
-  [ExpressJS.com](http://expressjs.jser.me)的中文版本。 
+  [ExpressJS.com](http://expressjs.jser.us)的中文版本。 
 
 
 ## 运行
