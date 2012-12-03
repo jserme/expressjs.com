@@ -1,6 +1,6 @@
 
 mixin item(url)
-  a(href=url, class=active == url ? 'active' : '') 
+  a(href=url, class=active == url ? 'active' : '', target=url.indexOf('http://')>-1 ? '_blank' : '_self') 
     block
 
 mixin js
