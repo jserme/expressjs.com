@@ -1,0 +1,879 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <title></title>
+<style id="system" type="text/css">*{margin:0;padding:0;}body {	font:13.34px helvetica,arial,freesans,clean,sans-serif;	color:black;	line-height:1.4em;	background-color: #F8F8F8;	padding: 0.7em;}p {	margin:1em 0;	line-height:1.5em;}table {	font-size:inherit;	font:100%;	margin:1em;}table th{border-bottom:1px solid #bbb;padding:.2em 1em;}table td{border-bottom:1px solid #ddd;padding:.2em 1em;}input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}select,option{padding:0 .25em;}optgroup{margin-top:.5em;}pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}pre {	margin:1em 0;	font-size:12px;	background-color:#eee;	border:1px solid #ddd;	padding:5px;	line-height:1.5em;	color:#444;	overflow:auto;	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;	-webkit-border-radius:3px;	-moz-border-radius:3px;border-radius:3px;}pre code {	padding:0;	font-size:12px;	background-color:#eee;	border:none;}code {	font-size:12px;	background-color:#f8f8ff;	color:#444;	padding:0 .2em;	border:1px solid #dedede;}img{border:0;max-width:100%;}abbr{border-bottom:none;}a{color:#4183c4;text-decoration:none;}a:hover{text-decoration:underline;}a code,a:link code,a:visited code{color:#4183c4;}h2,h3{margin:1em 0;}h1,h2,h3,h4,h5,h6{border:0;}h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}h3{margin-top:1em;}hr{border:1px solid #ddd;}ul{margin:1em 0 1em 2em;}ol{margin:1em 0 1em 2em;}ul li,ol li{margin-top:.5em;margin-bottom:.5em;}ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}dt{font-weight:bold;margin-left:1em;}dd{margin-left:2em;margin-bottom:1em;}@media screen and (min-width: 768px) {    body {        width: 748px;        margin:10px auto;    }}</style><style id="custom" type="text/css">@media print{
+body{
+    color: #000;    
+}
+}</style></head>
+<body marginheight="0"><h1>Jade - 模板引擎</h1>
+<p> Jade 是一个高性能的模板引擎，它深受<a href="http://haml-lang.com">Haml</a>影响，它是用javascript实现的,并且可以供<a href="http://nodejs.org">node</a>使用.
+
+</p>
+<p> 翻译:<a href="http://jser.me">草依山</a> &nbsp; <a href="http://weibo.com/ihubo">翻译反馈</a> &nbsp;<a href="https://github.com/jserme/jade/">Fork me</a>
+
+</p>
+<h2>特性</h2>
+<ul>
+<li>客户端支持</li>
+<li>代码高可读</li>
+<li>灵活的缩进</li>
+<li>块展开</li>
+<li>混合</li>
+<li>静态包含</li>
+<li>属性改写</li>
+<li>安全，默认代码是转义的</li>
+<li>运行时和编译时上下文错误报告 </li>
+<li>命令行下编译jade模板</li>
+<li>html 5 模式 (使用 <em>!!! 5</em> 文档类型)</li>
+<li>在内存中缓存(可选)</li>
+<li>合并动态和静态标签类</li>
+<li>可以通过 <em>filters</em> 修改树</li>
+<li>模板继承</li>
+<li>原生支持 <a href="http://expressjs.com">Express JS</a> </li>
+<li>通过 <code>each</code> 枚举对象、数组甚至是不能枚举的对象</li>
+<li>块注释</li>
+<li>没有前缀的标签</li>
+<li>AST filters</li>
+<li>过滤器<ul>
+<li>:sass 必须已经安装<a href="http://github.com/visionmedia/sass.js">sass.js</a> </li>
+<li>:less 必须已经安装<a href="http://github.com/cloudhead/less.js">less.js</a> </li>
+<li>:markdown 必须已经安装<a href="http://github.com/evilstreak/markdown-js">markdown-js</a> 或者<a href="http://github.com/visionmedia/node-discount">node-discount</a> </li>
+<li>:cdata</li>
+<li>:coffeescript 必须已经安装<a href="http://jashkenas.github.com/coffee-script/">coffee-script</a> </li>
+</ul>
+</li>
+<li><a href="https://github.com/digitaltoad/vim-jade">Vim Syntax</a></li>
+<li><a href="http://github.com/miksago/jade-tmbundle">TextMate Bundle</a></li>
+<li><a href="http://tjholowaychuk.com/post/1004255394/jade-screencast-template-engine-for-nodejs">Screencasts</a></li>
+<li><a href="https://github.com/donpark/html2jade">html2jade</a> 转换器</li>
+</ul>
+<h2>其它实现</h2>
+<ul>
+<li><a href="http://github.com/everzet/jade.php">php</a></li>
+<li><a href="http://scalate.fusesource.org/versions/snapshot/documentation/scaml-reference.html">scala</a></li>
+<li><a href="http://github.com/stonean/slim">ruby</a></li>
+</ul>
+<h2>安装</h2>
+<p>通过 npm:
+
+</p>
+<pre><code>npm install jade</code></pre>
+<h2>浏览器支持</h2>
+<p> 把jade编译为一个可供浏览器使用的单文件，只需要简单的执行:
+
+</p>
+<pre><code>$ make jade.js</code></pre>
+<p> 如果你已经安装了uglifyjs (<code>npm install uglify-js</code>)，你可以执行下面的命令它会生成所有的文件。其实每一个正式版本里都帮你做了这事。 
+
+</p>
+<pre><code>$ make jade.min.js</code></pre>
+<p> 默认情况下，为了方便调试Jade会把模板组织成带有形如 <code>__.lineno = 3</code> 的行号的形式。 
+ 在浏览器里使用的时候，你可以通过传递一个选项<code>{ compileDebug: false }</code>来去掉这个。
+ 下面的模板
+
+</p>
+<pre><code>p Hello #{name}</code></pre>
+<p>  会被翻译成下面的函数：
+
+</p>
+<pre><code class="lang-javascript">function anonymous(locals, attrs, escape, rethrow) {
+  var buf = [];
+  with (locals || {}) {
+    var interp;
+    buf.push('\n&lt;p&gt;Hello ' + escape((interp = name) == null ? '' : interp) + '\n&lt;/p&gt;');
+  }
+  return buf.join("");
+}</code></pre>
+<p>  通过使用Jade的 <code>./runtime.js</code>你可以在浏览器使用这些预编译的模板而不需要使用Jade, 你只需要使用runtime.js里的工具函数, 它们会放在<code>jade.attrs</code>, <code>jade.escape</code> 这些里。 把选项 <code>{ client: true }</code> 传递给 <code>jade.compile()</code>, Jade 会把这些帮助函数的引用放在<code>jade.attrs</code>, <code>jade.escape</code>.
+
+</p>
+<pre><code class="lang-js">function anonymous(locals, attrs, escape, rethrow) {
+  var attrs = jade.attrs, escape = jade.escape, rethrow = jade.rethrow;
+  var buf = [];
+  with (locals || {}) {
+    var interp;
+    buf.push('\n&lt;p&gt;Hello ' + escape((interp = name) == null ? '' : interp) + '\n&lt;/p&gt;');
+  }
+  return buf.join("");
+}</code></pre>
+<h2>公开API</h2>
+<pre><code class="lang-javascript">    var jade = require('jade');
+
+    // Compile a function
+    var fn = jade.compile('string of jade', options);
+    fn(locals);</code></pre>
+<h3>选项</h3>
+<ul>
+<li><code>self</code>      使用<code>self</code> 命名空间来持有本地变量. <em>默认为false</em></li>
+<li><code>locals</code>    本地变量对象</li>
+<li><code>filename</code>  异常发生时使用，includes时必需</li>
+<li><code>debug</code>     输出token和翻译后的函数体</li>
+<li><code>compiler</code>  替换掉jade默认的编译器</li>
+<li><code>compileDebug</code>  <code>false</code>的时候调试的结构不会被输出</li>
+</ul>
+<h2>语法</h2>
+<h3>行结束标志</h3>
+<p><strong>CRLF</strong> 和 <strong>CR</strong> 会在编译之前被转换为 <strong>LF</strong> 
+
+</p>
+<h3>标签</h3>
+<p>标签就是一个简单的单词:
+
+</p>
+<pre><code>html</code></pre>
+<p>它会被转换为 <code>&lt;html&gt;&lt;/html&gt;</code>
+
+</p>
+<p>标签也是可以有id的:
+
+</p>
+<pre><code>div#container</code></pre>
+<p>它会被转换为 <code>&lt;div id="container"&gt;&lt;/div&gt;</code>
+
+</p>
+<p>怎么加类呢？
+
+</p>
+<pre><code>div.user-details</code></pre>
+<p>转换为 <code>&lt;div class="user-details"&gt;&lt;/div&gt;</code>
+
+</p>
+<p>多个类? 和id? 也是可以搞定的:
+
+</p>
+<pre><code>div#foo.bar.baz</code></pre>
+<p>转换为 <code>&lt;div id="foo" class="bar baz"&gt;&lt;/div&gt;</code>
+
+</p>
+<p>不停的div div div 很讨厌啊 , 可以这样:
+
+</p>
+<pre><code>#foo
+.bar</code></pre>
+<p>这个算是我们的语法糖，它已经被很好的支持了，上面的会输出：
+
+</p>
+<pre><code>`&lt;div id="foo"&gt;&lt;/div&gt;&lt;div class="bar"&gt;&lt;/div&gt;`</code></pre>
+<h3>标签文本</h3>
+<p>只需要简单的把内容放在标签之后：
+
+</p>
+<pre><code>p wahoo!</code></pre>
+<p>它会被渲染为 <code>&lt;p&gt;wahoo!&lt;/p&gt;</code>.
+
+</p>
+<p>很帅吧，但是大段的文本怎么办呢：
+
+</p>
+<pre><code>p
+  | foo bar baz
+  | rawr rawr
+  | super cool
+  | go jade go</code></pre>
+<p>渲染为 <code>&lt;p&gt;foo bar baz rawr.....&lt;/p&gt;</code>
+
+</p>
+<p>怎么和数据结合起来？ 所有类型的文本展示都可以和数据结合起来，如果我们把<code>{ name: 'tj', email: 'tj@vision-media.ca' }</code> 传给编译函数，下面是模板上的写法:
+
+</p>
+<pre><code>#user #{name} &amp;lt;#{email}&amp;gt;</code></pre>
+<p>它会被渲染为 <code>&lt;div id="user"&gt;tj &amp;lt;tj@vision-media.ca&amp;gt;&lt;/div&gt;</code>
+
+</p>
+<p>当就是要输出<code>#{}</code> 的时候怎么办? 转义一下!
+
+</p>
+<pre><code>p \#{something}</code></pre>
+<p>它会输出<code>&lt;p&gt;#{something}&lt;/p&gt;</code>
+
+</p>
+<p>同样可以使用非转义的变量<code>!{html}</code>, 下面的模板将直接输出一个script标签
+
+</p>
+<pre><code>- var html = "&lt;script&gt;&lt;/script&gt;"
+| !{html}</code></pre>
+<p>内联标签同样可以使用文本块来包含文本：
+
+</p>
+<pre><code>label
+  | Username:
+  input(name='user[name]')</code></pre>
+<p>或者直接使用标签文本:
+
+</p>
+<pre><code>label Username:
+  input(name='user[name]')</code></pre>
+<p><em>只</em>包含文本的标签，比如<code>script</code>, <code>style</code>, 和 <code>textarea</code> 不需要前缀<code>|</code> 字符, 比如:
+
+</p>
+<pre><code>  html
+    head
+      title Example
+      script
+        if (foo) {
+          bar();
+        } else {
+          baz();
+        }</code></pre>
+<p>这里还有一种选择，可以使用'.' 来开始一段文本块，比如：
+
+</p>
+<pre><code>  p.
+    foo asdf
+    asdf
+     asdfasdfaf
+     asdf
+    asd.</code></pre>
+<p>会被渲染为:
+
+</p>
+<pre><code>    &lt;p&gt;foo asdf
+    asdf
+      asdfasdfaf
+      asdf
+    asd
+    .
+    &lt;/p&gt;</code></pre>
+<p>这和带一个空格的 '.' 是不一样的, 带空格的会被Jade的解析器忽略，当作一个普通的文字: 
+
+</p>
+<pre><code>p .</code></pre>
+<p>渲染为:
+
+</p>
+<pre><code>&lt;p&gt;.&lt;/p&gt;</code></pre>
+<p>需要注意的是广西块需要两次转义。比如想要输出下面的文本：
+
+</p>
+<pre><code>&lt;/p&gt;foo\bar&lt;/p&gt;</code></pre>
+<p>使用:
+
+</p>
+<pre><code>p.
+  foo\\bar</code></pre>
+<h3>注释</h3>
+<p>单行注释和JavaScript里是一样的，通过"//"来开始，并且必须单独一行：
+
+</p>
+<pre><code>// just some paragraphs
+p foo
+p bar</code></pre>
+<p>渲染为：
+
+</p>
+<pre><code>&lt;!-- just some paragraphs --&gt;
+&lt;p&gt;foo&lt;/p&gt;
+&lt;p&gt;bar&lt;/p&gt;</code></pre>
+<p>Jade 同样支持不输出的注释，加一个短横线就行了：
+
+</p>
+<pre><code>//- will not output within markup
+p foo
+p bar</code></pre>
+<p>渲染为：
+
+</p>
+<pre><code>&lt;p&gt;foo&lt;/p&gt;
+&lt;p&gt;bar&lt;/p&gt;</code></pre>
+<h3>块注释</h3>
+<p> 块注释也是支持的：
+
+</p>
+<pre><code>  body
+    //
+      #content
+        h1 Example</code></pre>
+<p>渲染为：
+
+</p>
+<pre><code>&lt;body&gt;
+  &lt;!--
+  &lt;div id="content"&gt;
+    &lt;h1&gt;Example&lt;/h1&gt;
+  &lt;/div&gt;
+  --&gt;
+&lt;/body&gt;</code></pre>
+<p>Jade 同样很好的支持了条件注释：
+
+</p>
+<pre><code>body
+  //if IE
+    a(href='http://www.mozilla.com/en-US/firefox/') Get Firefox</code></pre>
+<p>渲染为：
+    
+      <!--[if IE]>
+        <a href="http://www.mozilla.com/en-US/firefox/">Get Firefox</a>
+      <![endif]-->
+    
+
+
+</p>
+<h3>内联</h3>
+<p> Jade 支持以自然的方式定义标签嵌套:
+
+</p>
+<pre><code>ul
+  li.first
+    a(href='#') foo
+  li
+    a(href='#') bar
+  li.last
+    a(href='#') baz</code></pre>
+<h3>块展开</h3>
+<p>   块展开可以帮助你在一行内创建嵌套的标签，下面的例子和上面的是一样的：
+
+</p>
+<pre><code>  ul
+    li.first: a(href='#') foo
+    li: a(href='#') bar
+    li.last: a(href='#') baz</code></pre>
+<h3>属性</h3>
+<p>Jade 现在支持使用'(' 和 ')' 作为属性分隔符
+
+</p>
+<pre><code>a(href='/login', title='View login page') Login</code></pre>
+<p>当一个值是 <code>undefined</code> 或者 <code>null</code> 属性<em>不</em>会被加上,
+所以呢，它不会编译出 'something="null"'.
+
+</p>
+<pre><code>div(something=null)</code></pre>
+<p>Boolean 属性也是支持的:
+
+</p>
+<pre><code>input(type="checkbox", checked)</code></pre>
+<p>使用代码的Boolean 属性只有当属性为<code>true</code>时才会输出：
+
+</p>
+<pre><code>input(type="checkbox", checked=someValue)</code></pre>
+<p>多行同样也是可用的：
+
+</p>
+<pre><code>input(type='checkbox',
+  name='agreement',
+  checked)</code></pre>
+<p>多行的时候可以不加逗号：
+
+</p>
+<pre><code>input(type='checkbox'
+  name='agreement'
+  checked)</code></pre>
+<p>加点空格，格式好看一点？同样支持
+
+</p>
+<pre><code>input(
+  type='checkbox'
+  name='agreement'
+  checked)</code></pre>
+<p>冒号也是支持的:
+
+</p>
+<pre><code>rss(xmlns:atom="atom")</code></pre>
+<p>假如我有一个<code>user</code> 对象 <code>{ id: 12, name: 'tobi' }</code>
+我们希望创建一个指向"/user/12"的链接 <code>href</code>, 我们可以使用普通的javascript字符串连接，如下:
+
+</p>
+<pre><code>a(href='/user/' + user.id)= user.name</code></pre>
+<p>或者我们使用jade的修改方式,这个我想很多使用Ruby或者 CoffeeScript的人会看起来像普通的js..:
+
+</p>
+<p>   a(href='/user/#{user.id}')= user.name
+
+</p>
+<p><code>class</code>属性是一个特殊的属性，你可以直接传递一个数组，比如<code>bodyClasses = ['user', 'authenticated']</code> :
+
+</p>
+<pre><code>body(class=bodyClasses)</code></pre>
+<h3>HTML</h3>
+<p> 内联的html是可以的，我们可以使用管道定义一段文本 :
+
+</p>
+<pre><code>html
+  body
+    | &lt;h1&gt;Title&lt;/h1&gt;
+    | &lt;p&gt;foo bar baz&lt;/p&gt;</code></pre>
+<p> 或者我们可以使用<code>.</code> 来告诉Jade我们需要一段文本：
+
+</p>
+<pre><code>html
+  body.
+    &lt;h1&gt;Title&lt;/h1&gt;
+    &lt;p&gt;foo bar baz&lt;/p&gt;</code></pre>
+<p> 上面的两个例子都会渲染成相同的结果：
+
+</p>
+<pre><code>&lt;html&gt;&lt;body&gt;&lt;h1&gt;Title&lt;/h1&gt;
+&lt;p&gt;foo bar baz&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</code></pre>
+<p> 这条规则适应于在jade里的任何文本：
+
+</p>
+<pre><code>html
+  body
+    h1 User &lt;em&gt;#{name}&lt;/em&gt;</code></pre>
+<h3>Doctypes</h3>
+<p>添加文档类型只需要简单的使用 <code>!!!</code>, 或者 <code>doctype</code> 跟上下面的可选项:
+
+</p>
+<pre><code>!!!</code></pre>
+<p>会渲染出 <em>transitional</em> 文档类型, 或者:
+
+</p>
+<pre><code>!!! 5</code></pre>
+<p>or
+
+</p>
+<pre><code>!!! html</code></pre>
+<p>or
+
+</p>
+<pre><code>doctype html</code></pre>
+<p>doctypes 是大小写不敏感的, 所以下面两个是一样的:
+
+</p>
+<pre><code>doctype Basic
+doctype basic</code></pre>
+<p>当然也是可以直接传递一段文档类型的文本：
+
+</p>
+<pre><code>doctype html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN</code></pre>
+<p>渲染后:
+
+</p>
+<pre><code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN&gt;</code></pre>
+<p>会输出 <em>html 5</em> 文档类型. 下面的默认的文档类型，可以很简单的扩展：
+
+</p>
+<pre><code class="lang-javascript">    var doctypes = exports.doctypes = {
+        '5': '&lt;!DOCTYPE html&gt;',
+        'xml': '&lt;?xml version="1.0" encoding="utf-8" ?&gt;',
+        'default': '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;',
+        'transitional': '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;',
+        'strict': '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;',
+        'frameset': '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"&gt;',
+        '1.1': '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;',
+        'basic': '&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd"&gt;',
+        'mobile': '&lt;!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd"&gt;'
+    };</code></pre>
+<p>通过下面的代码可以很简单的改变默认的文档类型：
+
+</p>
+<pre><code class="lang-javascript">    jade.doctypes.default = 'whatever you want';</code></pre>
+<h2>过滤器</h2>
+<p>过滤器前缀 <code>:</code>, 比如 <code>:markdown</code> 会把下面块里的文本交给专门的函数进行处理。查看顶部 <em>特性</em> 里有哪些可用的过滤器。
+
+</p>
+<pre><code>body
+  :markdown
+    Woah! jade _and_ markdown, very **cool**
+    we can even link to [stuff](http://google.com)</code></pre>
+<p>渲染为:
+
+</p>
+<pre><code>   &lt;body&gt;&lt;p&gt;Woah! jade &lt;em&gt;and&lt;/em&gt; markdown, very &lt;strong&gt;cool&lt;/strong&gt; we can even link to &lt;a href="http://google.com"&gt;stuff&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;</code></pre>
+<h2>代码</h2>
+<p>Jade目前支持三种类型的可执行代码。第一种是前缀<code>-</code>， 这是不会被输出的：
+
+</p>
+<pre><code>- var foo = 'bar';</code></pre>
+<p>这可以用在条件语句或者循环中：
+
+</p>
+<pre><code>- for (var key in obj)
+  p= obj[key]</code></pre>
+<p>由于Jade的缓存技术，下面的代码也是可以的：
+
+</p>
+<pre><code>- if (foo)
+  ul
+    li yay
+    li foo
+    li worked
+- else
+  p oh no! didnt work</code></pre>
+<p>哈哈，甚至是很长的循环也是可以的：
+
+</p>
+<pre><code>- if (items.length)
+  ul
+    - items.forEach(function(item){
+      li= item
+    - })</code></pre>
+<p>所以你想要的！
+
+</p>
+<p>下一步我们要<em>转义</em>输出的代码，比如我们返回一个值，只要前缀一个<code>=</code>：   
+
+</p>
+<pre><code>- var foo = 'bar'
+= foo
+h1= foo</code></pre>
+<p>它会渲染为<code>bar&lt;h1&gt;bar&lt;/h1&gt;</code>. 为了安全起见，使用<code>=</code>输出的代码默认是转义的,如果想直接输出不转义的值可以使用<code>!=</code>：
+
+</p>
+<pre><code>p!= aVarContainingMoreHTML</code></pre>
+<p>Jade 同样是设计师友好的，它可以使javascript更直接更富表现力。比如下面的赋值语句是相等的，同时表达式还是通常的javascript：
+
+</p>
+<pre><code> - var foo = 'foo ' + 'bar'
+ foo = 'foo ' + 'bar'</code></pre>
+<p>Jade会把 <code>if</code>, <code>else if</code>, <code>else</code>, <code>until</code>, <code>while</code>, <code>unless</code>同别的优先对待, 但是你得记住它们还是普通的javascript：
+
+</p>
+<pre><code> if foo == 'bar'
+   ul
+     li yay
+     li foo
+     li worked
+ else
+   p oh no! didnt work  </code></pre>
+<h2>循环</h2>
+<p>尽管已经支持JavaScript原生代码，Jade还是支持了一些特殊的标签，它们可以让模板更加易于理解，其中之一就是<code>each</code>, 这种形式：
+
+</p>
+<pre><code>each VAL[, KEY] in OBJ</code></pre>
+<p>一个遍历数组的例子 ：
+
+</p>
+<pre><code>- var items = ["one", "two", "three"]
+each item in items
+  li= item</code></pre>
+<p>渲染为:
+
+</p>
+<pre><code>&lt;li&gt;one&lt;/li&gt;
+&lt;li&gt;two&lt;/li&gt;
+&lt;li&gt;three&lt;/li&gt;</code></pre>
+<p>遍历一个数组同时带上索引：
+
+</p>
+<pre><code>items = ["one", "two", "three"]
+each item, i in items
+  li #{item}: #{i}</code></pre>
+<p>渲染为:
+
+</p>
+<pre><code>&lt;li&gt;one: 0&lt;/li&gt;
+&lt;li&gt;two: 1&lt;/li&gt;
+&lt;li&gt;three: 2&lt;/li&gt;</code></pre>
+<p>遍历一个数组的键值：
+
+</p>
+<pre><code>obj = { foo: 'bar' }
+each val, key in obj
+  li #{key}: #{val}</code></pre>
+<p>将会渲染为：<code>&lt;li&gt;foo: bar&lt;/li&gt;</code>
+
+</p>
+<p>Jade在内部会把这些语句转换成原生的JavaScript语句，就像使用 <code>users.forEach(function(user){</code>,
+词法作用域和嵌套会像在普通的JavaScript中一样：
+
+</p>
+<pre><code>each user in users
+  each role in user.roles
+    li= role</code></pre>
+<p>如果你喜欢，也可以使用<code>for</code> ：
+
+</p>
+<pre><code>for user in users
+  for role in user.roles
+    li= role</code></pre>
+<h2>条件语句</h2>
+<p>Jade 条件语句和使用了(<code>-</code>) 前缀的JavaScript语句是一致的,然后它允许你不使用圆括号，这样会看上去对设计师更友好一点，
+同时要在心里记住这个表达式渲染出的是_常规_Javascript：
+
+</p>
+<pre><code>for user in users
+  if user.role == 'admin'
+    p #{user.name} is an admin
+  else
+    p= user.name</code></pre>
+<p>和下面的使用了常规JavaScript的代码是相等的：
+
+</p>
+<pre><code> for user in users
+   - if (user.role == 'admin')
+     p #{user.name} is an admin
+   - else
+     p= user.name</code></pre>
+<p>Jade 同时支持<code>unless</code>, 这和<code>if (!(expr))</code>是等价的：
+
+</p>
+<pre><code> for user in users
+   unless user.isAnonymous
+     p
+       | Click to view
+       a(href='/users/' + user.id)= user.name </code></pre>
+<h2>模板继承</h2>
+<p>  Jade 支持通过 <code>block</code> 和 <code>extends</code> 关键字来实现模板继承。 一个块就是一个Jade的"block" ，它将在子模板中实现，同时是支持递归的。
+
+</p>
+<p>  Jade 块如果没有内容，Jade会添加默认内容，下面的代码默认会输出<code>block scripts</code>, <code>block content</code>, 和 <code>block foot</code>.
+
+</p>
+<pre><code>html
+  head
+    h1 My Site - #{title}
+    block scripts
+      script(src='/jquery.js')
+  body
+    block content
+    block foot
+      #footer
+        p some footer content</code></pre>
+<p>  现在我们来继承这个布局，简单创建一个新文件，像下面那样直接使用<code>extends</code>，给定路径（可以选择带.jade扩展名或者不带）. 你可以定义一个或者更多的块来覆盖父级块内容, 注意到这里的<code>foot</code>块<em>没有</em>定义，所以它还会输出父级的"some footer content"。
+
+</p>
+<pre><code>extends extend-layout
+
+block scripts
+  script(src='/jquery.js')
+  script(src='/pets.js')
+
+block content
+  h1= title
+  each pet in pets
+    include pet</code></pre>
+<p>  同样可以在一个子块里添加块，就像下面实现的块<code>content</code>里又定义了两个可以被实现的块<code>sidebar</code>和<code>primary</code>，或者子模板直接实现<code>content</code>。
+
+</p>
+<pre><code>extends regular-layout
+
+block content
+  .sidebar
+    block sidebar
+      p nothing
+  .primary
+    block primary
+      p nothing</code></pre>
+<h2>包含</h2>
+<p> Includes 允许你静态包含一段Jade, 或者别的存放在单个文件中的东西比如css, html。 非常常见的例子是包含头部和页脚。 假设我们有一个下面目录结构的文件夹：
+
+</p>
+<pre><code> ./layout.jade
+ ./includes/
+   ./head.jade
+   ./tail.jade</code></pre>
+<p>下面是 <em>layout.jade</em> 的内容:
+
+</p>
+<pre><code>  html
+    include includes/head  
+    body
+      h1 My Site
+      p Welcome to my super amazing site.
+      include includes/foot</code></pre>
+<p>这两个包含 <em>includes/head</em> 和 <em>includes/foot</em> 都会读取相对于给 <em>layout.jade</em>  参数<code>filename</code> 的路径的文件, 这是一个绝对路径，不用担心Express帮你搞定这些了。Include 会解析这些文件，并且插入到已经生成的语法树中，然后渲染为你期待的内容：
+
+</p>
+<pre><code class="lang-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Site&lt;/title&gt;
+    &lt;script src="/javascripts/jquery.js"&gt;
+    &lt;/script&gt;&lt;script src="/javascripts/app.js"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;My Site&lt;/h1&gt;
+    &lt;p&gt;Welcome to my super lame site.&lt;/p&gt;
+    &lt;div id="footer"&gt;
+      &lt;p&gt;Copyright&gt;(c) foobar&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p> 前面已经提到，<code>include</code> 可以包含比如html或者css这样的内容。给定一个扩展名后，Jade不会把这个文件当作一个Jade源代码，并且会把它当作一个普通文本包含进来：
+
+</p>
+<pre><code>html
+  body
+    include content.html</code></pre>
+<p>  Include 也可以接受块内容，给定的块将会附加到包含文件 <em>最后</em> 的块里。 举个例子，<code>head.jade</code> 包含下面的内容：
+
+
+</p>
+<pre><code>head
+  script(src='/jquery.js')</code></pre>
+<p> 我们可以像下面给<code>include head</code>添加内容, 这里是添加两个脚本.
+
+</p>
+<pre><code>html
+  include head
+    script(src='/foo.js')
+    script(src='/bar.js')
+  body
+    h1 test</code></pre>
+<h2>Mixins</h2>
+<p> Mixins在编译的模板里会被Jade转换为普通的JavaScript函数。 Mixins 可以还参数，但不是必需的：
+
+</p>
+<pre><code>  mixin list
+    ul
+      li foo
+      li bar
+      li baz</code></pre>
+<p>  使用不带参数的mixin看上去非常简单，在一个块外：
+
+</p>
+<pre><code>  h2 Groceries
+  mixin list</code></pre>
+<p>  Mixins 也可以带一个或者多个参数，参数就是普通的javascripts表达式，比如下面的例子：
+
+</p>
+<pre><code>  mixin pets(pets)
+    ul.pets
+      - each pet in pets
+        li= pet
+
+  mixin profile(user)
+    .user
+      h2= user.name
+      mixin pets(user.pets)</code></pre>
+<p>   会输出像下面的html：
+
+</p>
+<pre><code class="lang-html">&lt;div class="user"&gt;
+  &lt;h2&gt;tj&lt;/h2&gt;
+  &lt;ul class="pets"&gt;
+    &lt;li&gt;tobi&lt;/li&gt;
+    &lt;li&gt;loki&lt;/li&gt;
+    &lt;li&gt;jane&lt;/li&gt;
+    &lt;li&gt;manny&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+<h2>产生输出</h2>
+<p> 假设我们有下面的Jade源码：
+
+</p>
+<pre><code>- var title = 'yay'
+h1.title #{title}
+p Just an example</code></pre>
+<p> 当 <code>compileDebug</code> 选项不是<code>false</code>, Jade 会编译时会把函数里加上 <code>__.lineno = n;</code>, 这个参数会在编译出错时传递给<code>rethrow()</code>, 而这个函数会在Jade初始输出时给出一个有用的错误信息。
+
+</p>
+<pre><code class="lang-js">function anonymous(locals) {
+  var __ = { lineno: 1, input: "- var title = 'yay'\nh1.title #{title}\np Just an example", filename: "testing/test.js" };
+  var rethrow = jade.rethrow;
+  try {
+    var attrs = jade.attrs, escape = jade.escape;
+    var buf = [];
+    with (locals || {}) {
+      var interp;
+      __.lineno = 1;
+       var title = 'yay'
+      __.lineno = 2;
+      buf.push('&lt;h1');
+      buf.push(attrs({ "class": ('title') }));
+      buf.push('&gt;');
+      buf.push('' + escape((interp = title) == null ? '' : interp) + '');
+      buf.push('&lt;/h1&gt;');
+      __.lineno = 3;
+      buf.push('&lt;p&gt;');
+      buf.push('Just an example');
+      buf.push('&lt;/p&gt;');
+    }
+    return buf.join("");
+  } catch (err) {
+    rethrow(err, __.input, __.filename, __.lineno);
+  }
+}</code></pre>
+<p>当<code>compileDebug</code> 参数是<code>false</code>, 这个参数会被去掉，这样对于轻量级的浏览器端模板是非常有用的。结合Jade的参数和当前源码库里的 <code>./runtime.js</code> 文件，你可以通过toString()来编译模板而不需要在浏览器端运行整个Jade库，这样可以提高性能，也可以减少载入的JavaScript数量。
+
+</p>
+<pre><code class="lang-js">function anonymous(locals) {
+  var attrs = jade.attrs, escape = jade.escape;
+  var buf = [];
+  with (locals || {}) {
+    var interp;
+    var title = 'yay'
+    buf.push('&lt;h1');
+    buf.push(attrs({ "class": ('title') }));
+    buf.push('&gt;');
+    buf.push('' + escape((interp = title) == null ? '' : interp) + '');
+    buf.push('&lt;/h1&gt;');
+    buf.push('&lt;p&gt;');
+    buf.push('Just an example');
+    buf.push('&lt;/p&gt;');
+  }
+  return buf.join("");
+}</code></pre>
+<h2>Makefile的一个例子</h2>
+<p>  通过执行<code>make</code>， 下面的Makefile例子可以把 <em>pages/*.jade</em> 编译为 <em>pages/*.html</em> 。 
+
+</p>
+<pre><code class="lang-make">JADE = $(shell find pages/*.jade)
+HTML = $(JADE:.jade=.html)
+
+all: $(HTML)
+
+%.html: %.jade
+    jade &lt; $&lt; --path $&lt; &gt; $@
+
+clean:
+    rm -f $(HTML)
+
+.PHONY: clean</code></pre>
+<p>这个可以和<code>watch(1)</code> 命令起来产生像下面的行为： 
+
+</p>
+<pre><code> $ watch make</code></pre>
+<h2>命令行的jade(1)</h2>
+<pre><code>
+使用: jade [options] [dir|file ...]
+
+选项:
+
+  -h, --help         输出帮助信息
+  -v, --version      输出版本号
+  -o, --obj &lt;str&gt;    javascript选项
+  -O, --out &lt;dir&gt;    输出编译后的html到&lt;dir&gt;
+  -p, --path &lt;path&gt;  在处理stdio时，查找包含文件时的查找路径
+
+Examples:
+
+  # 编译整个目录
+  $ jade templates
+
+  # 生成 {foo,bar}.html
+  $ jade {foo,bar}.jade
+
+  # 在标准IO下使用jade 
+  $ jade &lt; my.jade &gt; my.html
+
+  # 在标准IO下使用jade, 同时指定用于查找包含的文件
+  $ jade &lt; my.jade -p my.jade &gt; my.html
+
+  # 在标准IO下使用jade 
+  $ echo "h1 Jade!" | jade
+
+  # foo, bar 目录渲染到 /tmp
+  $ jade foo bar --out /tmp</code></pre>
+<h2>License</h2>
+<p>(The MIT License)
+
+</p>
+<p>Copyright (c) 2009-2010 TJ Holowaychuk &lt;tj@vision-media.ca&gt;
+
+</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+</p>
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+</p>
+<p>Edit By <a href="http://mahua.jser.me">MaHua</a></p>
+</body></html>
