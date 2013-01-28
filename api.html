@@ -7,34 +7,34 @@ app.get('/', function(req, res){
   res.send('hello world');
 });
 
-app.listen(3000);</code></pre></section><h2>Application</h2><a name="application"></a><section><h3 id="app.set">app.set(name, value)</h3><p>给设置<code>name</code>赋值<code>value</code>
+app.listen(3000);</code></pre></section><h2>Application</h2><a name="application"></a><section><h3 id="app.set">app.set(name, value)</h3><p>将设置项 <code>name</code> 的值设为 <code>value</code>
 </p><pre class="js"><code>app.set('title', 'My Site');
 app.get('title');
-// => "My Site"</code></pre></section><section><h3 id="app.get">app.get(name)</h3><p>获取已经设置过设置项<code>name</code>的值
+// => "My Site"</code></pre></section><section><h3 id="app.get">app.get(name)</h3><p>获取设置项 <code>name</code> 的值
 </p><pre class="js"><code>app.get('title');
 // => undefined
 
 app.set('title', 'My Site');
 app.get('title');
-// => "My Site"</code></pre></section><section><h3 id="app.enable">app.enable(name)</h3><p>给设置项 <code>name</code> 赋值为 <code>true</code>.
+// => "My Site"</code></pre></section><section><h3 id="app.enable">app.enable(name)</h3><p>将设置项 <code>name</code> 的值设为 <code>true</code>.
 </p><pre class="js"><code>app.enable('trust proxy');
 app.get('trust proxy');
-// => true</code></pre></section><section><h3 id="app.disable">app.disable(name)</h3><p>给设置项 <code>name</code> 赋值为 <code>false</code>.
+// => true</code></pre></section><section><h3 id="app.disable">app.disable(name)</h3><p>将设置项 <code>name</code> 的值设为 <code>false</code>.
 </p><pre class="js"><code>app.disable('trust proxy');
 app.get('trust proxy');
-// => false</code></pre></section><section><h3 id="app.enabled">app.enabled(name)</h3><p>检查设置项 <code>name</code> 是不是已经激活
+// => false</code></pre></section><section><h3 id="app.enabled">app.enabled(name)</h3><p>检查设置项 <code>name</code> 是否已启用
 </p><pre class="js"><code>app.enabled('trust proxy');
 // => false
 
 app.enable('trust proxy');
 app.enabled('trust proxy');
-// => true</code></pre></section><section><h3 id="app.disabled">app.disabled(name)</h3><p>检查设置项 <code>name</code> 是不是非激活状态
+// => true</code></pre></section><section><h3 id="app.disabled">app.disabled(name)</h3><p>检查设置项 <code>name</code> 是否已禁用
 </p><pre class="js"><code>app.disabled('trust proxy');
 // => true
 
 app.enable('trust proxy');
 app.disabled('trust proxy');
-// => false</code></pre></section><section><h3 id="app.configure">app.configure([env], callback)</h3><p>当 <code>env</code> 和  <code>app.get('env')</code>(其实就是 <code>process.env.NODE_ENV</code>)匹配时,执行<code>callback</code>。这个方法属于历史遗留，下面列出来的<code>if</code>代码其实更高效更直接。使用<code>app.set()</code>配合其它一些配置方法后,完全<em>没有</em>必要使用这个方法。
+// => false</code></pre></section><section><h3 id="app.configure">app.configure([env], callback)</h3><p>当 <code>env</code> 和 <code>app.get('env')</code>(也就是 <code>process.env.NODE_ENV</code>) 匹配时, 调用<code>callback</code>。保留这个方法是出于历史原因，后面列出的<code>if</code>语句的代码其实更加高效、直接。使用<code>app.set()</code>配合其它一些配置方法后,<em>没有</em>必要再使用这个方法。
 </p><pre class="js"><code>// 所有环境
 app.configure(function(){
   app.set('title', 'My Application');
