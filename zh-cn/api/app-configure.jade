@@ -2,7 +2,7 @@ section
   h3(id='app.configure') app.configure([env], callback)
 
   p.
-    当 <code>env</code> 和  <code>app.get('env')</code>(其实就是 <code>process.env.NODE_ENV</code>)匹配时,执行<code>callback</code>。这个方法属于历史遗留，下面列出来的<code>if</code>代码其实更高效更直接。使用<code>app.set()</code>配合其它一些配置方法后,完全<em>没有</em>必要使用这个方法。
+    当 <code>env</code> 和 <code>app.get('env')</code>(也就是 <code>process.env.NODE_ENV</code>) 匹配时, 调用<code>callback</code>。保留这个方法是出于历史原因，后面列出的<code>if</code>语句的代码其实更加高效、直接。使用<code>app.set()</code>配合其它一些配置方法后,<em>没有</em>必要再使用这个方法。
 
   +js.
     // 所有环境
