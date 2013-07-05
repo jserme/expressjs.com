@@ -348,7 +348,7 @@ req.param('name')
   params: [ id: '12' ] }</code></pre></section><section><h3 id="req.cookies">req.cookies</h3><p>当使用 <code>cookieParser()</code>中间件之后，这个对象默认为<code>{}</code>, 它也包含了用户代理传过来的cookies。
 </p><pre class="js"><code>// Cookie: name=tj
 req.cookies.name
-// => "tj"</code></pre></section><section><h3 id="req.signedCookies">req.signedCookies</h3><p>当使用了<code>cookieParser(secret)</code> 中间件后，这个对象默认为<code>{}</code>, 否则包含了用户代理传回来的签名后的cookie，并等待使用。签名后的cookies被放在一个单独的对象里，恶意攻击者可以很简单的替换掉`req.cookie` 的值。需要注意的是签名的cookie不代表它是隐藏的或者加密的，这个只是简单的阻止截获cookie。
+// => "tj"</code></pre></section><section><h3 id="req.signedCookies">req.signedCookies</h3><p>当使用了<code>cookieParser(secret)</code> 中间件后，这个对象默认为<code>{}</code>, 否则包含了用户代理传回来的签名后的cookie，并等待使用。签名后的cookies被放在一个单独的对象里，恶意攻击者可以很简单的替换掉`req.cookie` 的值。需要注意的是签名的cookie不代表它是隐藏的或者加密的，这个只是简单的阻止篡改cookie。
 </p><pre class="js"><code>// Cookie: user=tobi.CP7AWaXDfAKIRfH49dQzKJx7sKzzSoPq7/AcBBRVwlI3
 req.signedCookies.user
 // => "tobi"</code></pre></section><section><h3 id="req.get">req.get(field)</h3><p> 
