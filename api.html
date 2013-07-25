@@ -628,7 +628,7 @@ res.type('png');</code></pre></section><section><h3 id="res.format">res.format(o
 
 res.attachment('path/to/logo.png');
 // Content-Disposition: attachment; filename="logo.png"
-// Content-Type: image/png</code></pre></section><section><h3 id="res.sendfile">res.sendfile(path, [options], [fn]])</h3><p>传输<code>path</code>的文件.</p><p>它会根据文件的扩展名自动设置响应头里的Content-Type字段。
+// Content-Type: image/png</code></pre></section><section><h3 id="res.sendfile">res.sendfile(path, [options], [fn]])</h3><p><code>path</code>所传输附件的路径。</p><p>它会根据文件的扩展名自动设置响应头里的Content-Type字段。
 回调函数<code>fn(err)</code>在传输完成或者发生错误时会被调用执行。
 </p><p>Options:</p><ul><li><code>maxAge</code> 毫秒，默认为0</li><li><code>root</code> 文件相对的路径</li></ul><p>这个方法可以非常良好的支持有缩略图的文件服务。
 </p><pre class="js"><code>app.get('/user/:uid/photos/:file', function(req, res){
