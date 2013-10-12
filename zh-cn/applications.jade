@@ -1,6 +1,6 @@
 
 mixin image(name)
-  img(src='/images/apps/screenshots/#{name}.small.png')
+  img(src='/images/apps/screenshots/#{name}.png')
 
 mixin link(title, url)
   .link
@@ -20,14 +20,6 @@ section.application
 
   +link('一点秘密', 'http://yidianmimi.com/')
   +image('yidianmimi')
-
-section.application
-  h2 Jser.me
-  p.
-    Jser.me是一个完全用Express构建起来的Blog。
-
-  +link('jser.me', 'http://jser.me/')
-  +image('jser.me')
 
 section.application
   h2 LearnBoost
