@@ -8,7 +8,19 @@ section
   +js.
     app.use(express.bodyParser());
 
-    // is equivalent to:
+    // 等同于:
     app.use(express.json());
     app.use(express.urlencoded());
     app.use(express.multipart());
+
+  p.
+    从安全上考虑，如果你的应用程序不需要文件上传功能，最好关闭它。我们只使用我们需要的中间件。例如：我们不使用<code>bodyParser</code>、<code>multipart()</code> 
+    这两个中间件。
+
+  +js.
+    app.use(express.json());
+    app.use(express.urlencoded());
+
+  p.
+    如果你的应用程序需要使用文件上传，设置一下就行。
+    <a href='https://groups.google.com/d/msg/express-js/iP2VyhkypHo/5AXQiYN3RPcJ'>一个简单的介绍如何使用</a>.
