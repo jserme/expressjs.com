@@ -1,16 +1,16 @@
 section
-  h3(id='debugging-express') µ÷ÊÔ Express
+  h3(id='debugging-express') è°ƒè¯• Express
 
   p.
-    ExpressÊ¹ÓÃ <a href="https://github.com/visionmedia/debug">debug</a> Ä£¿é
-    À´Êä³öĞÅÏ¢¡£Èç¹ûÏë¿´µ½ÕâĞ©ĞÅÏ¢£¬¿ÉÒÔÔÚÔËĞĞÄãµÄ³ÌĞòÊ±ÉèÖÃ <code>DEBUG</code> »·¾³±äÁ¿Îª 
-    <code>express:*</code> ,µ÷ÊÔĞÅÏ¢»áÊä³öÔÚÖÕ¶ËÀï ¡£
+    Expressä½¿ç”¨ <a href="https://github.com/visionmedia/debug">debug</a> æ¨¡å—
+    æ¥è¾“å‡ºä¿¡æ¯ã€‚å¦‚æœæƒ³çœ‹åˆ°è¿™äº›ä¿¡æ¯ï¼Œå¯ä»¥åœ¨è¿è¡Œä½ çš„ç¨‹åºæ—¶è®¾ç½® <code>DEBUG</code> ç¯å¢ƒå˜é‡ä¸º 
+    <code>express:*</code> ,è°ƒè¯•ä¿¡æ¯ä¼šè¾“å‡ºåœ¨ç»ˆç«¯é‡Œ ã€‚
 
   +shell.
     $ DEBUG=express:* node app.js
 
   p.
-    Ê¹ÓÃÉÏÃæµÄ·½Ê½ÔËĞĞ <code>hello world</code> µÄÀı×Ó£¬½«»áÊä³öÏÂÃæµÄÄÚÈİ
+    ä½¿ç”¨ä¸Šé¢çš„æ–¹å¼è¿è¡Œ <code>hello world</code> çš„ä¾‹å­ï¼Œå°†ä¼šè¾“å‡ºä¸‹é¢çš„å†…å®¹
 
   +shell.
     express:application booting in development mode +0ms
@@ -18,4 +18,4 @@ section
     express:router defined get /hello.txt +1ms
 
   p.
-    »ñÈ¡¸ü¶à¹ØÓÚ <code>debug</code>µÄĞÅÏ¢£¬¿ÉÒÔ²é¿´ <a href="https://github.com/visionmedia/debug">debug ÎÄµµ</a>
+    è·å–æ›´å¤šå…³äº <code>debug</code>çš„ä¿¡æ¯ï¼Œå¯ä»¥æŸ¥çœ‹ <a href="https://github.com/visionmedia/debug">debug æ–‡æ¡£</a>

@@ -10,4 +10,9 @@ mixin js
 
 mixin logo(name)
   li
-    img(src='/images/apps/logos/#{name}.png')
+    img(src='./images/apps/logos/#{name}.png')
+
+mixin shell
+  pre.sh
+    code
+      block

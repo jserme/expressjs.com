@@ -25,6 +25,19 @@ section
 
     app.locals.email
     // => 'me@myapp.com'
+  p.
+    <code>app.locals</code>对象最终会是一个JavaScript函数对象，你不可以使用Functions和Objects内置的属性，比如<code>name,
+    apply, bind, call, arguments, length, constructor</codd>
+
+  +js.
+      app.locals({name: 'My App'});
+
+      app.locals.name
+      // => 返回 'app.locals' 而不是 'My App' (app.locals 是一个函数 !)
+      // => 如果name变量用在一个模板里，发返回一个 ReferenceError 
+
+  p.
+    全部的保留字列表可以在很多规范里找到。 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference">JavaScript 规范</a> 介绍了原来的属性，有一些还会被现代的JS引擎识别，<a href="http://www.ecma-international.org/ecma-262/5.1/">EcmaScript 规范</a> 在它的基础上，统一了值，添加了一些，删除了一些废弃的。如果感兴趣，可以看看Functions和Objects的属性值。
 
   p.
     默认情况下Express只有一个应用程序级本地变量，它是 <code>settings</code>.
