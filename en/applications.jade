@@ -1,6 +1,6 @@
 
 mixin image(name)
-  img(src='/images/apps/screenshots/#{name}.png')
+  img(src='./images/apps/screenshots/#{name}.png')
 
 mixin link(title, url)
   .link
@@ -75,6 +75,17 @@ section.application
   +image('clipboard')
 
 section.application
+  h2 StudyNotes
+  p.
+    At StudyNotes, we are building beautiful and simple
+    learning tools to empower students to accelerate their
+    learning – i.e. to learn more effectively, in a shorter
+    time, and with better long-term recall.
+
+  +link('StudyNotes', 'http://www.apstudynotes.org/')
+  +image('studynotes')
+
+section.application
   h2 Persona
   p.
     Persona, or "BrowserID" is Mozilla's answer
@@ -135,6 +146,26 @@ section.application
 
   +link('Apiary', 'http://apiary.io/')
   +image('apiary')
+
+section.application
+  h2 Cozy
+  p.
+     Cozy is the personal cloud that allows you to put your web apps and your
+     data on your hardware: calendars, contacts, feeds, notes...
+     <br />
+     With Cozy, you can build and use your own Express app and use the data
+     stored by the other applications.
+
+  +link('Cozy', 'http://cozy.io/')
+  +image('cozy')
+
+section.application
+  h2 FlyLatex
+  p.
+     Real-time Collaborative environment for LaTex.
+  
+  +link('FlyLatex', 'http://github.com/alabid/flylatex')
+  +image('flylatex') 
 
 section.application
   h2 and more!

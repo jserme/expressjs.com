@@ -1,0 +1,21 @@
+section
+  h3(id='debugging-express') 调试 Express
+
+  p.
+    Express使用 <a href="https://github.com/visionmedia/debug">debug</a> 模块
+    来输出信息。如果想看到这些信息，可以在运行你的程序时设置 <code>DEBUG</code> 环境变量为 
+    <code>express:*</code> ,调试信息会输出在终端里 。
+
+  +shell.
+    $ DEBUG=express:* node app.js
+
+  p.
+    使用上面的方式运行 <code>hello world</code> 的例子，将会输出下面的内容
+
+  +shell.
+    express:application booting in development mode +0ms
+    express:router defined get /hello.txt +0ms
+    express:router defined get /hello.txt +1ms
+
+  p.
+    获取更多关于 <code>debug</code>的信息，可以查看 <a href="https://github.com/visionmedia/debug">debug 文档</a>
