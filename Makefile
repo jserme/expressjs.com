@@ -20,6 +20,6 @@ docs: $(HTML)
 	$(JADE) --path $< < $< > $@
 
 clean:
-		rm -f `ls *.html | grep -v jade`
+	rm -rf `ls *.html | grep -v jade`
 
 .PHONY: docs clean
