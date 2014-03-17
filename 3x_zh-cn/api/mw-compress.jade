@@ -1,0 +1,12 @@
+section
+  h3(id='compress') compress()
+
+  p.
+    通过gzip / deflate压缩响应数据. 
+    这个中间件应该放置在所有的中间件最前面以保证所有的返回都是被压缩的
+
+  +js.
+    app.use(express.logger());
+    app.use(express.compress());
+    app.use(express.methodOverride());
+    app.use(express.bodyParser());

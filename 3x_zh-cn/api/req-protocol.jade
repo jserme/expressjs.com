@@ -1,0 +1,11 @@
+section
+  h3(id='req.protocol') req.protocol
+  
+  p.
+    返回标识请求协议的字符串，一般是"http"，当用TLS请求的时候是"https"。
+    当"trust proxy" 设置被激活， "X-Forwarded-Proto" 头部字段会被信任。
+    如果你使用了一个支持https的反向代理，那这个可能是激活的。
+  
+  +js.
+    req.protocol
+    // => "http"

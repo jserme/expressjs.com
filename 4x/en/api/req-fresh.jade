@@ -1,0 +1,13 @@
+section
+  h3(id='req.fresh') req.fresh
+
+  p.
+    Check if the request is fresh - aka Last-Modified and/or the ETag still match,
+    indicating that the resource is "fresh".
+
+  +js.
+    req.fresh
+    // => true
+
+  p.
+    Please refer to <a href="https://github.com/visionmedia/node-fresh">fresh</a> for additional documentation or any issues and concerns.

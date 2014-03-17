@@ -1,0 +1,15 @@
+section
+  h3(id='req.accepted') req.accepted
+
+  p.
+    返回一个从高质量到低质量排序的接受媒体类型数组
+
+  +js.
+    [ { value: 'application/json',
+        quality: 1,
+        type: 'application',
+        subtype: 'json' },
+       { value: 'text/html',
+         quality: 0.5,
+         type: 'text',
+         subtype: 'html' } ]
