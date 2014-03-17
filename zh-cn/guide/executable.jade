@@ -2,11 +2,11 @@ section
   h3(id='executable') 使用express(1) 来生成一个应用程序
 
   p.
-    Express 附带了一个可以执行的文件，这里命名为 <code>express(1)</code>.
-    如果你使用npm全局安装的express, 在你的机器任何位置它都是可用的:
+    Express团队维护了一个可以快速生成项目模板的可执行文件，这里命名为 <code>express(1)</code>.
+    如果你使用npm全局安装的express-generator, 在你的机器任何位置它都是可用的:
 
   +js.
-    $ npm install -g express
+    $ npm install -g express-generator
 
   p.
     这个工具提供了一个非常简单的生成一个程序骨架的功能，但是它也有局限，比如它只支持很少的几个模板引擎。
@@ -21,14 +21,12 @@ section
 
       -h, --help          输出帮助信息
       -V, --version       输出版本号
-      -s, --sessions      添加 session 支持
       -e, --ejs           添加 ejs 模板引擎支持 (默认为jade)
-      -J, --jshtml        添加 jshtml模板引擎支持 (默认为jade)
       -H, --hogan         添加 hogan.js模板引擎支持
       -c, --css <engine>  样式 <引擎> 支持 (less|stylus) (默认为css)
       -f, --force         强制在非空目录执行
   p.
-    如果你想生成一个支持EJS, Stylus, 和session的应用程序，只需要简单的执行下面的命令：
+    如果你想生成一个支持Jade, Stylus的应用程序，只需要简单的执行下面的命令：
 
   +js.
     $ express --sessions --css stylus --ejs myapp
@@ -44,13 +42,14 @@ section
     create : myapp/routes
     create : myapp/routes/index.js
     create : myapp/views
-    create : myapp/views/index.ejs
+    create : myapp/views/index.jade
+    create : myapp/views/layout.jade
 
     install dependencies:
       $ cd myapp && npm install
 
     run the app:
-      $ node app  
+      $ DEBUG=myapp node app  
 
   p.
     和其它node程序一样，你必须安装依赖：

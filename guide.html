@@ -1,5 +1,5 @@
-<!DOCTYPE html><html><head><title>Express - 新手指南</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin,latin-ext"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="keywords" content="node.js express 中文文档, node express 中文, node express中文文档, express 翻译 api, expressjs 文档, exress框架 中文手册, node expressjs 中文文档, expressjs 中文文档, node express中文, Express框架的中文, express 中文 node, node.js网络应用, express node 文档, express.js 中文, express 中文文档"><script src="http://libs.baidu.com/jquery/1.7.2/jquery.js"></script><script src="app.js"></script><script src="retina.js"></script></head><body class="inner"><div class="bar"></div><section id="content"><header><section id="logo"><span class="express">express<em>3.0.4</em></span><span class="description"> 
-web application framework for <a href="http://nodejs.org">node  </a></span></section><nav class="clearfix"><a href="./" target="_self" class=""> 首页</a><a href="./api.html" target="_self" class=""> API 参考</a><a href="./guide.html" target="_self" class="active"> 新手指南 </a><a href="./applications.html" target="_self" class=""> 应用展示</a><a href="./community.html" target="_self" class=""> 社区</a><a href="./faq.html" target="_self" class=""> 问答</a><a href="./jade.html" target="_self" class=""> Jade文档</a><a href="https://github.com/jserme/expressjs.com/issues/new" target="_self" class=""> 意见反馈</a><a href="http://123.jser.us" target="_blank" class=""> 前端导航站 </a></nav></header><ul id="menu"><li><ul><li><a href="#intro">开始 </a></li><li><a href="#executable">可执行的express(1)</a></li><li><a href="#error-handling">错误处理</a></li><li><a href="#users-online">在线用户计数</a></li><li><a href="#proxies">在Express前加一层代理 </a></li><li><a href="#debugging-express">调试 Express</a></li></ul></li></ul><section><h3 id="intro">开始</h3><p>在确认已经安装了node之后(<a href="http://nodejs.org/#download">下载</a>),
+<!DOCTYPE html><html><head><title>Express - 新手指南</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;amp;subset=latin,latin-ext"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="keywords" content="node.js express 中文文档, node express 中文, node express中文文档, express 翻译 api, expressjs 文档, exress框架 中文手册, node expressjs 中文文档, expressjs 中文文档, node express中文, Express框架的中文, express 中文 node, node.js网络应用, express node 文档, express.js 中文, express 中文文档"><script src="http://libs.baidu.com/jquery/1.7.2/jquery.js"></script><script src="app.js"></script><script src="retina.js"></script></head><body class="inner"><div class="bar"></div><section id="content"><header><section id="logo"><span class="express">express<em>3.0.4</em></span><span class="description"> 
+web application framework for <a href="http://nodejs.org">node  </a></span></section><nav class="clearfix"><a href="./" target="_self"> 首页</a><a href="./api.html" target="_self"> API 参考</a><a href="./guide.html" target="_self" class="active"> 新手指南 </a><a href="./applications.html" target="_self"> 应用展示</a><a href="./community.html" target="_self"> 社区</a><a href="./faq.html" target="_self"> 问答</a><a href="./jade.html" target="_self"> Jade文档</a><a href="https://github.com/jserme/expressjs.com/issues/new" target="_self"> 意见反馈</a><a href="http://123.jser.us" target="_blank"> 前端导航站 </a></nav></header><ul id="menu"><li><ul class="active"><li><a href="#intro">开始 </a></li><li><a href="#executable">可执行的express(1)</a></li><li><a href="#error-handling">错误处理</a></li><li><a href="#users-online">在线用户计数</a></li><li><a href="#proxies">在Express前加一层代理 </a></li><li><a href="#debugging-express">调试 Express</a></li></ul></li></ul><section><h3 id="intro">开始</h3><p>在确认已经安装了node之后(<a href="http://nodejs.org/#download">下载</a>),
 在你的机器上创建一个目录，让我们来开始你的第一个应用程序吧
 </p><pre class="js"><code>$ mkdir hello-world
 </code></pre><p>在这个目录中你首先得定义一下你的应用程序“包”文件，它和其它的node程序包是一样的。
@@ -48,23 +48,18 @@ var app = express();
 "Hello World" 字符串。
 <code>req</code> 和 <code>res</code> 对象是和node原生提供给你的一致的，你也可以执行
 <code>res.pipe()</code>, <code>req.on('data', callback)</code> 等任何事情在没有Express的情况下可以做的事情。
-</p><pre class="js"><code>app.get('/hello.txt', function(req, res){
-  var body = 'Hello World';
-  res.setHeader('Content-Type', 'text/plain');
-  res.setHeader('Content-Length', Buffer.byteLength(body));
-  res.end(body);
-});
-</code></pre><p>Express 给这些对象加了一个封装好的方法，比如
+</p><p>Express 给这些对象加了一个封装好的方法，比如
 <code>res.send()</code>, 它会帮你设置Content-Length:
 </p><pre class="js"><code>app.get('/hello.txt', function(req, res){
   res.send('Hello World');
 });
 </code></pre><p>现在我们通过执行 <code>app.listen()</code> 来绑定并监听连接。
 它接受的参数和node<a href="http://nodejs.org/api/net.html#net_server_listen_port_host_backlog_listeninglistener">net.Server#listen()</a>的方法一致:
-</p><pre class="js"><code>app.listen(3000);
-console.log('Listening on port 3000');</code></pre></section><section><h3 id="executable">使用express(1) 来生成一个应用程序</h3><p>Express 附带了一个可以执行的文件，这里命名为 <code>express(1)</code>.
-如果你使用npm全局安装的express, 在你的机器任何位置它都是可用的:
-</p><pre class="js"><code>$ npm install -g express
+</p><pre class="js"><code>var server = app.listen(3000, function() {
+    console.log('Listening on port %d', server.address().port);
+});</code></pre></section><section><h3 id="executable">使用express(1) 来生成一个应用程序</h3><p>Express团队维护了一个可以快速生成项目模板的可执行文件，这里命名为 <code>express(1)</code>.
+如果你使用npm全局安装的express-generator, 在你的机器任何位置它都是可用的:
+</p><pre class="js"><code>$ npm install -g express-generator
 </code></pre><p>这个工具提供了一个非常简单的生成一个程序骨架的功能，但是它也有局限，比如它只支持很少的几个模板引擎。
 而事实上Express几乎支持所有的为node所建的模板引擎。
 使用 <code>--help</code>查看一下帮助:
@@ -74,12 +69,10 @@ Options:
 
   -h, --help          输出帮助信息
   -V, --version       输出版本号
-  -s, --sessions      添加 session 支持
   -e, --ejs           添加 ejs 模板引擎支持 (默认为jade)
-  -J, --jshtml        添加 jshtml模板引擎支持 (默认为jade)
   -H, --hogan         添加 hogan.js模板引擎支持
   -c, --css <engine>  样式 <引擎> 支持 (less|stylus) (默认为css)
-  -f, --force         强制在非空目录执行</code></pre><p>如果你想生成一个支持EJS, Stylus, 和session的应用程序，只需要简单的执行下面的命令：
+  -f, --force         强制在非空目录执行</code></pre><p>如果你想生成一个支持Jade, Stylus的应用程序，只需要简单的执行下面的命令：
 </p><pre class="js"><code>$ express --sessions --css stylus --ejs myapp
 
 create : myapp
@@ -93,13 +86,14 @@ create : myapp/public/stylesheets/style.styl
 create : myapp/routes
 create : myapp/routes/index.js
 create : myapp/views
-create : myapp/views/index.ejs
+create : myapp/views/index.jade
+create : myapp/views/layout.jade
 
 install dependencies:
   $ cd myapp && npm install
   
 run the app:
-  $ node app  
+  $ DEBUG=myapp node app  
   </code></pre><p>和其它node程序一样，你必须安装依赖：
 </p><pre class="js"><code>$ cd myapp
 $ npm install
