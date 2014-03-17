@@ -2,7 +2,7 @@ section
   h3(id='res.send') res.send([body|status], [body])
   
   p.
-    发送一个响应。
+    Send a response.
 
   +js.
     res.send(new Buffer('whoop'));
@@ -13,42 +13,43 @@ section
     res.send(200);
 
   p.
-    这个方法在输出non-streaming响应的时候自动完成了大量有用的任务
-    比如如果在它前面没有定义Content-Length, 它会自动设置;
-    比如加一些自动的 <em>HEAD</em>;
-    比如对HTTP缓存的支持 .
+    This method performs a myriad of
+    useful tasks for simple non-streaming responses such
+    as automatically assigning the Content-Length unless
+    previously defined and providing automatic <em>HEAD</em> and
+    HTTP cache freshness support.
 
   p.
-    当参数为一个 <code>Buffer</code>时
-    Content-Type 会被设置为 "application/octet-stream"
-    除非它之前有像下面的代码：
+    When a <code>Buffer</code> is given
+    the Content-Type is set to "application/octet-stream"
+    unless previously defined as shown below:
 
   +js.
     res.set('Content-Type', 'text/html');
     res.send(new Buffer('<p>some html</p>'));
 
   p.
-    当参数为一个<code>String</code>时 
-    Content-Type 默认设置为"text/html":
+    When a <code>String</code> is given the
+    Content-Type is set defaulted to "text/html":
 
   +js.
     res.send('<p>some html</p>');
 
   p.
-    当参数为 <code>Array</code> 或者  <code>Object</code> 时
-    Express 会返回一个 JSON :
+    When an <code>Array</code> or <code>Object</code> is
+    given Express will respond with the JSON representation:
 
   +js.
     res.send({ user: 'tobi' })
     res.send([1,2,3])
 
   p.
-    最后一条当一个<code>Number</code> 作为参数，
-    并且没有上面提到的任何一条在响应体里，
-    Express会帮你设置一个响应体 
-    比如200 会返回字符"OK", 404会返回"Not Found"等等.
+    Finally when a <code>Number</code> is given without
+    any of the previously mentioned bodies, then a response
+    body string is assigned for you. For example 200 will
+    respond will the text "OK", and 404 "Not Found" and so on.
 
   +js.
     res.send(200)
-    res.send(204)
+    res.send(404)
     res.send(500)

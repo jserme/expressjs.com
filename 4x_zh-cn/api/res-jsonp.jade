@@ -2,10 +2,9 @@ section
   h3(id='res.jsonp') res.jsonp([status|body], [body])
   
   p.
-    返回一个支持JSONP的JSON响应。
-    Send a JSON response with JSONP support. 
-    这个方法同样使用了<code>res.json()</code>, 
-    只是加了一个可以自定义的 JSONP 回调支持。
+    Send a JSON response with JSONP support. This method is identical
+    to <code>res.json()</code> however opts-in to JSONP callback
+    support.
 
   +js.
     res.jsonp(null)
@@ -18,9 +17,10 @@ section
     // => { "error": "message" }
 
   p.
-    默认情况下JSONP 回调的函数名就是<code>callback</code>。
-    你可以通过<a href="#app-settings">jsonp callback name</a>来修改这个值。
-    下面是一些使用JSONP的例子。
+    By default the JSONP callback name is simply <code>callback</code>,
+    however you may alter this with the <a href="#app-settings">jsonp callback name</a>
+    setting. The following are some examples of JSONP responses using the same
+    code:
 
   +js.
     // ?callback=foo

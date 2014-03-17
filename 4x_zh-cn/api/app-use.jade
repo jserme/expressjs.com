@@ -1,20 +1,21 @@
 section
   h3(id='app.use') app.use([path], function)
-  
+
   p.
-    使用中间件 <code>function</code>,可选参数<code>path</code>默认为"/"。
+    Use the given middleware <code>function</code>, with optional mount <code>path</code>,
+    defaulting to "/".
 
   +js.
     var express = require('express');
     var app = express();
 
-    // 一个简单的 logger
+    // simple logger
     app.use(function(req, res, next){
       console.log('%s %s', req.method, req.url);
       next();
     });
 
-    // 响应
+    // respond
     app.use(function(req, res, next){
       res.send('Hello World');
     });
@@ -22,12 +23,14 @@ section
     app.listen(3000);
 
   p.
-    挂载的路径不会在req里出现，对中间件 <code>function</code><strong>不</strong>可见，这意味着你在<code>function</code>的回调参数req里找不到path。
-    这么设计的为了让间件可以在不需要更改代码就在任意"前缀"路径下执行
+    The "mount" path is stripped and is <strong>not</strong> visible
+    to the middleware <code>function</code>. The main effect of this feature is that
+    mounted middleware may operate without code changes regardless of its "prefix"
+    pathname.
 
   p.
-    这里有一个实际应用场景，常见的一个应用是使用./public提供静态文件服务，
-    用 <code>express.static()</code> 中间件:
+    Here's a concrete example, take the typical use-case of serving files in ./public
+    using the <code>express.static()</code> middleware:
 
   +js.
     // GET /javascripts/jquery.js
@@ -36,10 +39,12 @@ section
     app.use(express.static(__dirname + '/public'));
 
   p.
-    如果你想把所有的静态文件路径都前缀"/static", 你可以使用“挂载”功能。
-    如果<code>req.url</code> 不包含这个前缀, 挂载过的中间件<strong>不会</strong>执行。
-    当<code>function</code>被执行的时候,这个参数不会被传递。
-    这个只会影响这个函数，后面的中间件里得到的 <code>req.url</code>里将会包含"/static"
+    Say for example you wanted to prefix all static files with "/static", you could
+    use the "mounting" feature to support this. Mounted middleware functions are <strong>not</strong>
+    invoked unless the <code>req.url</code> contains this prefix, at which point
+    it is stripped when the function is invoked. This affects this function only,
+    subsequent middleware will see <code>req.url</code> with "/static" included
+    unless they are mounted as well.
 
   +js.
     // GET /static/javascripts/jquery.js
@@ -48,29 +53,35 @@ section
     app.use('/static', express.static(__dirname + '/public'));
 
   p.
-    使用 <code>app.use()</code> “定义的”中间件的顺序非常重要，它们将会顺序执行，use的先后顺序决定了中间件的优先级。
-    比如说通常 <code>express.logger()</code> 是最先使用的一个组件，纪录每一个请求
+    The order of which middleware are "defined" using <code>app.use()</code> is
+    very important, they are invoked sequentially, thus this defines middleware
+    precedence. For example, usually any logging middleware is the very
+    first middleware you would use:
 
   +js.
-    app.use(express.logger());
+    var logger = require('morgan');
+
+    app.use(logger());
     app.use(express.static(__dirname + '/public'));
     app.use(function(req, res){
       res.send('Hello');
     });
 
   p.
-    如果你想忽略请求静态文件的纪录，但是对于在 <code>logger()</code>之后定义的路由和中间件想继续纪录，只需要简单的把
-    <code>static()</code> 移到前面就行了:
+    Now suppose you wanted to ignore logging requests for static files, but to
+    continue logging routes and middleware defined after <code>logger()</code>,
+    you would simply move <code>static()</code> above:
 
   +js.
     app.use(express.static(__dirname + '/public'));
-    app.use(express.logger());
+    app.use(logger());
     app.use(function(req, res){
       res.send('Hello');
     });
 
   p.
-    另一个现实的例子，有可能从多个目录提供静态文件服务，下面的例子中会优先从"./public"目录取文件
+    Another concrete example would be serving files from multiple directories,
+    giving precedence to "./public" over the others:
 
   +js.
     app.use(express.static(__dirname + '/public'));

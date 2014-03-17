@@ -2,9 +2,14 @@ section
   h3(id='req.cookies') req.cookies
 
   p.
-    当使用 <code>cookieParser()</code>中间件之后，这个对象默认为<code>{}</code>, 它也包含了用户代理传过来的cookies。
+    When the <code>cookieParser()</code> middleware is used this object
+    defaults to <code>{}</code>, otherwise contains the cookies sent by
+    the user-agent.
 
   +js.
     // Cookie: name=tj
     req.cookies.name
     // => "tj"
+
+  p.
+    Please refer to <a href="https://github.com/expressjs/cookie-parser">cookie-parser</a> for additional documentation or any issues and concerns.

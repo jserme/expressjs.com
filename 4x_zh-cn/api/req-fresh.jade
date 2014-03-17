@@ -2,9 +2,12 @@ section
   h3(id='req.fresh') req.fresh
 
   p.
-    判断请求是不是新的-通过对Last-Modified 或者 ETag 进行匹配,
-    来标明这个资源是不是"新的".
+    Check if the request is fresh - aka Last-Modified and/or the ETag still match,
+    indicating that the resource is "fresh".
 
   +js.
     req.fresh
     // => true
+
+  p.
+    Please refer to <a href="https://github.com/visionmedia/node-fresh">fresh</a> for additional documentation or any issues and concerns.

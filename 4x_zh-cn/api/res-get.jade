@@ -1,7 +1,7 @@
 section
   h3(id='res.get') res.get(field)
   p 
-    | 返回一个大小写不敏感的响应头里的 <code>field</code>的值 
+    | Get the case-insensitive response header <code>field</code>. 
 
   +js.
     res.get('Content-Type');

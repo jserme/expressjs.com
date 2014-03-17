@@ -2,7 +2,8 @@ section
   h3(id='req.ip') req.ip
   
   p.
-    返回远程地址，或者当“信任代理”使用时，返回上一级的地址
+    Return the remote address, or when "trust proxy"
+    is enabled - the upstream address.
 
   +js.
     req.ip

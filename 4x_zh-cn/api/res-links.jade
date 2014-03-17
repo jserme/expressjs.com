@@ -2,7 +2,8 @@ section
   h3(id='res.links') res.links(links)
   
   p.
-    合并给定的<code>links</code>, 并且设置给响应头里的"Link" 字段.
+    Join the given <code>links</code> to populate the "Link"
+    response header field.
 
   +js.
     res.links({
@@ -10,7 +11,7 @@ section
       last: 'http://api.example.com/users?page=5'
     });
 
-  p 转换后:
+  p yields:
 
   pre
     code.

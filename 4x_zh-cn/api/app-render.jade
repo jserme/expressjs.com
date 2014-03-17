@@ -2,8 +2,9 @@ section
   h3(id='app.render') app.render(view, [options], callback)
 
   p.
-    渲染 <code>view</code>, <code>callback</code> 用来处理返回的渲染后的字符串。
-    这个是 <code>res.render()</code> 的应用程序级版本，它们的行为是一样的。
+    Render a <code>view</code> with a callback responding with
+    the rendered string. This is the app-level variant of <code>res.render()</code>,
+    and otherwise behaves the same way.
 
   +js.
     app.render('email', function(err, html){

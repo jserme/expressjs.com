@@ -1,17 +1,22 @@
 section
   h3(id='req.accepts') req.accepts(types)
 
-  p.    
-    检查给定的<code>types</code> 是不是可以接受类型，当可以接受时返回最匹配的，否则返回<code>undefined</code> - 这个时候你应该响应一个406 "Not Acceptable".
+  p.
+    Check if the given <code>types</code> are acceptable, returning
+    the best match when true, otherwise <code>undefined</code> - in which
+    case you should respond with 406 "Not Acceptable".
 
   p.
-    <code>type</code> 的值可能是单一的一个mime类型字符串,比如 "application/json", 扩展名为"json", 也可以为逗号分隔的列表或者数组。当给定的是数组或者列表，返回<em>最佳</em>匹配的。
+    The <code>type</code> value may be a single mime type string
+    such as "application/json", the extension name
+    such as "json", a comma-delimited list or an array. When a list
+    or array is given the <em>best</em> match, if any is returned.
 
   +js.
     // Accept: text/html
     req.accepts('html');
     // => "html"
-  
+
     // Accept: text/*, application/json
     req.accepts('html');
     // => "html"
@@ -21,13 +26,16 @@ section
     // => "json"
     req.accepts('application/json');
     // => "application/json"
-  
+
     // Accept: text/*, application/json
     req.accepts('image/png');
     req.accepts('png');
     // => undefined
-  
+
     // Accept: text/*;q=.5, application/json
     req.accepts(['html', 'json']);
     req.accepts('html, json');
     // => "json"
+
+  p.
+    Please refer to <a href="https://github.com/expressjs/accepts">accepts</a> for additional documentation or any issues and concerns.

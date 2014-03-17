@@ -2,7 +2,7 @@ section
   h3(id='req.param') req.param(name)
 
   p.
-    返回 <code>name</code> 参数的值。
+    Return the value of param <code>name</code> when present.
 
   +js.
     // ?name=tobi
@@ -17,7 +17,7 @@ section
     req.param('name')
     // => "tobi"
   
-  p 查找的优先级如下:
+  p Lookup is performed in the following order:
   
   ul
     li <code>req.params</code>
@@ -25,5 +25,6 @@ section
     li <code>req.query</code>
   
   p.
-    直接访问 <code>req.body</code>, <code>req.params</code>,
-    和 <code>req.query</code> 应该更合适，除非你真的需要从这几个对象里同时接受输入。 
+    Direct access to <code>req.body</code>, <code>req.params</code>,
+    and <code>req.query</code> should be favoured for clarity - unless
+    you truly accept input from each object.

@@ -2,26 +2,38 @@ section
   h3(id='app.engine') app.engine(ext, callback)
 
   p.
-    注册模板引擎的 <code>callback</code> 用来处理<code>ext</code>扩展名的文件
+    Register the given template engine <code>callback</code> as <code>ext</code>
     
-    默认情况下, 根据文件扩展名<code>require()</code> 对应的模板引擎。
-    比如你想渲染一个 "foo.jade" 文件，Express会在内部执行下面的代码，然后会缓存<code>require()</code>，这样就可以提高后面操作的性能
+    By default will <code>require()</code> the engine based on the
+    file extension. For example if you try to render
+    a "foo.jade" file Express will invoke the following internally,
+    and cache the <code>require()</code> on subsequent calls to increase
+    performance.
 
   +js.
     app.engine('jade', require('jade').__express);
 
   p.
-  那些没有提供 <code>.__express</code> 的或者你想渲染一个文件的扩展名与模板引擎默认的不一致的时候，也可以用这个方法。
-  比如你想用EJS模板引擎来处理 ".html" 后缀的文件:
+    For engines that do not provide <code>.__express</code> out of the box -
+    or if you wish to "map" a different extension to the template engine
+    you may use this method. For example mapping the EJS template engine to
+    ".html" files:
   
   +js.
     app.engine('html', require('ejs').renderFile);
 
   p.
-  这个例子中EJS提供了一个<code>.renderFile()</code> 方法和Express预期的格式: <code>(path, options, callback)</code>一致, 可以在内部给这个方法取一个别名<code>ejs.__express</code>，这样你就可以使用".ejs" 扩展而不需要做任何改动
+    In this case EJS provides a <code>.renderFile()</code> method with
+    the same signature that Express expects: <code>(path, options, callback)</code>,
+    though note that it aliases this method as <code>ejs.__express</code> internally
+    so if you're using ".ejs" extensions you dont need to do anything.
 
   p.
-    有些模板引擎没有遵循这种转换， 这里有一个小项目<a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a> 专门把所有的node流行的模板引擎进行了包装，这样它们在Express内部看起来就一样了。
+    Some template engines do not follow this convention, the
+    <a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a>
+    library was created to map all of node's popular template
+    engines to follow this convention, thus allowing them to
+    work seemlessly within Express.
 
   +js.
     var engines = require('consolidate');

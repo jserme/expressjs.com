@@ -1,8 +1,8 @@
 section
   h3(id='res.set') res.set(field, [value])
   p 
-    设置响应头字段<code>field</code> 值为 <code>value</code>,
-    也可以一次传入一个对象设置多个值。
+    | Set header <code>field</code> to <code>value</code>,
+    | or pass an object to set multiple fields at once.
 
   +js.
     res.set('Content-Type', 'text/plain');
@@ -13,4 +13,4 @@ section
       'ETag': '12345'
     })
 
-  p <code>res.header(field, [value])</code>的别名。
+  p Aliased as <code>res.header(field, [value])</code>.

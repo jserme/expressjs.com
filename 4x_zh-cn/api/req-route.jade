@@ -2,7 +2,9 @@ section
   h3(id='req.route') req.route
 
   p.
-    这个对象里是当前匹配的 <code>Route</code> 里包含的属性，比如原始路径字符串，产生的正则，等等
+    The currently matched <code>Route</code> containing
+    several properties such as the route's original path
+    string, the regexp generated, and so on.
 
   +js.
     app.get('/user/:id?', function(req, res){
@@ -10,12 +12,10 @@ section
     });
 
   p.
-    上面代码的一个输出:
+    Example output from the previous snippet:
 
   +js.
     { path: '/user/:id?',
-      method: 'get',
-      callbacks: [ [Function] ],
       keys: [ { name: 'id', optional: true } ],
       regexp: /^\/user(?:\/([^\/]+?))?\/?$/i,
       params: [ id: '12' ] }

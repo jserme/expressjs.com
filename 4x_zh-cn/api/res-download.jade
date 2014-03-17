@@ -2,14 +2,16 @@ section
   h3(id='res.download') res.download(path, [filename], [fn])
   
   p.
-    <code>path</code>所需传输附件的路径，
-    通常情况下浏览器会弹出一个下载文件的窗口。
-    浏览器弹出框里的文件名和响应头里的Disposition "filename=" 参数是一致的,
-    你也可以通过传入<code>filename</code>来自由设置。
+    Transfer the file at <code>path</code> as an "attachment",
+    typically browsers will prompt the user for download. The
+    Content-Disposition "filename=" parameter, aka the one
+    that will appear in the brower dialog is set to <code>path</code>
+    by default, however you may provide an override <code>filename</code>.
 
   p.
-    当在传输的过程中发生一个错误时，可选的回调函数<code>fn</code>会被调用执行。
-    这个方法使用<a href="#res.sendfile">res.sendfile()</a>传输文件。
+    When an error has ocurred or transfer is complete the optional 
+    callback <code>fn</code> is invoked. This method uses <a href="#res.sendfile">res.sendfile()</a>
+    to transfer the file.
 
   +js.
     res.download('/report-12345.pdf');
@@ -18,9 +20,9 @@ section
 
     res.download('/report-12345.pdf', 'report.pdf', function(err){
       if (err) {
-        // 处理错误，请牢记可能只有部分内容被传输，所以
-        // 检查一下res.headerSent
+        // handle error, keep in mind the response may be partially-sent
+        // so check res.headerSent
       } else {
-        // 减少下载的积分值之类的
+        // decrement a download credit etc
       }
     });

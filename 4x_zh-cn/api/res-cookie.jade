@@ -1,37 +1,38 @@
 section
   h3(id='res.cookie') res.cookie(name, value, [options])
   p.
-    设置cookie <code>name</code> 值为<code>value</code>,
-    接受字符串参数或者JSON对象。
-    <code>path</code> 属性默认为 "/".
+    Set cookie <code>name</code> to <code>value</code>, which may be a string or object converted to JSON. The <code>path</code>
+    option defaults to "/".
 
   +js.
     res.cookie('name', 'tobi', { domain: '.example.com', path: '/admin', secure: true });
     res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
 
   p.
-    <code>maxAge</code> 属性是一个便利的设置"expires",它是一个从当前时间算起的毫秒。
-    下面的代码和上一个例子中的第二行是同样的作用。
+    The <code>maxAge</code> option is a convenience option for setting "expires"
+    relative to the current time in milliseconds. The following is equivalent to
+    the previous example.
 
   +js.
     res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
 
   p.
-    可以传一个序列化的JSON对象作为参数，
-    它会自动被<code>bodyParser()</code> 中间件解析。
+    An object may be passed which is then serialized as JSON, which is
+    automatically parsed by the <code>bodyParser()</code> middleware.
 
   +js.
     res.cookie('cart', { items: [1,2,3] });
     res.cookie('cart', { items: [1,2,3] }, { maxAge: 900000 });
 
   p.
-    这个方法也支持签名的cookies。
-    只需要简单的传递<code>signed</code> 参数。 
-    <code>res.cookie()</code> 会使用通过 <code>express.cookieParser(secret)</code> 传
-    入的secret来签名这个值
+    Signed cookies are also supported through this method. Simply
+    pass the <code>signed</code> option. When given <code>res.cookie()</code>
+    will use the secret passed to <code>express.cookieParser(secret)</code>
+    to sign the value.
 
   +js.
     res.cookie('name', 'tobi', { signed: true });
 
   p.
-    稍后你就可以通过<a href="#req.signedCookies">req.signedCookie</a> 对象访问到这个值。
+    Later you may access this value through the <a href="#req.signedCookies">req.signedCookie</a>
+    object.
