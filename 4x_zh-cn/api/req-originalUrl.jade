@@ -1,0 +1,12 @@
+section
+  h3(id='req.originalUrl') req.originalUrl
+
+  p.
+    这个属性很像 <code>req.url</code>, 但是它保留了原始的url。
+    这样你在做内部路由的时候可以重写<code>req.url</code>。
+    比如<a href="#app.use">app.use()</a>的挂载功能会重写 <code>req.url</code>，把从它挂载的点开始 
+
+  +js.
+    // GET /search?q=something
+    req.originalUrl
+    // => "/search?q=something"

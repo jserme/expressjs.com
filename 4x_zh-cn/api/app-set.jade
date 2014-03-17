@@ -1,0 +1,10 @@
+section
+  h3(id='app.set') app.set(name, value)
+
+  p.
+    将设置项 <code>name</code> 的值设为 <code>value</code>
+
+  +js.
+    app.set('title', 'My Site');
+    app.get('title');
+    // => "My Site"

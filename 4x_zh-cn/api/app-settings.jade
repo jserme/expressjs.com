@@ -1,0 +1,38 @@
+section
+  h3(id='app-settings') settings
+
+  p.
+    下面的内建的可以改变Express行为的设置
+
+  ul
+    li
+      code env 
+      | 运行时环境，默认为 <code>process.env.NODE_ENV</code> 或者 "development"
+    li
+      code trust proxy 
+      | 激活反向代理，默认未激活状态
+    li
+      code jsonp callback name 
+      | 修改默认<code>?callback=</code>的jsonp回调的名字
+    li
+      code json replacer 
+      | JSON replacer 替换时的回调, 默认为null
+    li
+      code json spaces 
+      | JSON 响应的空格数量，开发环境下是<code>2</code> , 生产环境是<code>0</code>
+    li
+      code case sensitive routing 
+      | 路由的大小写敏感, 默认是关闭状态， "/Foo" 和"/foo" 是一样的
+    li
+      code strict routing 
+      | 路由的严格格式, 默认情况下 "/foo" 和 "/foo/" 是被同样对待的 
+    li
+      code view cache 
+      | 模板缓存，在生产环境中是默认开启的
+    li
+      code view engine 
+      | 模板引擎
+    li
+      code views 
+      | 模板的目录, 默认是"process.cwd() + ./views"
+    

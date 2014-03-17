@@ -1,0 +1,11 @@
+section
+  h3(id='req.ips') req.ips
+  
+  p.
+    当设置"trust proxy" 为 `true`时,
+    解析"X-Forwarded-For" 里的ip地址列表，并返回一个数组 
+    否则返回一个空数组
+    
+    举个例子，如果"X-Forwarded-For" 的值为"client, proxy1, proxy2"
+    你将会得到数组<code>["client", "proxy1", "proxy2"]</code>
+    这里可以看到 "proxy2" 是最近一个使用的代理

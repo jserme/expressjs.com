@@ -1,0 +1,10 @@
+section
+  h3(id='cookieParser') cookieParser()
+
+  p.
+    解析请求头里的Cookie, 并用cookie名字的键值对形式放在 <code>req.cookies</code>
+    你也可以通过传递一个<code>secret</code> 字符串激活签名了的cookie
+
+  +js.
+    app.use(express.cookieParser());
+    app.use(express.cookieParser('some secret'));

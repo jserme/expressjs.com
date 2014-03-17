@@ -1,0 +1,21 @@
+section
+  h3(id='res.location') res.location
+  p.
+    设置location 请求头.
+
+  +js.
+    res.location('/foo/bar');
+    res.location('foo/bar');
+    res.location('http://example.com');
+    res.location('../login');
+    res.location('back');
+
+  p.
+    可以使用与 <code>res.redirect()</code>里相同的<code>urls</code>。
+    
+  p.
+    举个例子，如果你的程序根地址是<code>/blog</code>,
+    下面的代码会把 <code>location</code> 请求头设置为<code>/blog/admin</code>:
+    
+  +js.
+    res.location('admin')

@@ -1,0 +1,62 @@
+section
+  h3(id='app.param') app.param([name], callback)
+  
+  p.
+    路由参数的处理逻辑。比如当 <code>:user</code> 出现在一个路由路径中，你也许会自动载入加载用户的逻辑，并把它放置到 <code>req.user</code> , 或者校验一下输入的参数是否正确。
+
+  p.
+    下面的代码片段展示了<code>callback</code>很像中间件，但是在参数里多加了一个值，这里名为<code>id</code>.
+    它会尝试加载用户信息，然后赋值给<code>req.user</code>, 否则就传递错误<code>next(err)</code>.
+
+  +js.
+    app.param('user', function(req, res, next, id){
+      User.find(id, function(err, user){
+        if (err) {
+          next(err);
+        } else if (user) {
+          req.user = user;
+          next();
+        } else {
+          next(new Error('failed to load user'));
+        }
+      });
+    });
+
+  p.
+    另外你也可以只传一个<code>callback</code>, 这样你就有机会改变 <code>app.param()</code> API.
+    比如<a href="http://github.com/visionmedia/express-params">express-params</a>定义了下面的回调，这个允许你使用一个给定的正则去限制参数。
+
+  p.
+    下面的这个例子有一点点高级，检查如果第二个参数是一个正则，返回一个很像上面的"user"参数例子行为的回调函数。
+
+  +js.
+    app.param(function(name, fn){
+      if (fn instanceof RegExp) {
+        return function(req, res, next, val){
+          var captures;
+          if (captures = fn.exec(String(val))) {
+            req.params[name] = captures;
+            next();
+          } else {
+            next('route');
+          }
+        }
+      }
+    });
+
+  p.
+    这个函数现在可以非常有效的用来校验参数，或者提供正则捕获后的分组。
+
+  +js.
+    app.param('id', /^\d+$/);
+
+    app.get('/user/:id', function(req, res){
+      res.send('user ' + req.params.id);
+    });
+
+    app.param('range', /^(\w+)\.\.(\w+)?$/);
+
+    app.get('/range/:range', function(req, res){
+      var range = req.params.range;
+      res.send('from ' + range[1] + ' to ' + range[2]);
+    });

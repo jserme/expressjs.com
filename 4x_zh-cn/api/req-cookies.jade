@@ -1,0 +1,10 @@
+section
+  h3(id='req.cookies') req.cookies
+
+  p.
+    当使用 <code>cookieParser()</code>中间件之后，这个对象默认为<code>{}</code>, 它也包含了用户代理传过来的cookies。
+
+  +js.
+    // Cookie: name=tj
+    req.cookies.name
+    // => "tj"

@@ -1,0 +1,19 @@
+section
+  h3(id='req.params') req.params
+
+  p.
+    这是一个数组对象，命名过的参数会以键值对的形式存放。
+    比如你有一个路由<code>/user/:name</code>, "name"属性会存放在<code>req.params.name</code>. 这个对象默认为 <code>{}</code>.
+
+  +js.
+    // GET /user/tj
+    req.params.name
+    // => "tj"
+
+  p.
+    当使用正则表达式定义路由的时候，<code>req.params[N]</code>会是这个应用这个正则后的捕获分组, <code>N</code> 是代表的是第N个捕获分组。这个规则同样适用于全匹配的路由，如 `/file/*`:
+
+  +js.
+    // GET /file/javascripts/jquery.js
+    req.params[0]
+    // => "javascripts/jquery.js"

@@ -7,8 +7,9 @@ HTML = index.html \
 	applications.html \
 	community.html \
 	faq.html \
-	3x/api.html \
 	3x_zh-cn/api.html \
+	4x_zh-cn/api.html \
+	3x/api.html \
 	4x/api.html
 
 docs: $(HTML)

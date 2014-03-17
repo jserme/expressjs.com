@@ -1,0 +1,750 @@
+<!DOCTYPE html><html><head><title>Express - api参考</title><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;amp;subset=latin,latin-ext"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="keywords" content="node.js express 中文文档, node express 中文, node express中文文档, express 翻译 api, expressjs 文档, exress框架 中文手册, node expressjs 中文文档, expressjs 中文文档, node express中文, Express框架的中文, express 中文 node, node.js网络应用, express node 文档, express.js 中文, express 中文文档"><script src="http://libs.baidu.com/jquery/1.7.2/jquery.js"></script><script src="/app.js"></script><script src="/retina.js"></script></head><body class="inner"><div class="bar"></div><section id="content"><header><section id="logo"><span class="express">express<em>3.0.4</em></span><span class="description"> 
+web application framework for <a href="http://nodejs.org">node  </a></span></section><nav class="clearfix"><a href="/" target="_self"> 首页</a><a href="/3x_zh-cn/api.html" target="_self" class="active"> API 参考</a><a href="/guide.html" target="_self"> 新手指南 </a><a href="/applications.html" target="_self"> 应用展示</a><a href="/community.html" target="_self"> 社区</a><a href="/faq.html" target="_self"> 问答</a><a href="/jade.html" target="_self"> Jade文档</a><a href="/4x_zh-cn/api.html" target="_self"> 4.x文档</a><a href="https://github.com/jserme/expressjs.com/issues/new" target="_self"> 意见反馈</a><a href="http://123.jser.us" target="_blank"> 前端导航站 </a></nav></header><ul id="menu"><li id="app-api"> <a href="#express">Application</a><ul id="app-menu"><li><a href="#express">express()</a></li><li><a href="#app.set">app.set()</a></li><li><a href="#app.get">app.get()</a></li><li><a href="#app.enable">app.enable()</a></li><li><a href="#app.disable">app.disable()</a></li><li><a href="#app.enabled">app.enabled()</a></li><li><a href="#app.disabled">app.disabled()</a></li><li><a href="#app.configure">app.configure()</a></li><li><a href="#app.use">app.use()</a></li><li><a href="#app-settings">application settings</a></li><li><a href="#app.engine">app.engine()</a></li><li><a href="#app.param">app.param()</a></li><li><a href="#app.VERB">application routing</a></li><li><a href="#app.all">app.all()</a></li><li><a href="#app.locals">app.locals</a></li><li><a href="#app.render">app.render()</a></li><li><a href="#app.routes">app.routes</a></li><li><a href="#app.listen">app.listen()</a></li></ul></li><li id="req-api"> <a href="#req.params">Request</a><ul id="req-menu"><li><a href="#req.params">req.params</a></li><li><a href="#req.query">req.query</a></li><li><a href="#req.body">req.body</a></li><li><a href="#req.files">req.files</a></li><li><a href="#req.param">req.param()</a></li><li><a href="#req.route">req.route</a></li><li><a href="#req.cookies">req.cookies</a></li><li><a href="#req.signedCookies">req.signedCookies</a></li><li><a href="#req.get">req.get()</a></li><li><a href="#req.accepts">req.accepts()</a></li><li><a href="#req.accepted">req.accepted</a></li><li><a href="#req.is">req.is()</a></li><li><a href="#req.ip">req.ip</a></li><li><a href="#req.ips">req.ips</a></li><li><a href="#req.path">req.path</a></li><li><a href="#req.host">req.host</a></li><li><a href="#req.fresh">req.fresh</a></li><li><a href="#req.stale">req.stale</a></li><li><a href="#req.xhr">req.xhr</a></li><li><a href="#req.protocol">req.protocol</a></li><li><a href="#req.secure">req.secure</a></li><li><a href="#req.subdomains">req.subdomains</a></li><li><a href="#req.originalUrl">req.originalUrl</a></li><li><a href="#req.acceptedLanguages">req.acceptedLanguages</a></li><li><a href="#req.acceptedCharsets">req.acceptedCharsets</a></li><li><a href="#req.acceptsCharset">req.acceptsCharset()</a></li><li><a href="#req.acceptsLanguage">req.acceptsLanguage()</a></li></ul></li><li id="res-api"> <a href="#res.status">Response</a><ul id="res-menu"><li><a href="#res.status">res.status()</a></li><li><a href="#res.set">res.set()</a></li><li><a href="#res.get">res.get()</a></li><li><a href="#res.cookie">res.cookie()</a></li><li><a href="#res.clearCookie">res.clearCookie()</a></li><li><a href="#res.redirect">res.redirect()</a></li><li><a href="#res.location">res.location() </a></li><li><a href="#res.charset">res.charset</a></li><li><a href="#res.send">res.send()</a></li><li><a href="#res.json">res.json()</a></li><li><a href="#res.jsonp">res.jsonp()</a></li><li><a href="#res.type">res.type()</a></li><li><a href="#res.format">res.format()</a></li><li><a href="#res.attachment">res.attachment()</a></li><li><a href="#res.sendfile">res.sendfile()</a></li><li><a href="#res.download">res.download()</a></li><li><a href="#res.links">res.links()</a></li><li><a href="#res.locals">res.locals</a></li><li><a href="#res.render">res.render()</a></li></ul></li><li id="middleware-api"><a href="#middleware">Middleware</a><ul id="middleware-menu"><li><a href="#basicAuth">basicAuth()</a></li><li><a href="#bodyParser">bodyParser()</a></li><li><a href="#compress">compress()</a></li><li><a href="#cookieParser">cookieParser()</a></li><li><a href="#cookieSession">cookieSession()</a></li><li><a href="#csrf">csrf()</a></li><li><a href="#directory">directory()</a></li></ul></li></ul><div id="right"><section><h3 id="express">express()</h3><p>创建一个express应用程序
+</p><pre class="js"><code>var express = require('express');
+var app = express();
+
+app.get('/', function(req, res){
+  res.send('hello world');
+});
+
+app.listen(3000);</code></pre></section><h2>Application</h2><a name="application"></a><section><h3 id="app.set">app.set(name, value)</h3><p>将设置项 <code>name</code> 的值设为 <code>value</code>
+</p><pre class="js"><code>app.set('title', 'My Site');
+app.get('title');
+// => "My Site"</code></pre></section><section><h3 id="app.get">app.get(name)</h3><p>获取设置项 <code>name</code> 的值
+</p><pre class="js"><code>app.get('title');
+// => undefined
+
+app.set('title', 'My Site');
+app.get('title');
+// => "My Site"</code></pre></section><section><h3 id="app.enable">app.enable(name)</h3><p>将设置项 <code>name</code> 的值设为 <code>true</code>.
+</p><pre class="js"><code>app.enable('trust proxy');
+app.get('trust proxy');
+// => true</code></pre></section><section><h3 id="app.disable">app.disable(name)</h3><p>将设置项 <code>name</code> 的值设为 <code>false</code>.
+</p><pre class="js"><code>app.disable('trust proxy');
+app.get('trust proxy');
+// => false</code></pre></section><section><h3 id="app.enabled">app.enabled(name)</h3><p>检查设置项 <code>name</code> 是否已启用
+</p><pre class="js"><code>app.enabled('trust proxy');
+// => false
+
+app.enable('trust proxy');
+app.enabled('trust proxy');
+// => true</code></pre></section><section><h3 id="app.disabled">app.disabled(name)</h3><p>检查设置项 <code>name</code> 是否已禁用
+</p><pre class="js"><code>app.disabled('trust proxy');
+// => true
+
+app.enable('trust proxy');
+app.disabled('trust proxy');
+// => false</code></pre></section><section><h3 id="app.configure">app.configure([env], callback)</h3><p>当 <code>env</code> 和 <code>app.get('env')</code>(也就是 <code>process.env.NODE_ENV</code>) 匹配时, 调用<code>callback</code>。保留这个方法是出于历史原因，后面列出的<code>if</code>语句的代码其实更加高效、直接。使用<code>app.set()</code>配合其它一些配置方法后,<em>没有</em>必要再使用这个方法。
+</p><pre class="js"><code>// 所有环境
+app.configure(function(){
+  app.set('title', 'My Application');
+})
+
+// 开发环境
+app.configure('development', function(){
+  app.set('db uri', 'localhost/dev');
+})
+
+// 只用于生产环境
+app.configure('production', function(){
+  app.set('db uri', 'n.n.n.n/prod');
+})
+
+</code></pre>更高效且直接的代码如下：<pre class="js"><code>// 所有环境
+app.set('title', 'My Application');
+
+// 只用于开发环境
+if ('development' == app.get('env')) {
+  app.set('db uri', 'localhost/dev');
+}
+
+// 只用于生产环境
+if ('production' == app.get('env')) {
+  app.set('db uri', 'n.n.n.n/prod');
+}</code></pre></section><section><h3 id="app.use">app.use([path], function)</h3><p>使用中间件 <code>function</code>,可选参数<code>path</code>默认为"/"。
+</p><pre class="js"><code>var express = require('express');
+var app = express();
+
+// 一个简单的 logger
+app.use(function(req, res, next){
+  console.log('%s %s', req.method, req.url);
+  next();
+});
+
+// 响应
+app.use(function(req, res, next){
+  res.send('Hello World');
+});
+
+app.listen(3000);
+</code></pre><p>挂载的路径不会在req里出现，对中间件 <code>function</code><strong>不</strong>可见，这意味着你在<code>function</code>的回调参数req里找不到path。
+这么设计的为了让间件可以在不需要更改代码就在任意"前缀"路径下执行
+</p><p>这里有一个实际应用场景，常见的一个应用是使用./public提供静态文件服务，
+用 <code>express.static()</code> 中间件:
+</p><pre class="js"><code>// GET /javascripts/jquery.js
+// GET /style.css
+// GET /favicon.ico
+app.use(express.static(__dirname + '/public'));
+</code></pre><p>如果你想把所有的静态文件路径都前缀"/static", 你可以使用“挂载”功能。
+如果<code>req.url</code> 不包含这个前缀, 挂载过的中间件<strong>不会</strong>执行。
+当<code>function</code>被执行的时候,这个参数不会被传递。
+这个只会影响这个函数，后面的中间件里得到的 <code>req.url</code>里将会包含"/static"
+</p><pre class="js"><code>// GET /static/javascripts/jquery.js
+// GET /static/style.css
+// GET /static/favicon.ico
+app.use('/static', express.static(__dirname + '/public'));
+</code></pre><p>使用 <code>app.use()</code> “定义的”中间件的顺序非常重要，它们将会顺序执行，use的先后顺序决定了中间件的优先级。
+比如说通常 <code>express.logger()</code> 是最先使用的一个组件，纪录每一个请求
+</p><pre class="js"><code>app.use(express.logger());
+app.use(express.static(__dirname + '/public'));
+app.use(function(req, res){
+  res.send('Hello');
+});
+</code></pre><p>如果你想忽略请求静态文件的纪录，但是对于在 <code>logger()</code>之后定义的路由和中间件想继续纪录，只需要简单的把
+<code>static()</code> 移到前面就行了:
+</p><pre class="js"><code>app.use(express.static(__dirname + '/public'));
+app.use(express.logger());
+app.use(function(req, res){
+  res.send('Hello');
+});
+</code></pre><p>另一个现实的例子，有可能从多个目录提供静态文件服务，下面的例子中会优先从"./public"目录取文件
+</p><pre class="js"><code>app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/files'));
+app.use(express.static(__dirname + '/uploads'));</code></pre></section><section><h3 id="app-settings">settings</h3><p>下面的内建的可以改变Express行为的设置
+</p><ul><li><code>env </code>运行时环境，默认为 <code>process.env.NODE_ENV</code> 或者 "development"</li><li><code>trust proxy </code>激活反向代理，默认未激活状态</li><li><code>jsonp callback name </code>修改默认<code>?callback=</code>的jsonp回调的名字</li><li><code>json replacer </code>JSON replacer 替换时的回调, 默认为null</li><li><code>json spaces </code>JSON 响应的空格数量，开发环境下是<code>2</code> , 生产环境是<code>0</code></li><li><code>case sensitive routing </code>路由的大小写敏感, 默认是关闭状态， "/Foo" 和"/foo" 是一样的</li><li><code>strict routing </code>路由的严格格式, 默认情况下 "/foo" 和 "/foo/" 是被同样对待的 </li><li><code>view cache </code>模板缓存，在生产环境中是默认开启的</li><li><code>view engine </code>模板引擎</li><li><code>views </code>模板的目录, 默认是"process.cwd() + ./views"</li></ul></section><section><h3 id="app.engine">app.engine(ext, callback)</h3><p>注册模板引擎的 <code>callback</code> 用来处理<code>ext</code>扩展名的文件
+
+默认情况下, 根据文件扩展名<code>require()</code> 对应的模板引擎。
+比如你想渲染一个 "foo.jade" 文件，Express会在内部执行下面的代码，然后会缓存<code>require()</code>，这样就可以提高后面操作的性能
+</p><pre class="js"><code>app.engine('jade', require('jade').__express);
+</code></pre><p></p>那些没有提供 <code>.__express</code> 的或者你想渲染一个文件的扩展名与模板引擎默认的不一致的时候，也可以用这个方法。
+比如你想用EJS模板引擎来处理 ".html" 后缀的文件:<pre class="js"><code>app.engine('html', require('ejs').renderFile);
+</code></pre><p></p>这个例子中EJS提供了一个<code>.renderFile()</code> 方法和Express预期的格式: <code>(path, options, callback)</code>一致, 可以在内部给这个方法取一个别名<code>ejs.__express</code>，这样你就可以使用".ejs" 扩展而不需要做任何改动<p>有些模板引擎没有遵循这种转换， 这里有一个小项目<a href="https://github.com/visionmedia/consolidate.js">consolidate.js</a> 专门把所有的node流行的模板引擎进行了包装，这样它们在Express内部看起来就一样了。
+</p><pre class="js"><code>var engines = require('consolidate');
+app.engine('haml', engines.haml);
+app.engine('html', engines.hogan);</code></pre></section><section><h3 id="app.param">app.param([name], callback)</h3><p>路由参数的处理逻辑。比如当 <code>:user</code> 出现在一个路由路径中，你也许会自动载入加载用户的逻辑，并把它放置到 <code>req.user</code> , 或者校验一下输入的参数是否正确。
+</p><p>下面的代码片段展示了<code>callback</code>很像中间件，但是在参数里多加了一个值，这里名为<code>id</code>.
+它会尝试加载用户信息，然后赋值给<code>req.user</code>, 否则就传递错误<code>next(err)</code>.
+</p><pre class="js"><code>app.param('user', function(req, res, next, id){
+  User.find(id, function(err, user){
+    if (err) {
+      next(err);
+    } else if (user) {
+      req.user = user;
+      next();
+    } else {
+      next(new Error('failed to load user'));
+    }
+  });
+});
+</code></pre><p>另外你也可以只传一个<code>callback</code>, 这样你就有机会改变 <code>app.param()</code> API.
+比如<a href="http://github.com/visionmedia/express-params">express-params</a>定义了下面的回调，这个允许你使用一个给定的正则去限制参数。
+</p><p>下面的这个例子有一点点高级，检查如果第二个参数是一个正则，返回一个很像上面的"user"参数例子行为的回调函数。
+</p><pre class="js"><code>app.param(function(name, fn){
+  if (fn instanceof RegExp) {
+    return function(req, res, next, val){
+      var captures;
+      if (captures = fn.exec(String(val))) {
+        req.params[name] = captures;
+        next();
+      } else {
+        next('route');
+      }
+    }
+  }
+});
+</code></pre><p>这个函数现在可以非常有效的用来校验参数，或者提供正则捕获后的分组。
+</p><pre class="js"><code>app.param('id', /^\d+$/);
+
+app.get('/user/:id', function(req, res){
+  res.send('user ' + req.params.id);
+});
+
+app.param('range', /^(\w+)\.\.(\w+)?$/);
+
+app.get('/range/:range', function(req, res){
+  var range = req.params.range;
+  res.send('from ' + range[1] + ' to ' + range[2]);
+});</code></pre></section><section><h3 id="app.VERB">app.VERB(path, [callback...], callback)</h3><p><code>app.VERB()</code> 方法为Express提供路由方法, <strong>VERB</strong> 是指某一个HTTP 动作,
+比如 <code>app.post()</code>。 可以提供多个callbacks,这多个callbacks都将会被平等对待
+，它们的行为跟中间件一样，也有一个例外的情况，如果某一个callback执行了<code>next('route')</code>，它后面的callback就被忽略。这种情形会应用在当满足一个路由前缀，但是不需要处理这个路由，于是把它向后传递。
+</p><p>下面的代码片段展示最简单的路由定义。Express 会把路径字符串转为正则表达式，然后在符合规则的请求到达时立即使用。
+请求参数<em>不会</em> 被考虑进来，比如 "GET /" 会匹配下面的这个路由, 而"GET /?name=tobi"同样也会匹配。
+</p><pre class="js"><code>app.get('/', function(req, res){
+  res.send('hello world');
+});
+</code></pre><p>同样也可以使用正则表达式，并且它能够在你指定特定路径的时候发挥大作用。
+比如下面的例子可以匹配"GET /commits/71dbb9c" ， 同时也能匹配 "GET /commits/71dbb9c..4c084f9".
+</p><pre class="js"><code>app.get(/^\/commits\/(\w+)(?:\.\.(\w+))?$/, function(req, res){
+  var from = req.params[0];
+  var to = req.params[1] || 'HEAD';
+  res.send('commit range ' + from + '..' + to);
+});
+</code></pre><p>可以传递一些回调，这对复用一些加载资源、校验的中间件很有用。
+</p><pre class="js"><code>app.get('/user/:id', user.load, function(){
+  // ... 
+})
+</code></pre><p>这些回调同样可以通过数组传递，简单的放置在数组中即可。
+</p><pre class="js"><code>var middleware = [loadForum, loadThread];
+
+app.get('/forum/:fid/thread/:tid', middleware, function(){
+  // ...
+})
+
+app.post('/forum/:fid/thread/:tid', middleware, function(){
+  // ...
+})</code></pre></section><section><h3 id="app.all">app.all(path, [callback...], callback)</h3><p>这个方法很像<code>app.VERB()</code> , 但是它匹配所有的HTTP动作 
+</p><p>这个方法在给特定前缀路径或者任意路径上处理时会特别有用。
+
+
+比如你想把下面的路由放在所有其它路由之前，它需要所有从这个路由开始的加载验证，并且自动加载一个用户
+记住所有的回调都不应该被当作终点， <code>loadUser</code> 能够被当作一个任务，然后<code>next()</code>去匹配接下来的路由。
+</p><pre class="js"><code>app.all('*', requireAuthentication, loadUser);
+</code></pre><p>Or the equivalent:
+</p><pre class="js"><code>app.all('*', requireAuthentication)
+app.all('*', loadUser);
+</code></pre><p>另一个非常赞的例子是全局白名单函数。这里有一个例子跟前一个很像，但是它限制前缀为"/api": </p><pre class="js"><code>app.all('/api/*', requireAuthentication);</code></pre></section><section><h3 id="app.locals">app.locals</h3><p>应用程序本地变量会附加给所有的在这个应用程序内渲染的模板。
+这是一个非常有用的模板函数，就像应用程序级数据一样。
+</p><pre class="js"><code>app.locals.title = 'My App';
+app.locals.strftime = require('strftime');
+</code></pre><p><code>app.locals</code> 对象是一个JavaScript <code>Function</code>,
+执行的时候它会把属性合并到它自身，提供了一种简单展示已有对象作为本地变量的方法
+</p><pre class="js"><code>app.locals({
+  title: 'My App',
+  phone: '1-250-858-9990',
+  email: 'me@myapp.com'
+});
+
+app.locals.title
+// => 'My App'
+
+app.locals.email
+// => 'me@myapp.com'</code></pre><p><code>app.locals</code>对象最终会是一个JavaScript函数对象，你不可以使用Functions和Objects内置的属性，比如<code>name,
+apply, bind, call, arguments, length, constructor</code>
+</p><pre class="js"><code>app.locals({name: 'My App'});
+
+app.locals.name
+// => 返回 'app.locals' 而不是 'My App' (app.locals 是一个函数 !)
+// => 如果name变量用在一个模板里，发返回一个 ReferenceError 
+</code></pre><p>全部的保留字列表可以在很多规范里找到。 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference">JavaScript 规范</a> 介绍了原来的属性，有一些还会被现代的JS引擎识别，<a href="http://www.ecma-international.org/ecma-262/5.1/">EcmaScript 规范</a> 在它的基础上，统一了值，添加了一些，删除了一些废弃的。如果感兴趣，可以看看Functions和Objects的属性值。
+</p><p>默认情况下Express只有一个应用程序级本地变量，它是 <code>settings</code>.
+</p><pre class="js"><code>app.set('title', 'My App');
+// 在view里使用 settings.title
+</code></pre></section><section><h3 id="app.render">app.render(view, [options], callback)</h3><p>渲染 <code>view</code>, <code>callback</code> 用来处理返回的渲染后的字符串。
+这个是 <code>res.render()</code> 的应用程序级版本，它们的行为是一样的。
+</p><pre class="js"><code>app.render('email', function(err, html){
+  // ...
+});
+
+app.render('email', { name: 'Tobi' }, function(err, html){
+  // ...
+});</code></pre></section><section><h3 id="app.routes">app.routes</h3><p><code>app.routes</code> 对象存储了所有的被HTTP verb定义路由。
+这个对象可以用在一些内部功能上，比如Express不仅用它来做路由分发，同时在没有<code>app.options()</code>定义的情况下用它来处理默认的<string>OPTIONS</string>行为。
+你的应用程序或者框架也可以很轻松的通过在这个对象里移除路由来达到删除路由的目的。
+</p><pre class="js"><code>console.log(app.routes)
+
+{ get: 
+   [ { path: '/',
+       method: 'get',
+       callbacks: [Object],
+       keys: [],
+       regexp: /^\/\/?$/i },
+   { path: '/user/:id',
+       method: 'get',
+       callbacks: [Object],
+       keys: [{ name: 'id', optional: false }],
+       regexp: /^\/user\/(?:([^\/]+?))\/?$/i } ],
+delete: 
+   [ { path: '/user/:id',
+       method: 'delete',
+       callbacks: [Object],
+       keys: [Object],
+       regexp: /^\/user\/(?:([^\/]+?))\/?$/i } ] }</code></pre></section><section><h3 id="app.listen">app.listen()</h3><p>在给定的主机和端口上监听请求，这个和node的文档<a href="http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback">http.Server#listen()</a>是一致的
+</p><pre class="js"><code>var express = require('express');
+var app = express();
+app.listen(3000);
+</code></pre><p><code>express()</code>返回的<code>app</code>实际上是一个JavaScript<code>Function</code>,它被设计为传给node的http servers作为处理请求的回调函数。因为<code>app</code>不是从HTTP或者HTTPS继承来的，它只是一个简单的回调函数，你可以以同一份代码同时处理HTTP and HTTPS 版本的服务。
+</p><pre class="js"><code>var express = require('express');
+var https = require('https');
+var http = require('http');
+var app = express();
+
+http.createServer(app).listen(80);
+https.createServer(options, app).listen(443);
+</code></pre><p><code>app.listen()</code> 方法只是一个快捷方法，如果你想使用HTTPS，或者同时提供HTTP和HTTPS，可以使用上面的代码
+</p><pre class="js"><code>app.listen = function(){
+  var server = http.createServer(this);
+  return server.listen.apply(server, arguments);
+};</code></pre></section><h2>Request</h2><a name="request"></a><section><h3 id="req.params">req.params</h3><p>这是一个数组对象，命名过的参数会以键值对的形式存放。
+比如你有一个路由<code>/user/:name</code>, "name"属性会存放在<code>req.params.name</code>. 这个对象默认为 <code>{}</code>.
+</p><pre class="js"><code>// GET /user/tj
+req.params.name
+// => "tj"
+</code></pre><p>当使用正则表达式定义路由的时候，<code>req.params[N]</code>会是这个应用这个正则后的捕获分组, <code>N</code> 是代表的是第N个捕获分组。这个规则同样适用于全匹配的路由，如 `/file/*`:
+</p><pre class="js"><code>// GET /file/javascripts/jquery.js
+req.params[0]
+// => "javascripts/jquery.js"</code></pre></section><section><h3 id="req.query">req.query</h3><p>这是一个解析过的请求参数对象，默认为<code>{}</code>.
+</p><pre class="js"><code>// GET /search?q=tobi+ferret
+req.query.q
+// => "tobi ferret"
+
+// GET /shoes?order=desc&shoe[color]=blue&shoe[type]=converse
+req.query.order
+// => "desc"
+
+req.query.shoe.color
+// => "blue"
+
+req.query.shoe.type
+// => "converse"</code></pre></section><section><h3 id="req.body">req.body</h3><p></p>这个对应的是解析过的请求体。这个特性是<code>bodyParser()</code> 中间件提供,其它的请求体解析中间件可以放在这个中间件之后。当<code>bodyParser()</code>中间件使用后，这个对象默认为 <code>{}</code>。 <pre class="js"><code>// POST user[name]=tobi&user[email]=tobi@learnboost.com
+req.body.user.name
+// => "tobi"
+
+req.body.user.email
+// => "tobi@learnboost.com"
+
+// POST { "name": "tobi" }
+req.body.name
+// => "tobi"</code></pre></section><section><h3 id="req.files">req.files</h3><p>这是上传的文件的对象。这个特性是<code>bodyParser()</code> 中间件提供,其它的请求体解析中间件可以放在这个中间件之后。当<code>bodyParser()</code>中间件使用后，这个对象默认为 <code>{}</code>。 
+</p><p>例如 <strong>file</strong> 字段被命名为"image",
+当一个文件上传完成后，<code>req.files.image</code> 将会包含下面的 <code>File</code> 对象:
+</p><pre class="js"><code>{ size: 74643,
+  path: '/tmp/8ef9c52abe857867fd0a4e9a819d1876',
+  name: 'edge.png',
+  type: 'image/png',
+  hash: false,
+  lastModifiedDate: Thu Aug 09 2012 20:07:51 GMT-0700 (PDT),
+  _writeStream: 
+   { path: '/tmp/8ef9c52abe857867fd0a4e9a819d1876',
+     fd: 13,
+     writable: false,
+     flags: 'w',
+     encoding: 'binary',
+     mode: 438,
+     bytesWritten: 74643,
+     busy: false,
+     _queue: [],
+     _open: [Function],
+     drainable: true },
+  length: [Getter],
+  filename: [Getter],
+  mime: [Getter] }
+  </code></pre><p><code>bodyParser()</code> 中间件是在内部使用<a href="https://github.com/felixge/node-formidable">node-formidable</a>来处理文件请求，所以接收的参数是一致的。 举个例子，使用formidable的选项<code>keepExtensions</code> , 它默认为 <strong>false</strong> , 在上面的例子可以看到给出的文件名"/tmp/8ef9c52abe857867fd0a4e9a819d1876" 不包含".png" 扩展名.  为了让它可以保留扩展名，你可以把参数传给 <code>bodyParser()</code>:
+</p><pre class="js"><code>app.use(express.bodyParser({ keepExtensions: true, uploadDir: '/my/files' }));</code></pre></section><section><h3 id="req.param">req.param(name)</h3><p>返回 <code>name</code> 参数的值。
+</p><pre class="js"><code>// ?name=tobi
+req.param('name')
+// => "tobi"
+
+// POST name=tobi
+req.param('name')
+// => "tobi"
+
+// /user/tobi for /user/:name 
+req.param('name')
+// => "tobi"
+</code></pre><p>查找的优先级如下:</p><ul><li><code>req.params</code></li><li><code>req.body</code></li><li><code>req.query</code></li></ul><p>直接访问 <code>req.body</code>, <code>req.params</code>,
+和 <code>req.query</code> 应该更合适，除非你真的需要从这几个对象里同时接受输入。 </p></section><section><h3 id="req.route">req.route</h3><p>这个对象里是当前匹配的 <code>Route</code> 里包含的属性，比如原始路径字符串，产生的正则，等等
+</p><pre class="js"><code>app.get('/user/:id?', function(req, res){
+  console.log(req.route);
+});
+</code></pre><p>上面代码的一个输出:
+</p><pre class="js"><code>{ path: '/user/:id?',
+  method: 'get',
+  callbacks: [ [Function] ],
+  keys: [ { name: 'id', optional: true } ],
+  regexp: /^\/user(?:\/([^\/]+?))?\/?$/i,
+  params: [ id: '12' ] }</code></pre></section><section><h3 id="req.cookies">req.cookies</h3><p>当使用 <code>cookieParser()</code>中间件之后，这个对象默认为<code>{}</code>, 它也包含了用户代理传过来的cookies。
+</p><pre class="js"><code>// Cookie: name=tj
+req.cookies.name
+// => "tj"</code></pre></section><section><h3 id="req.signedCookies">req.signedCookies</h3><p>当使用了<code>cookieParser(secret)</code> 中间件后，这个对象默认为<code>{}</code>, 否则包含了用户代理传回来的签名后的cookie，并等待使用。签名后的cookies被放在一个单独的对象里，恶意攻击者可以很简单的替换掉`req.cookie` 的值。需要注意的是签名的cookie不代表它是隐藏的或者加密的，这个只是简单的阻止篡改cookie。
+</p><pre class="js"><code>// Cookie: user=tobi.CP7AWaXDfAKIRfH49dQzKJx7sKzzSoPq7/AcBBRVwlI3
+req.signedCookies.user
+// => "tobi"</code></pre></section><section><h3 id="req.get">req.get(field)</h3><p> 
+获取请求头里的<code>field</code>的值，大小写不敏感.
+<em>Referrer</em> 和 <em>Referer</em> 字段是可以互换的。</p><pre class="js"><code>req.get('Content-Type');
+// => "text/plain"
+
+req.get('content-type');
+// => "text/plain"
+
+req.get('Something');
+// => undefined
+</code></pre><p>别名为 <code>req.header(field)</code>.</p></section><section><h3 id="req.accepts">req.accepts(types)</h3><p>.    
+检查给定的<code>types</code> 是不是可以接受类型，当可以接受时返回最匹配的，否则返回<code>undefined</code> - 这个时候你应该响应一个406 "Not Acceptable".</p><p><code>type</code> 的值可能是单一的一个mime类型字符串,比如 "application/json", 扩展名为"json", 也可以为逗号分隔的列表或者数组。当给定的是数组或者列表，返回<em>最佳</em>匹配的。
+</p><pre class="js"><code>// Accept: text/html
+req.accepts('html');
+// => "html"
+
+// Accept: text/*, application/json
+req.accepts('html');
+// => "html"
+req.accepts('text/html');
+// => "text/html"
+req.accepts('json, text');
+// => "json"
+req.accepts('application/json');
+// => "application/json"
+
+// Accept: text/*, application/json
+req.accepts('image/png');
+req.accepts('png');
+// => undefined
+
+// Accept: text/*;q=.5, application/json
+req.accepts(['html', 'json']);
+req.accepts('html, json');
+// => "json"</code></pre></section><section><h3 id="req.accepted">req.accepted</h3><p>返回一个从高质量到低质量排序的接受媒体类型数组
+</p><pre class="js"><code>[ { value: 'application/json',
+    quality: 1,
+    type: 'application',
+    subtype: 'json' },
+{ value: 'text/html',
+     quality: 0.5,
+     type: 'text',
+     subtype: 'html' } ]</code></pre></section><section><h3 id="req.is">req.is(type)</h3><p>检查请求的文件头是不是包含"Content-Type" 字段, 它匹配给定的<code>type</code>.
+</p><pre class="js"><code>// With Content-Type: text/html; charset=utf-8
+req.is('html');
+req.is('text/html');
+req.is('text/*');
+// => true
+
+// When Content-Type is application/json
+req.is('json');
+req.is('application/json');
+req.is('application/*');
+// => true
+
+req.is('html');
+// => false</code></pre></section><section><h3 id="req.ip">req.ip</h3><p>返回远程地址，或者当“信任代理”使用时，返回上一级的地址
+</p><pre class="js"><code>req.ip
+// => "127.0.0.1"</code></pre></section><section><h3 id="req.ips">req.ips</h3><p>当设置"trust proxy" 为 `true`时,
+解析"X-Forwarded-For" 里的ip地址列表，并返回一个数组 
+否则返回一个空数组
+
+举个例子，如果"X-Forwarded-For" 的值为"client, proxy1, proxy2"
+你将会得到数组<code>["client", "proxy1", "proxy2"]</code>
+这里可以看到 "proxy2" 是最近一个使用的代理</p></section><section><h3 id="req.path">req.path</h3><p>返回请求的URL的路径名
+</p><pre class="js"><code>// example.com/users?sort=desc
+req.path
+// => "/users"</code></pre></section><section><h3 id="req.host">req.host</h3><p>返回从"Host"请求头里取的主机名,不包含端口号。
+</p><pre class="js"><code>// Host: "example.com:3000"
+req.host
+// => "example.com"</code></pre></section><section><h3 id="req.fresh">req.fresh</h3><p>判断请求是不是新的-通过对Last-Modified 或者 ETag 进行匹配,
+来标明这个资源是不是"新的".
+</p><pre class="js"><code>req.fresh
+// => true</code></pre></section><section><h3 id="req.stale">req.stale</h3><p>判断请求是不是旧的-如果Last-Modified 或者 ETag 不匹配,
+标明这个资源是"旧的".
+Check if the request is stale - aka Last-Modified and/or the ETag do not match,
+indicating that the resource is "stale".
+</p><pre class="js"><code>req.stale
+// => true</code></pre></section><section><h3 id="req.xhr">req.xhr</h3><p>判断请求头里是否有"X-Requested-With"这样的字段并且值为"XMLHttpRequest", jQuery等库发请求时会设置这个头 
+</p><pre class="js"><code>req.xhr
+// => true</code></pre></section><section><h3 id="req.protocol">req.protocol</h3><p>返回标识请求协议的字符串，一般是"http"，当用TLS请求的时候是"https"。
+当"trust proxy" 设置被激活， "X-Forwarded-Proto" 头部字段会被信任。
+如果你使用了一个支持https的反向代理，那这个可能是激活的。
+</p><pre class="js"><code>req.protocol
+// => "http"</code></pre></section><section><h3 id="req.secure">req.secure</h3><p>检查TLS 连接是否已经建立。 这是下面的缩写:
+</p><pre class="js"><code>'https' == req.protocol;</code></pre></section><section><h3 id="req.subdomains">req.subdomains</h3><p>把子域当作一个数组返回
+</p><pre class="js"><code>// Host: "tobi.ferrets.example.com"
+req.subdomains
+// => ["ferrets", "tobi"]</code></pre></section><section><h3 id="req.originalUrl">req.originalUrl</h3><p>这个属性很像 <code>req.url</code>, 但是它保留了原始的url。
+这样你在做内部路由的时候可以重写<code>req.url</code>。
+比如<a href="#app.use">app.use()</a>的挂载功能会重写 <code>req.url</code>，把从它挂载的点开始 
+</p><pre class="js"><code>// GET /search?q=something
+req.originalUrl
+// => "/search?q=something"</code></pre></section><section><h3 id="req.acceptedLanguages">req.acceptedLanguages</h3><p>返回一个从高质量到低质量排序的接受语言数组
+</p><pre class="js"><code>Accept-Language: en;q=.5, en-us
+// => ['en-us', 'en']</code></pre></section><section><h3 id="req.acceptedCharsets">req.acceptedCharsets</h3><p>返回一个从高质量到低质量排序的可接受的字符集数组
+</p><pre class="js"><code>Accept-Charset: iso-8859-5;q=.2, unicode-1-1;q=0.8
+// => ['unicode-1-1', 'iso-8859-5']</code></pre></section><section><h3 id="req.acceptsCharset">req.acceptsCharset(charset)</h3><p>检查给定的<code>charset</code> 是不是可以接受的</p></section><section><h3 id="req.acceptsLanguage">req.acceptsLanguage(lang)</h3><p>检查给定的 <code>lang</code> 是不是可以接受的</p></section><h2>Response</h2><a name="response"></a><section><h3 id="res.status">res.status(code)</h3><p>支持链式调用的 node's <code>res.statusCode=</code>.
+</p><pre class="js"><code>res.status(404).sendfile('path/to/404.png');</code></pre></section><section><h3 id="res.set">res.set(field, [value])</h3><p> 
+设置响应头字段<code>field</code> 值为 <code>value</code>,
+也可以一次传入一个对象设置多个值。</p><pre class="js"><code>res.set('Content-Type', 'text/plain');
+
+res.set({
+  'Content-Type': 'text/plain',
+  'Content-Length': '123',
+  'ETag': '12345'
+})
+</code></pre><p><code>res.header(field, [value])</code>的别名。</p></section><section><h3 id="res.get">res.get(field)</h3><p> 
+返回一个大小写不敏感的响应头里的 <code>field</code>的值 </p><pre class="js"><code>res.get('Content-Type');
+// => "text/plain"</code></pre></section><section><h3 id="res.cookie">res.cookie(name, value, [options])</h3><p>设置cookie <code>name</code> 值为<code>value</code>,
+接受字符串参数或者JSON对象。
+<code>path</code> 属性默认为 "/".
+</p><pre class="js"><code>res.cookie('name', 'tobi', { domain: '.example.com', path: '/admin', secure: true });
+res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
+</code></pre><p><code>maxAge</code> 属性是一个便利的设置"expires",它是一个从当前时间算起的毫秒。
+下面的代码和上一个例子中的第二行是同样的作用。
+</p><pre class="js"><code>res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
+</code></pre><p>可以传一个序列化的JSON对象作为参数，
+它会自动被<code>bodyParser()</code> 中间件解析。
+</p><pre class="js"><code>res.cookie('cart', { items: [1,2,3] });
+res.cookie('cart', { items: [1,2,3] }, { maxAge: 900000 });
+</code></pre><p>这个方法也支持签名的cookies。
+只需要简单的传递<code>signed</code> 参数。 
+<code>res.cookie()</code> 会使用通过 <code>express.cookieParser(secret)</code> 传
+入的secret来签名这个值
+</p><pre class="js"><code>res.cookie('name', 'tobi', { signed: true });
+</code></pre><p>稍后你就可以通过<a href="#req.signedCookies">req.signedCookie</a> 对象访问到这个值。</p></section><section><h3 id="res.clearCookie">res.clearCookie(name, [options])</h3><p>把<code>name</code>的cookie清除. 
+<code>path</code>参数默认为 "/".
+</p><pre class="js"><code>res.cookie('name', 'tobi', { path: '/admin' });
+res.clearCookie('name', { path: '/admin' });</code></pre></section><section><h3 id="res.redirect">res.redirect([status], url)</h3><p>使用可选的状态码跳转到<code>url</code> 
+状态码<code>status</code>默认为302 "Found".
+</p><pre class="js"><code>res.redirect('/foo/bar');
+res.redirect('http://example.com');
+res.redirect(301, 'http://example.com');
+res.redirect('../login');
+</code></pre><p>Express支持几种跳转，第一种便是使用一个完整的URI跳转到一个完全不同的网站。
+</p><pre class="js"><code>res.redirect('http://google.com');
+</code></pre><p>第二种是相对根域路径跳转，比如你现在在
+<code>http://example.com/admin/post/new</code>,
+下面的的代码跳转到 <code>/admin</code> 
+将会把你带到<code>http://example.com/admin</code>:
+</p><pre class="js"><code>res.redirect('/admin');
+</code></pre><p>这是一种相对于应用程序挂载点的跳转。
+比如把一个blog程序挂在 <code>/blog</code>, 
+事实上它无法知道它被挂载，所以当你使用跳转
+<code>/admin/post/new</code> 时，将到跳到<code>http://example.com/admin/post/new</code>,
+下面的相对于挂载点的跳转会把你带到
+<code>http://example.com/blog/admin/post/new</code>:
+</p><pre class="js"><code>res.redirect('admin/post/new');
+</code></pre><p>路径名.跳转同样也是支持的。
+比如你在<code>http://example.com/admin/post/new</code>,
+下面的跳转会把你带到
+<code>http//example.com/admin/post</code>:
+</p><pre class="js"><code>res.redirect('..');
+</code></pre><p>最后也是最特别的跳转是 <code>back</code> 跳转,
+它会把你带回Referer（也有可能是Referrer）的地址
+当Referer丢失的时候默认为 <code>/</code> 
+</p><pre class="js"><code>res.redirect('back');
+
+</code></pre></section><section><h3 id="res.location">res.location</h3><p>设置location 请求头.
+</p><pre class="js"><code>res.location('/foo/bar');
+res.location('foo/bar');
+res.location('http://example.com');
+res.location('../login');
+res.location('back');
+</code></pre><p>可以使用与 <code>res.redirect()</code>里相同的<code>urls</code>。
+</p><p>举个例子，如果你的程序根地址是<code>/blog</code>,
+下面的代码会把 <code>location</code> 请求头设置为<code>/blog/admin</code>:
+</p><pre class="js"><code>res.location('admin')</code></pre></section><section><h3 id="res.charset">res.charset</h3><p>设置字符集。默认为"utf-8"。
+</p><pre class="js"><code>res.charset = 'value';
+res.send('<p>some html</p>');
+// => Content-Type: text/html; charset=value</code></pre></section><section><h3 id="res.send">res.send([body|status], [body])</h3><p>发送一个响应。
+</p><pre class="js"><code>res.send(new Buffer('whoop'));
+res.send({ some: 'json' });
+res.send('<p>some html</p>');
+res.send(404, 'Sorry, we cannot find that!');
+res.send(500, { error: 'something blew up' });
+res.send(200);
+</code></pre><p>这个方法在输出non-streaming响应的时候自动完成了大量有用的任务
+比如如果在它前面没有定义Content-Length, 它会自动设置;
+比如加一些自动的 <em>HEAD</em>;
+比如对HTTP缓存的支持 .
+</p><p>当参数为一个 <code>Buffer</code>时
+Content-Type 会被设置为 "application/octet-stream"
+除非它之前有像下面的代码：
+</p><pre class="js"><code>res.set('Content-Type', 'text/html');
+res.send(new Buffer('<p>some html</p>'));
+</code></pre><p>当参数为一个<code>String</code>时 
+Content-Type 默认设置为"text/html":
+</p><pre class="js"><code>res.send('<p>some html</p>');
+</code></pre><p>当参数为 <code>Array</code> 或者  <code>Object</code> 时
+Express 会返回一个 JSON :
+</p><pre class="js"><code>res.send({ user: 'tobi' })
+res.send([1,2,3])
+</code></pre><p>最后一条当一个<code>Number</code> 作为参数，
+并且没有上面提到的任何一条在响应体里，
+Express会帮你设置一个响应体 
+比如200 会返回字符"OK", 404会返回"Not Found"等等.
+</p><pre class="js"><code>res.send(200)
+res.send(204)
+res.send(500)</code></pre></section><section><h3 id="res.json">res.json([status|body], [body])</h3><p>返回一个 JSON 响应。
+当<code>res.send()</code> 的参数是一个对象或者数组的时候，
+会调用这个方法。
+当然它也在复杂的空值(null, undefined, etc)JSON转换的时候很有用，
+因为规范上这些对象不是合法的JSON。
+</p><pre class="js"><code>res.json(null)
+res.json({ user: 'tobi' })
+res.json(500, { error: 'message' })</code></pre></section><section><h3 id="res.jsonp">res.jsonp([status|body], [body])</h3><p>返回一个支持JSONP的JSON响应。
+Send a JSON response with JSONP support. 
+这个方法同样使用了<code>res.json()</code>, 
+只是加了一个可以自定义的 JSONP 回调支持。
+</p><pre class="js"><code>res.jsonp(null)
+// => null
+
+res.jsonp({ user: 'tobi' })
+// => { "user": "tobi" }
+
+res.jsonp(500, { error: 'message' })
+// => { "error": "message" }
+</code></pre><p>默认情况下JSONP 回调的函数名就是<code>callback</code>。
+你可以通过<a href="#app-settings">jsonp callback name</a>来修改这个值。
+下面是一些使用JSONP的例子。
+</p><pre class="js"><code>// ?callback=foo
+res.jsonp({ user: 'tobi' })
+// => foo({ "user": "tobi" })
+
+app.set('jsonp callback name', 'cb');
+
+// ?cb=foo
+res.jsonp(500, { error: 'message' })
+// => foo({ "error": "message" })
+</code></pre></section><section><h3 id="res.type">res.type(type)</h3><p>设置
+Sets the Content-Type to the mime lookup of <code>type</code>,
+or when "/" is present the Content-Type is simply set to this
+literal value.
+</p><pre class="js"><code>res.type('.html');
+res.type('html');
+res.type('json');
+res.type('application/json');
+res.type('png');</code></pre><p><code>res.contentType(type)</code>方法的别名。</p></section><section><h3 id="res.format">res.format(object)</h3><p>设置特定请求头的响应。
+这个方法使用 <code>req.accepted</code>， 
+这是一个通过质量值作为优先级顺序的数组，
+第一个回调会被执行。
+当没有匹配时，服务器返回一个 406 "Not Acceptable", 
+或者执行<code>default</code> 回调
+</p><p>Content-Type 在callback 被选中执行的时候会被设置好,
+如果你想改变它，可以在callback内使用<code>res.set()</code>或者 <code>res.type()</code> 等
+</p><p>下面的例子展示了在请求头设置为"application/json" 或者 "*/json"的时候
+会返回<code>{ "message": "hey" }</code>
+如果设置的是"*/*" 那么所有的返回都将是"hey" 
+</p><pre class="js"><code>res.format({
+  'text/plain': function(){
+    res.send('hey');
+  },
+  
+  'text/html': function(){
+    res.send('<p>hey</p>');
+  },
+  
+  'application/json': function(){
+    res.send({ message: 'hey' });
+  }
+});
+</code></pre><p>除了使用标准的MIME 类型，你也可以使用扩展名来映射这些类型
+下面是一个不太完整的实现：
+</p><pre class="js"><code>res.format({
+  text: function(){
+    res.send('hey');
+  },
+  
+  html: function(){
+    res.send('<p>hey</p>');
+  },
+  
+  json: function(){
+    res.send({ message: 'hey' });
+  }
+});
+</code></pre></section><section><h3 id="res.attachment">res.attachment([filename])</h3><p>设置响应头的Content-Disposition 字段值为 "attachment".
+如果有<code>filename</code> 参数，Content-Type 将会依据文件扩展名通过<code>res.type()</code>自动设置,
+并且Content-Disposition的"filename="参数将会被设置 
+</p><pre class="js"><code>res.attachment();
+// Content-Disposition: attachment
+
+res.attachment('path/to/logo.png');
+// Content-Disposition: attachment; filename="logo.png"
+// Content-Type: image/png</code></pre></section><section><h3 id="res.sendfile">res.sendfile(path, [options], [fn]])</h3><p><code>path</code>所传输附件的路径。</p><p>它会根据文件的扩展名自动设置响应头里的Content-Type字段。
+回调函数<code>fn(err)</code>在传输完成或者发生错误时会被调用执行。
+</p><p>Options:</p><ul><li><code>maxAge</code> 毫秒，默认为0</li><li><code>root</code> 文件相对的路径</li></ul><p>这个方法可以非常良好的支持有缩略图的文件服务。
+</p><pre class="js"><code>app.get('/user/:uid/photos/:file', function(req, res){
+  var uid = req.params.uid
+    , file = req.params.file;
+    
+  req.user.mayViewFilesFrom(uid, function(yes){
+    if (yes) {
+      res.sendfile('/uploads/' + uid + '/' + file);
+    } else {
+      res.send(403, 'Sorry! you cant see that.');
+    }
+  });
+});</code></pre></section><section><h3 id="res.download">res.download(path, [filename], [fn])</h3><p><code>path</code>所需传输附件的路径，
+通常情况下浏览器会弹出一个下载文件的窗口。
+浏览器弹出框里的文件名和响应头里的Disposition "filename=" 参数是一致的,
+你也可以通过传入<code>filename</code>来自由设置。
+</p><p>当在传输的过程中发生一个错误时，可选的回调函数<code>fn</code>会被调用执行。
+这个方法使用<a href="#res.sendfile">res.sendfile()</a>传输文件。
+</p><pre class="js"><code>res.download('/report-12345.pdf');
+
+res.download('/report-12345.pdf', 'report.pdf');
+
+res.download('/report-12345.pdf', 'report.pdf', function(err){
+  if (err) {
+    // 处理错误，请牢记可能只有部分内容被传输，所以
+    // 检查一下res.headerSent
+  } else {
+    // 减少下载的积分值之类的
+  }
+});</code></pre></section><section><h3 id="res.links">res.links(links)</h3><p>合并给定的<code>links</code>, 并且设置给响应头里的"Link" 字段.
+</p><pre class="js"><code>res.links({
+  next: 'http://api.example.com/users?page=2',
+  last: 'http://api.example.com/users?page=5'
+});
+</code></pre><p>转换后:</p><pre><code>Link: &lt;http://api.example.com/users?page=2&gt;; rel="next", 
+      &lt;http://api.example.com/users?page=5&gt;; rel="last"</code></pre></section><section><h3 id="res.locals">res.locals</h3><p>在某一次请求范围下的响应体的本地变量，只对此次请求期间的views可见。
+另外这个API其实和 <a href="#app.locals">app.locals</a>是一样的.
+</p><p>这个对象在放置请求级信息时非常有用，比如放置请求的路径名，验证过的用户，用户设置等等
+</p><pre class="js"><code>app.use(function(req, res, next){
+  res.locals.user = req.user;
+  res.locals.authenticated = ! req.user.anonymous;
+  next();
+});</code></pre></section><section><h3 id="res.render">res.render(view, [locals], callback)</h3><p>渲染<code>view</code>, 同时向callback 传入渲染后的字符串。
+
+callback如果不传的话，直接会把渲染后的字符串输出至请求方，
+一般如果不需要再对渲染后的模板作操作，就不需要传callback。
+
+当有错误发生时<code>next(err)</code>会被执行.
+如果提供了callback参数，可能发生的错误和渲染的字符串都会被当作参数传入,
+并且没有默认响应。
+</p><pre class="js"><code>res.render('index', function(err, html){
+  // ...
+});
+
+res.render('user', { name: 'Tobi' }, function(err, html){
+  // ...
+});</code></pre></section><h2>Middleware</h2><a name="middleware"></a><section><h3 id="basicAuth">basicAuth()</h3><p>基本的认证中间件，在<code>req.user</code>里添加用户名
+</p><p>用户名和密码的例子:</p><pre class="js"><code>app.use(express.basicAuth('username', 'password'));
+</code></pre><p>校验回调:</p><pre class="js"><code>app.use(express.basicAuth(function(user, pass){
+  return 'tj' == user && 'wahoo' == pass;
+}));
+</code></pre><p>异步校验接受参数<code>fn(err, user)</code>,
+下面的例子<code>req.user</code> 将会作为user对象传递.
+</p><pre class="js"><code>app.use(connect.basicAuth(function(user, pass, fn){
+  User.authenticate({ user: user, pass: pass }, fn);
+}))</code></pre></section><section><h3 id="bodyParser">bodyParser()</h3><p>支持 JSON, urlencoded和multipart requests的请求体解析中间件。
+这个中间件是<code>json()</code>, <code>urlencoded()</code>,和<code>multipart()</code> 这几个中间件的简单封装
+</p><pre class="js"><code>app.use(express.bodyParser());
+
+// 等同于:
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.multipart());
+</code></pre><p>从安全上考虑，如果你的应用程序不需要文件上传功能，最好关闭它。我们只使用我们需要的中间件。例如：我们不使用<code>bodyParser</code>、<code>multipart()</code> 
+这两个中间件。
+</p><pre class="js"><code>app.use(express.json());
+app.use(express.urlencoded());
+</code></pre><p>如果你的应用程序需要使用文件上传，设置一下就行。
+<a href='https://groups.google.com/d/msg/express-js/iP2VyhkypHo/5AXQiYN3RPcJ'>一个简单的介绍如何使用</a>.</p></section><section><h3 id="compress">compress()</h3><p>通过gzip / deflate压缩响应数据. 
+这个中间件应该放置在所有的中间件最前面以保证所有的返回都是被压缩的
+</p><pre class="js"><code>app.use(express.logger());
+app.use(express.compress());
+app.use(express.methodOverride());
+app.use(express.bodyParser());</code></pre></section><section><h3 id="cookieParser">cookieParser()</h3><p>解析请求头里的Cookie, 并用cookie名字的键值对形式放在 <code>req.cookies</code>
+你也可以通过传递一个<code>secret</code> 字符串激活签名了的cookie
+</p><pre class="js"><code>app.use(express.cookieParser());
+app.use(express.cookieParser('some secret'));</code></pre></section><section><h3 id="cookieSession">cookieSession()</h3><p>提供一个以cookie为基础的sessions, 设置在<code>req.session</code>里。
+这个中间件有以下几个选项:
+</p><ul><li><code>key</code> cookie 的名字，默认是 <code>connect.sess</code></li><li><code>secret</code> prevents cookie tampering</li><li><code>cookie</code> session cookie 设置, 默认是 <code>{ path: '/', httpOnly: true, maxAge: null }</code></li><li><code>proxy</code> 当设置安全cookies时信任反向代理 (通过 "x-forwarded-proto")</li></ul><pre class="js"><code>app.use(express.cookieSession());
+</code></pre><p>清掉一个cookie, 只需要在响应前把null赋值给session:</p><pre class="js"><code>req.session = null</code></pre></section><section><h3 id="csrf">csrf()</h3><p>CSRF 防护中间件
+</p><p>默认情况下这个中间件会产生一个名为"_csrf"的标志，这个标志应该添加到那些需要服务器更改的请求里，可以放在一个表单的隐藏域，请求参数等。这个标志可以通过 <code>req.csrfToken()</code>方法进行校验。
+</p><p><code>bodyParser()</code> 中间件产生的 <code>req.body</code> , <code>query()</code>产生的<code>req.query</code>,请求头里的"X-CSRF-Token"是默认的 <code>value</code> 函数检查的项
+</p><p>这个中间件需要session支持，因此它的代码应该放在<code>session()</code>之后.</p></section><section><h3 id="directory">directory()</h3><p>文件夹服务中间件，用 <code>path</code> 提供服务。
+</p><pre class="js"><code>app.use(express.directory('public'))
+app.use(express.static('public'))
+</code></pre><p>这个中间件接收如下参数：
+</p><ul><li><code>hidden</code> 显示隐藏文件，默认为false.</li><li><code>icons</code>  显示图标，默认为false.</li><li><code>filter</code> 在文件上应用这个过滤函数。默认为false.</li></ul></section><!--include ./mw-errorHandler--><!--include ./mw-favicon--><!--include ./mw-json--><!--include ./mw-limit--><!--include ./mw-logger--><!--include ./mw-methodOverride--><!--include ./mw-multipart--><!--include ./mw-query--><!--include ./mw-responseTime--><!--include ./mw-static--><!--include ./mw-timeout--><!--include ./mw-urlencoded--><!--include ./mw-vhost--></div></section><script>(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'hm.baidu.com/h.js?47a437a0834ace3da0dac1156ed8369f';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script><a id="top" href="#"><img src="/images/arrow.png"></a><footer><div id="footer-content">© 2012 TJ Holowaychuk. 版权所有. <a href="http://jser.me">草依山</a>翻译</div></footer></body></html>

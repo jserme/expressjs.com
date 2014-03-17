@@ -1,0 +1,29 @@
+section
+  h3(id='req.param') req.param(name)
+
+  p.
+    返回 <code>name</code> 参数的值。
+
+  +js.
+    // ?name=tobi
+    req.param('name')
+    // => "tobi"
+
+    // POST name=tobi
+    req.param('name')
+    // => "tobi"
+    
+    // /user/tobi for /user/:name 
+    req.param('name')
+    // => "tobi"
+  
+  p 查找的优先级如下:
+  
+  ul
+    li <code>req.params</code>
+    li <code>req.body</code>
+    li <code>req.query</code>
+  
+  p.
+    直接访问 <code>req.body</code>, <code>req.params</code>,
+    和 <code>req.query</code> 应该更合适，除非你真的需要从这几个对象里同时接受输入。 
