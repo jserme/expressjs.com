@@ -597,7 +597,7 @@ literal value.
 res.type('html');
 res.type('json');
 res.type('application/json');
-res.type('png');</code></pre></section><section><h3 id="res.format">res.format(object)</h3><p>设置特定请求头的响应。
+res.type('png');</code></pre><p><code>res.contentType(type)</code>方法的别名。</p></section><section><h3 id="res.format">res.format(object)</h3><p>设置特定请求头的响应。
 这个方法使用 <code>req.accepted</code>， 
 这是一个通过质量值作为优先级顺序的数组，
 第一个回调会被执行。
@@ -705,7 +705,7 @@ res.render('user', { name: 'Tobi' }, function(err, html){
 });</code></pre></section><h2>Middleware</h2><a name="middleware"></a><section><h3 id="basicAuth">basicAuth()</h3><p>基本的认证中间件，在<code>req.user</code>里添加用户名
 </p><p>用户名和密码的例子:</p><pre class="js"><code>app.use(express.basicAuth('username', 'password'));
 </code></pre><p>校验回调:</p><pre class="js"><code>app.use(express.basicAuth(function(user, pass){
-  return 'tj' == user & 'wahoo' == pass;
+  return 'tj' == user && 'wahoo' == pass;
 }));
 </code></pre><p>异步校验接受参数<code>fn(err, user)</code>,
 下面的例子<code>req.user</code> 将会作为user对象传递.
