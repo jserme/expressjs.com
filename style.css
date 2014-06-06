@@ -465,29 +465,3 @@ html[xmlns] .clearfix {
 #logos, footer {
   display: none;
 }
-
-.oldbooks {
-  width:160px;
-  height:100px;
-  font-size:15px;
-  color:#464646;
-  border:1px solid #E7E7E7;
-  position:fixed;
-  padding:3px;
-  bottom:20px;
-  right:10px;
-  cursor:pointer;
-}
-.oldbooks a {
-  color:#777;
-  text-decoration:none;
-}
-.oldbooks a:hover {
-  color:#484848;
-}
-.oldbooks:hover {
-  border:1px solid #484848;
-}
-.oldbooks .strong{
-  font-size:30px;
-}
